@@ -1,13 +1,13 @@
 #!/usr/bin/env bun
 /**
- * Mirror the most popular npm, crates.io, PyPI and Go packages into Knot Space.
+ * Mirror the most popular npm, crates.io, PyPI and Go packages into HPM Registry.
  *
  * Usage:
  *   DATABASE_URL=... bun scripts/import-popular.ts [--ecosystems npm,crates,pypi,go] [--limit N] [--dry-run]
  *
  * Each package is published under the `mirror` user with the tags
  * `mirror`, `<ecosystem>` and a few upstream keywords. Upstream names that
- * do not fit Knot's name rules (dots, underscores, module paths) are normalised,
+ * do not fit HPM's name rules (dots, underscores, module paths) are normalised,
  * and the original name is kept at the front of the description.
  *
  * Files are written to <cwd>/uploads/<sha256>.tar.gz, exactly like the
@@ -25,8 +25,8 @@ import { NPM, CRATES, PYPI, GO, type Ecosystem } from './popular-packages';
 
 const prisma = new PrismaClient();
 const MIRROR_USER = 'mirror';
-const BASE_URL = process.env.KNOT_SPACE_URL || process.env.API_URL || 'http://localhost:3001';
-const UA = 'knot-space-mirror (https://github.com/saravenpi/knot)';
+const BASE_URL = process.env.HPM_REGISTRY_URL || process.env.KNOT_SPACE_URL || process.env.API_URL || 'http://localhost:3001';
+const UA = 'hpm-registry-mirror (https://github.com/paxlabs-inc/knot)';
 const UPLOADS_DIR = path.join(process.cwd(), 'uploads');
 
 const NAME_RE = /^[a-z0-9][a-z0-9-]*$/;
@@ -35,7 +35,7 @@ const VERSION_RE = /^[0-9]+\.[0-9]+\.[0-9]+(-[a-z0-9-]+)?(\+[a-z0-9-]+)?$/;
 interface Upstream {
   ecosystem: Ecosystem;
   upstreamName: string; // as known upstream
-  name: string;          // normalised Knot name
+  name: string;          // normalised HPM name
   version: string;
   description: string;
   tags: string[];
@@ -95,7 +95,7 @@ async function fetchBytes(url: string): Promise<Uint8Array> {
 /** Convert a zip archive (Go module proxy format) into a gzip tarball. */
 async function zipToTarGz(zip: Uint8Array): Promise<Uint8Array> {
   const files = unzipSync(zip);
-  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'knot-mirror-'));
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'hpm-mirror-'));
   try {
     for (const [name, data] of Object.entries(files)) {
       if (name.endsWith('/')) continue;
@@ -193,7 +193,7 @@ async function ensureMirrorUser() {
   const bcrypt = await import('bcryptjs');
   const passwordHash = await bcrypt.hash(createHash('sha256').update(crypto.getRandomValues(new Uint8Array(64))).digest('hex'), 10);
   return prisma.user.create({
-    data: { username: MIRROR_USER, email: 'mirror@knot.space', passwordHash },
+    data: { username: MIRROR_USER, email: 'mirror@hpm.space', passwordHash },
   });
 }
 

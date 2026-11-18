@@ -1,6 +1,6 @@
 # YAML Variable Interpolation Test Suite
 
-A comprehensive test suite for the YAML variable interpolation system in the Knot CLI project.
+A comprehensive test suite for the YAML variable interpolation system in the HPM CLI project.
 
 ## Overview
 
@@ -25,7 +25,7 @@ tests/yaml_interpolation/
 ├── fixtures/                 # Test data files
 │   ├── basic_interpolation.yml
 │   ├── nested_variables.yml
-│   ├── knot_config_example.yml
+│   ├── hpm_config_example.yml
 │   ├── package_config_example.yml
 │   ├── app_config_example.yml
 │   └── error_cases.yml
@@ -105,14 +105,14 @@ config:
 
 **File:** `integration/config_integration.rs`
 
-- ✅ Real KnotConfig, AppConfig, PackageConfig files
+- ✅ Real HpmConfig, AppConfig, PackageConfig files
 - ✅ Variable inheritance between config levels
 - ✅ Built-in variables (project_name, workspace_root, etc.)
 - ✅ Backwards compatibility with existing configs
 - ✅ Config validation with interpolated values
 
 ```yaml
-# knot.yml with interpolation
+# hpm.yml with interpolation
 variables:
   project_name: "awesome-workspace"
 
@@ -170,7 +170,7 @@ fn test_large_number_of_variables() {
 
 ### Example Configuration Files
 
-**`fixtures/knot_config_example.yml`** - Complete knot.yml with interpolation
+**`fixtures/hpm_config_example.yml`** - Complete hpm.yml with interpolation
 ```yaml
 variables:
   project_name: "my-workspace"
@@ -298,7 +298,7 @@ The system provides several built-in variables:
 - `${project_name}` - Current project name
 - `${workspace_root}` - Workspace root directory
 - `${timestamp}` - Current timestamp
-- `${knot_version}` - Knot CLI version
+- `${hpm_version}` - HPM CLI version
 - `${node_version}` - Node.js version
 - `${typescript_version}` - TypeScript version
 

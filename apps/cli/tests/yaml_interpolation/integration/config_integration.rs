@@ -1,24 +1,24 @@
 use super::super::{test_utils::*, *};
-use crate::config::{KnotConfig, PackageConfig, AppConfig, AppDependencies, TsAlias};
+use crate::config::{HpmConfig, PackageConfig, AppConfig, AppDependencies, TsAlias};
 use std::collections::HashMap;
 
-/// Extended interpolator that works with real Knot config types
-pub struct KnotConfigInterpolator {
+/// Extended interpolator that works with real HPM config types
+pub struct HpmConfigInterpolator {
     interpolator: YamlInterpolator,
 }
 
-impl KnotConfigInterpolator {
+impl HpmConfigInterpolator {
     pub fn new() -> Self {
         let mut interpolator = YamlInterpolator::new();
-        // Add common built-in variables for Knot configs
-        interpolator.add_built_in_var("knot_version", "1.0.0");
+        // Add common built-in variables for HPM configs
+        interpolator.add_built_in_var("hpm_version", "1.0.0");
         interpolator.add_built_in_var("node_version", "18.0.0");
         interpolator.add_built_in_var("typescript_version", "5.0.0");
         
         Self { interpolator }
     }
 
-    pub fn parse_knot_config(&self, yaml_content: &str) -> anyhow::Result<KnotConfig> {
+    pub fn parse_hpm_config(&self, yaml_content: &str) -> anyhow::Result<HpmConfig> {
         self.interpolator.parse_yaml_with_interpolation(yaml_content)
     }
 
@@ -32,11 +32,11 @@ impl KnotConfigInterpolator {
 }
 
 #[cfg(test)]
-mod knot_config_tests {
+mod hpm_config_tests {
     use super::*;
 
     #[test]
-    fn test_knot_config_basic_interpolation() {
+    fn test_hpm_config_basic_interpolation() {
         let yaml_content = r#"
 variables:
   project_name: "awesome-monorepo"
@@ -59,8 +59,8 @@ apps:
     packages: ["types", "database"]
 "#;
 
-        let interpolator = KnotConfigInterpolator::new();
-        let config = interpolator.parse_knot_config(yaml_content).unwrap();
+        let interpolator = HpmConfigInterpolator::new();
+        let config = interpolator.parse_hpm_config(yaml_content).unwrap();
 
         assert_eq!(config.name, "awesome-monorepo");
         assert_eq!(config.description, Some("An awesome monorepo project".to_string()));
@@ -87,7 +87,7 @@ apps:
     }
 
     #[test]
-    fn test_knot_config_with_ts_alias_interpolation() {
+    fn test_hpm_config_with_ts_alias_interpolation() {
         let yaml_content = r#"
 variables:
   project_name: "my-workspace"
@@ -105,8 +105,8 @@ apps:
     packages: ["database", "types"]
 "#;
 
-        let interpolator = KnotConfigInterpolator::new();
-        let config = interpolator.parse_knot_config(yaml_content).unwrap();
+        let interpolator = HpmConfigInterpolator::new();
+        let config = interpolator.parse_hpm_config(yaml_content).unwrap();
 
         assert_eq!(config.name, "my-workspace");
         
@@ -135,10 +135,10 @@ apps:
     }
 
     #[test]
-    fn test_knot_config_complex_script_interpolation() {
+    fn test_hpm_config_complex_script_interpolation() {
         let yaml_content = r#"
 variables:
-  project_name: "knot-workspace"
+  project_name: "hpm-workspace"
   build_tool: "turbo"
   test_tool: "jest"
   workspace_cmd: "bun run"
@@ -157,15 +157,15 @@ scripts:
   deploy: "${workspace_cmd} docker-build && ${workspace_cmd} docker-push"
 "#;
 
-        let interpolator = KnotConfigInterpolator::new();
-        let config = interpolator.parse_knot_config(yaml_content).unwrap();
+        let interpolator = HpmConfigInterpolator::new();
+        let config = interpolator.parse_hpm_config(yaml_content).unwrap();
 
         let scripts = config.scripts.unwrap();
         assert_eq!(scripts.get("install").unwrap(), "bun run install");
         assert_eq!(scripts.get("build").unwrap(), "turbo run build");
         assert_eq!(scripts.get("test").unwrap(), "jest --passWithNoTests");
-        assert_eq!(scripts.get("docker-build").unwrap(), "docker build -t registry.example.com/knot-workspace:latest .");
-        assert_eq!(scripts.get("docker-push").unwrap(), "docker push registry.example.com/knot-workspace:latest");
+        assert_eq!(scripts.get("docker-build").unwrap(), "docker build -t registry.example.com/hpm-workspace:latest .");
+        assert_eq!(scripts.get("docker-push").unwrap(), "docker push registry.example.com/hpm-workspace:latest");
         assert_eq!(scripts.get("deploy").unwrap(), "bun run docker-build && bun run docker-push");
     }
 }
@@ -225,7 +225,7 @@ exports:
   "./styles": "./dist/styles/index.css"
 "#;
 
-        let interpolator = KnotConfigInterpolator::new();
+        let interpolator = HpmConfigInterpolator::new();
         let config = interpolator.parse_package_config(yaml_content).unwrap();
 
         assert_eq!(config.name, "ui-components");
@@ -276,7 +276,7 @@ features:
   - "${full_name}-caching"
 "#;
 
-        let interpolator = KnotConfigInterpolator::new();
+        let interpolator = HpmConfigInterpolator::new();
         let config = interpolator.parse_package_config(yaml_content).unwrap();
 
         assert_eq!(config.name, "api-data");
@@ -328,7 +328,7 @@ scripts:
   analyze: "vite-bundle-analyzer"
 "#;
 
-        let interpolator = KnotConfigInterpolator::new();
+        let interpolator = HpmConfigInterpolator::new();
         let config = interpolator.parse_app_config(yaml_content).unwrap();
 
         assert_eq!(config.name, "web-dashboard");
@@ -377,7 +377,7 @@ scripts:
   docker: "docker run -p ${port}:${port} ${app_name}:latest"
 "#;
 
-        let interpolator = KnotConfigInterpolator::new();
+        let interpolator = HpmConfigInterpolator::new();
         let config = interpolator.parse_app_config(yaml_content).unwrap();
 
         assert_eq!(config.name, "api-server");
@@ -396,22 +396,22 @@ mod variable_inheritance_tests {
     fn test_builtin_variables_in_real_configs() {
         let yaml_content = r#"
 name: ${project_name}
-description: "Built with Knot v${knot_version}"
+description: "Built with HPM v${hpm_version}"
 
 scripts:
   info: "echo 'Project: ${project_name}, Node: ${node_version}, TypeScript: ${typescript_version}'"
-  version: "echo 'Knot version: ${knot_version}'"
+  version: "echo 'HPM version: ${hpm_version}'"
 "#;
 
-        let interpolator = KnotConfigInterpolator::new();
-        let config = interpolator.parse_knot_config(yaml_content).unwrap();
+        let interpolator = HpmConfigInterpolator::new();
+        let config = interpolator.parse_hpm_config(yaml_content).unwrap();
 
-        assert_eq!(config.name, "knot-test"); // Built-in project_name
-        assert_eq!(config.description, Some("Built with Knot v1.0.0".to_string()));
+        assert_eq!(config.name, "hpm-test"); // Built-in project_name
+        assert_eq!(config.description, Some("Built with HPM v1.0.0".to_string()));
 
         let scripts = config.scripts.unwrap();
-        assert_eq!(scripts.get("info").unwrap(), "echo 'Project: knot-test, Node: 18.0.0, TypeScript: 5.0.0'");
-        assert_eq!(scripts.get("version").unwrap(), "echo 'Knot version: 1.0.0'");
+        assert_eq!(scripts.get("info").unwrap(), "echo 'Project: hpm-test, Node: 18.0.0, TypeScript: 5.0.0'");
+        assert_eq!(scripts.get("version").unwrap(), "echo 'HPM version: 1.0.0'");
     }
 
     #[test]
@@ -419,22 +419,22 @@ scripts:
         let yaml_content = r#"
 variables:
   project_name: "custom-project-name"  # Override built-in
-  knot_version: "2.0.0"               # Override built-in
+  hpm_version: "2.0.0"               # Override built-in
   custom_var: "custom-value"          # New variable
 
 name: ${project_name}
-description: "Built with Knot v${knot_version}"
+description: "Built with HPM v${hpm_version}"
 
 scripts:
   custom: "echo ${custom_var}"
   builtin: "echo Node: ${node_version}"  # This built-in should still work
 "#;
 
-        let interpolator = KnotConfigInterpolator::new();
-        let config = interpolator.parse_knot_config(yaml_content).unwrap();
+        let interpolator = HpmConfigInterpolator::new();
+        let config = interpolator.parse_hpm_config(yaml_content).unwrap();
 
         assert_eq!(config.name, "custom-project-name");
-        assert_eq!(config.description, Some("Built with Knot v2.0.0".to_string()));
+        assert_eq!(config.description, Some("Built with HPM v2.0.0".to_string()));
 
         let scripts = config.scripts.unwrap();
         assert_eq!(scripts.get("custom").unwrap(), "echo custom-value");
@@ -461,8 +461,8 @@ apps:
     packages: ["ui", "utils"]
 "#;
 
-        let interpolator = KnotConfigInterpolator::new();
-        let config = interpolator.parse_knot_config(yaml_content).unwrap();
+        let interpolator = HpmConfigInterpolator::new();
+        let config = interpolator.parse_hpm_config(yaml_content).unwrap();
 
         assert_eq!(config.name, "static-project");
         assert_eq!(config.description, Some("A static configuration without variables".to_string()));
@@ -487,8 +487,8 @@ scripts:
   deploy: "deploy ${app_name}"  # Interpolated
 "#;
 
-        let interpolator = KnotConfigInterpolator::new();
-        let config = interpolator.parse_knot_config(yaml_content).unwrap();
+        let interpolator = HpmConfigInterpolator::new();
+        let config = interpolator.parse_hpm_config(yaml_content).unwrap();
 
         assert_eq!(config.name, "hybrid-app");
         assert_eq!(config.description, Some("App hybrid-app with static version".to_string()));
@@ -512,8 +512,8 @@ scripts:
   build: "echo Building ${project_name}"
 "#;
 
-        let interpolator = KnotConfigInterpolator::new();
-        let config = interpolator.parse_knot_config(yaml_content).unwrap();
+        let interpolator = HpmConfigInterpolator::new();
+        let config = interpolator.parse_hpm_config(yaml_content).unwrap();
         
         // The config should still pass validation
         assert!(config.validate().is_ok());

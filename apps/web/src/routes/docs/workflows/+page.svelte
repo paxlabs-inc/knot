@@ -3,16 +3,16 @@
 </script>
 
 <svelte:head>
-	<title>Workflow Best Practices - Knot CLI Documentation</title>
-	<meta name="description" content="Learn the best practices for working with Knot CLI to improve your development workflow." />
-	<meta property="og:title" content="Workflow Best Practices - Knot CLI" />
-	<meta property="og:description" content="Learn the best practices for working with Knot CLI to improve your development workflow." />
+	<title>Workflow Best Practices - HPM CLI Documentation</title>
+	<meta name="description" content="Learn the best practices for working with HPM CLI to improve your development workflow." />
+	<meta property="og:title" content="Workflow Best Practices - HPM CLI" />
+	<meta property="og:description" content="Learn the best practices for working with HPM CLI to improve your development workflow." />
 	<meta property="og:image" content="/images/og/workflows.png" />
-	<meta property="og:url" content="https://knot.klysium.com/docs/workflows" />
-	<meta name="twitter:title" content="Workflow Best Practices - Knot CLI" />
-	<meta name="twitter:description" content="Learn the best practices for working with Knot CLI to improve your development workflow." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs/workflows" />
+	<meta name="twitter:title" content="Workflow Best Practices - HPM CLI" />
+	<meta name="twitter:description" content="Learn the best practices for working with HPM CLI to improve your development workflow." />
 	<meta name="twitter:image" content="/images/og/workflows.png" />
-	<link rel="canonical" href="https://knot.klysium.com/docs/workflows" />
+	<link rel="canonical" href="https://hpm.klysium.com/docs/workflows" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
@@ -32,9 +32,9 @@
 			<div class="flex items-start space-x-3">
 				<Icon icon="lucide:branch-bold" class="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
 				<div class="flex-1 min-w-0">
-					<h3 class="font-semibold text-blue-900 mb-2">Commit your `knot.yml`</h3>
+					<h3 class="font-semibold text-blue-900 mb-2">Commit your `hpm.yml`</h3>
 					<p class="text-sm text-blue-700 mb-4">
-						The `knot.yml` file contains the configuration for your project. It should be committed to version control to ensure that all team members are using the same settings.
+						The `hpm.yml` file contains the configuration for your project. It should be committed to version control to ensure that all team members are using the same settings.
 					</p>
 				</div>
 			</div>
@@ -66,7 +66,7 @@
 				<div class="flex-1 min-w-0">
 					<h3 class="font-semibold text-green-900 mb-2">Link early, link often</h3>
 					<p class="text-sm text-green-700 mb-4">
-						Run `knot link` whenever you make changes to your packages to ensure that your applications are using the latest version.
+						Run `hpm link` whenever you make changes to your packages to ensure that your applications are using the latest version.
 					</p>
 				</div>
 			</div>

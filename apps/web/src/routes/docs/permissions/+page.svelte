@@ -19,16 +19,16 @@
 </script>
 
 <svelte:head>
-	<title>Permissions - Knot CLI Documentation</title>
-	<meta name="description" content="Learn how to manage permissions for your Knot projects and packages." />
-	<meta property="og:title" content="Permissions - Knot CLI" />
-	<meta property="og:description" content="Learn how to manage permissions for your Knot projects and packages." />
+	<title>Permissions - HPM CLI Documentation</title>
+	<meta name="description" content="Learn how to manage permissions for your HPM projects and packages." />
+	<meta property="og:title" content="Permissions - HPM CLI" />
+	<meta property="og:description" content="Learn how to manage permissions for your HPM projects and packages." />
 	<meta property="og:image" content="/images/og/permissions.png" />
-	<meta property="og:url" content="https://knot.klysium.com/docs/permissions" />
-	<meta name="twitter:title" content="Permissions - Knot CLI" />
-	<meta name="twitter:description" content="Learn how to manage permissions for your Knot projects and packages." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs/permissions" />
+	<meta name="twitter:title" content="Permissions - HPM CLI" />
+	<meta name="twitter:description" content="Learn how to manage permissions for your HPM projects and packages." />
 	<meta name="twitter:image" content="/images/og/permissions.png" />
-	<link rel="canonical" href="https://knot.klysium.com/docs/permissions" />
+	<link rel="canonical" href="https://hpm.klysium.com/docs/permissions" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
@@ -50,7 +50,7 @@
 				<div class="flex-1 min-w-0">
 					<h3 class="font-semibold text-blue-900 mb-2">User Roles</h3>
 					<p class="text-sm text-blue-700 mb-4">
-						Knot uses a role-based access control system to manage permissions. The following roles are available:
+						HPM uses a role-based access control system to manage permissions. The following roles are available:
 					</p>
 					<ul class="text-sm text-blue-700 space-y-1">
 						<li><b>Owner:</b> Can manage all aspects of the project, including billing and team members.</li>
@@ -72,20 +72,20 @@
 				<div class="flex-1 min-w-0">
 					<h3 class="font-semibold text-purple-900 mb-2">Team Management</h3>
 					<p class="text-sm text-purple-700 mb-4">
-						You can manage your team members and their roles from the Knot Space dashboard.
+						You can manage your team members and their roles from the HPM Registry dashboard.
 					</p>
 					<div class="space-y-3">
 						<div>
 							<div class="text-sm font-medium text-purple-900 mb-1">Invite a team member</div>
 							<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group w-full max-w-full">
 								<div class="overflow-x-auto overflow-y-hidden p-4 pr-12 max-w-full">
-									<pre class="whitespace-nowrap m-0 min-w-max"><code>knot team:invite user@example.com --role developer</code></pre>
+									<pre class="whitespace-nowrap m-0 min-w-max"><code>hpm team:invite user@example.com --role developer</code></pre>
 								</div>
 								<button
 									class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-									on:click={() => copyToClipboard('knot team:invite user@example.com --role developer')}
+									on:click={() => copyToClipboard('hpm team:invite user@example.com --role developer')}
 								>
-									{#if showCopied && copyText === 'knot team:invite user@example.com --role developer'}
+									{#if showCopied && copyText === 'hpm team:invite user@example.com --role developer'}
 										<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 									{:else}
 										<Icon icon="lucide:copy" class="w-4 h-4" />

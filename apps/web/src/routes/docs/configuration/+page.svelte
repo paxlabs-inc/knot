@@ -22,7 +22,7 @@
 			Configuration Files
 		</h1>
 		<p class="text-lg text-muted-foreground">
-			Comprehensive guide to configuring Knot projects, packages, and applications
+			Comprehensive guide to configuring HPM projects, packages, and applications
 		</p>
 	</div>
 
@@ -30,7 +30,7 @@
 	<section class="mb-12">
 		<h2 class="text-2xl font-bold mb-6">Configuration Overview</h2>
 		<p class="text-muted-foreground leading-relaxed mb-6">
-			Knot uses YAML configuration files to define project structure, dependencies, and build processes. 
+			HPM uses YAML configuration files to define project structure, dependencies, and build processes. 
 			Each level of your monorepo has its own configuration file with specific purposes and capabilities.
 		</p>
 		
@@ -39,7 +39,7 @@
 				<div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
 					<Icon icon="lucide:folder" class="w-6 h-6 text-blue-600" />
 				</div>
-				<h3 class="font-semibold mb-2">knot.yml</h3>
+				<h3 class="font-semibold mb-2">hpm.yml</h3>
 				<p class="text-sm text-muted-foreground">
 					Project-level configuration defining global settings, scripts, and app configurations.
 				</p>
@@ -67,11 +67,11 @@
 
 	<!-- Project Configuration -->
 	<section class="mb-12">
-		<h2 class="text-2xl font-bold mb-6">Project Configuration (knot.yml)</h2>
+		<h2 class="text-2xl font-bold mb-6">Project Configuration (hpm.yml)</h2>
 		
 		<div class="space-y-6">
 			<p class="text-muted-foreground">
-				The root <code>knot.yml</code> file defines your project's global configuration and metadata.
+				The root <code>hpm.yml</code> file defines your project's global configuration and metadata.
 			</p>
 
 			<div>
@@ -86,11 +86,11 @@
 
 <span class="text-gray-400"># Global scripts available to all apps</span>
 <span class="text-blue-400">scripts:</span>
-  <span class="text-blue-400">setup:</span> <span class="text-green-400">"npm install && knot link"</span>
-  <span class="text-blue-400">test-all:</span> <span class="text-green-400">"knot run test --all"</span>
-  <span class="text-blue-400">lint-all:</span> <span class="text-green-400">"knot run lint --all"</span>
-  <span class="text-blue-400">build-all:</span> <span class="text-green-400">"knot run build --all"</span>
-  <span class="text-blue-400">clean:</span> <span class="text-green-400">"rm -rf */dist */knot_packages"</span>
+  <span class="text-blue-400">setup:</span> <span class="text-green-400">"npm install && hpm link"</span>
+  <span class="text-blue-400">test-all:</span> <span class="text-green-400">"hpm run test --all"</span>
+  <span class="text-blue-400">lint-all:</span> <span class="text-green-400">"hpm run lint --all"</span>
+  <span class="text-blue-400">build-all:</span> <span class="text-green-400">"hpm run build --all"</span>
+  <span class="text-blue-400">clean:</span> <span class="text-green-400">"rm -rf */dist */hpm_packages"</span>
 
 <span class="text-gray-400"># App-specific configurations</span>
 <span class="text-blue-400">apps:</span>
@@ -144,12 +144,12 @@
 					<div class="border rounded-lg p-4">
 						<h4 class="font-semibold mb-2">Scripts</h4>
 						<p class="text-sm text-muted-foreground mb-2">
-							Global scripts that can be run from any app directory with <code>knot run &lt;script&gt;</code>
+							Global scripts that can be run from any app directory with <code>hpm run &lt;script&gt;</code>
 						</p>
 						<div class="text-sm space-y-1">
 							<div>• Scripts have the lowest priority (overridden by app and package scripts)</div>
 							<div>• Support complex commands with <code>&&</code> and <code>||</code> operators</div>
-							<div>• Can reference other knot commands</div>
+							<div>• Can reference other hpm commands</div>
 						</div>
 					</div>
 
@@ -376,7 +376,7 @@
 		
 		<div class="space-y-6">
 			<p class="text-muted-foreground">
-				Knot uses a hierarchical script resolution system when you run <code>knot run &lt;script&gt;</code>.
+				HPM uses a hierarchical script resolution system when you run <code>hpm run &lt;script&gt;</code>.
 			</p>
 
 			<div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
@@ -405,7 +405,7 @@
 							<span class="text-blue-600 font-bold text-sm">3</span>
 						</div>
 						<div>
-							<div class="font-medium">Project Scripts (knot.yml)</div>
+							<div class="font-medium">Project Scripts (hpm.yml)</div>
 							<div class="text-sm text-muted-foreground">Global scripts available from any directory</div>
 						</div>
 					</div>
@@ -415,7 +415,7 @@
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Example Scenario</h3>
 				<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg">
-					<pre><code><span class="text-gray-400"># knot.yml (project)</span>
+					<pre><code><span class="text-gray-400"># hpm.yml (project)</span>
 <span class="text-blue-400">scripts:</span>
   <span class="text-blue-400">test:</span> <span class="text-green-400">"echo 'Running project tests'"</span>
 
@@ -428,7 +428,7 @@
   <span class="text-blue-400">test:</span> <span class="text-green-400">"jest --coverage"</span></code></pre>
 				</div>
 				<div class="mt-3 text-sm text-muted-foreground">
-					When you run <code>knot run test</code> from the <code>apps/frontend/</code> directory, 
+					When you run <code>hpm run test</code> from the <code>apps/frontend/</code> directory, 
 					it will execute <code>jest --coverage</code> (app script takes priority).
 				</div>
 			</div>
@@ -441,14 +441,14 @@
 		
 		<div class="space-y-6">
 			<p class="text-muted-foreground">
-				Knot provides a powerful variable system that allows you to use dynamic values in your configuration files.
-				Variables can be interpolated in any string value across knot.yml, app.yml, and package.yml files.
+				HPM provides a powerful variable system that allows you to use dynamic values in your configuration files.
+				Variables can be interpolated in any string value across hpm.yml, app.yml, and package.yml files.
 			</p>
 
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Variable Syntax</h3>
 				<p class="text-muted-foreground mb-4">
-					Knot supports two variable interpolation syntaxes that you can use in your YAML configuration files:
+					HPM supports two variable interpolation syntaxes that you can use in your YAML configuration files:
 				</p>
 				
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -472,7 +472,7 @@
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Complete Example</h3>
 				<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg relative group">
-					<pre><code><span class="text-gray-400"># knot.yml - Project configuration with variables</span>
+					<pre><code><span class="text-gray-400"># hpm.yml - Project configuration with variables</span>
 <span class="text-blue-400">name:</span> <span class="text-green-400">"{{project_name}}"</span>
 <span class="text-blue-400">description:</span> <span class="text-green-400">"{{project_name}} - Built on ${date}"</span>
 <span class="text-blue-400">version:</span> <span class="text-green-400">"1.0.0"</span>
@@ -532,7 +532,7 @@
 							</div>
 							<div>
 								<div class="font-medium">Project Variables</div>
-								<div class="text-sm text-muted-foreground">Variables defined in knot.yml</div>
+								<div class="text-sm text-muted-foreground">Variables defined in hpm.yml</div>
 							</div>
 						</div>
 					</div>
@@ -547,7 +547,7 @@
 						<div class="text-sm space-y-2">
 							<div class="flex justify-between">
 								<code class="bg-muted px-2 py-1 rounded">project_name</code>
-								<span class="text-muted-foreground">Name from knot.yml</span>
+								<span class="text-muted-foreground">Name from hpm.yml</span>
 							</div>
 							<div class="flex justify-between">
 								<code class="bg-muted px-2 py-1 rounded">project_root</code>
@@ -572,11 +572,11 @@
 						<h4 class="font-semibold mb-3">CLI Commands</h4>
 						<div class="text-sm space-y-2">
 							<div>
-								<code class="bg-muted px-2 py-1 rounded">knot vars list</code>
+								<code class="bg-muted px-2 py-1 rounded">hpm vars list</code>
 								<div class="text-muted-foreground mt-1">Show all available variables</div>
 							</div>
 							<div>
-								<code class="bg-muted px-2 py-1 rounded">knot vars get &lt;name&gt;</code>
+								<code class="bg-muted px-2 py-1 rounded">hpm vars get &lt;name&gt;</code>
 								<div class="text-muted-foreground mt-1">Get a specific variable value</div>
 							</div>
 						</div>
@@ -611,7 +611,7 @@
 					<div class="border rounded-lg p-4">
 						<h4 class="font-semibold mb-2">Error Handling</h4>
 						<div class="text-sm space-y-2 text-muted-foreground">
-							<div>• <strong>Undefined variables:</strong> Knot will show an error with suggestions of available variables</div>
+							<div>• <strong>Undefined variables:</strong> HPM will show an error with suggestions of available variables</div>
 							<div>• <strong>Circular references:</strong> Automatic detection prevents infinite loops</div>
 							<div>• <strong>Type conversion:</strong> All variables are converted to strings when interpolated</div>
 							<div>• <strong>Validation:</strong> Variable names must be alphanumeric with underscores</div>
@@ -628,18 +628,18 @@
 		
 		<div class="space-y-6">
 			<p class="text-muted-foreground">
-				Knot supports environment-specific configurations and can load environment variables.
+				HPM supports environment-specific configurations and can load environment variables.
 			</p>
 
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Environment Variables</h3>
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 					<div class="border rounded-lg p-4">
-						<h4 class="font-semibold mb-2">Knot Environment Variables</h4>
+						<h4 class="font-semibold mb-2">HPM Environment Variables</h4>
 						<div class="text-sm space-y-1">
-							<div><code class="bg-muted px-2 py-1 rounded">KNOT_TOKEN</code> - Authentication token</div>
-							<div><code class="bg-muted px-2 py-1 rounded">KNOT_SPACE_URL</code> - Registry URL</div>
-							<div><code class="bg-muted px-2 py-1 rounded">KNOT_ENV</code> - Environment (dev/prod)</div>
+							<div><code class="bg-muted px-2 py-1 rounded">HPM_TOKEN</code> - Authentication token</div>
+							<div><code class="bg-muted px-2 py-1 rounded">HPM_REGISTRY_URL</code> - Registry URL</div>
+							<div><code class="bg-muted px-2 py-1 rounded">HPM_ENV</code> - Environment (dev/prod)</div>
 						</div>
 					</div>
 
@@ -712,7 +712,7 @@
 						Validation
 					</h3>
 					<ul class="text-sm text-muted-foreground space-y-2">
-						<li>• Knot validates YAML syntax automatically</li>
+						<li>• HPM validates YAML syntax automatically</li>
 						<li>• Required fields are enforced</li>
 						<li>• Package names must be unique</li>
 						<li>• Version numbers must be valid semver</li>
@@ -732,7 +732,7 @@
 					<h3 class="font-semibold">Package Linking</h3>
 				</div>
 				<p class="text-sm text-muted-foreground">
-					Learn how Knot links packages and manages dependencies between apps and packages.
+					Learn how HPM links packages and manages dependencies between apps and packages.
 				</p>
 			</a>
 
@@ -742,7 +742,7 @@
 					<h3 class="font-semibold">CLI Commands</h3>
 				</div>
 				<p class="text-sm text-muted-foreground">
-					Explore all available Knot CLI commands and their usage patterns.
+					Explore all available HPM CLI commands and their usage patterns.
 				</p>
 			</a>
 		</div>

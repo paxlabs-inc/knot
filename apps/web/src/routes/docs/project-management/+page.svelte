@@ -19,16 +19,16 @@
 </script>
 
 <svelte:head>
-	<title>Project Management - Knot CLI Documentation</title>
-	<meta name="description" content="Learn how to manage your Knot projects, from initialization to configuration, status checks, and project operations." />
-	<meta property="og:title" content="Project Management - Knot CLI" />
-	<meta property="og:description" content="Learn how to manage your Knot projects, from initialization to configuration, status checks, and project operations." />
+	<title>Project Management - HPM CLI Documentation</title>
+	<meta name="description" content="Learn how to manage your HPM projects, from initialization to configuration, status checks, and project operations." />
+	<meta property="og:title" content="Project Management - HPM CLI" />
+	<meta property="og:description" content="Learn how to manage your HPM projects, from initialization to configuration, status checks, and project operations." />
 	<meta property="og:image" content="/images/og/project-management.png" />
-	<meta property="og:url" content="https://knot.klysium.com/docs/project-management" />
-	<meta name="twitter:title" content="Project Management - Knot CLI" />
-	<meta name="twitter:description" content="Learn how to manage your Knot projects, from initialization to configuration, status checks, and project operations." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs/project-management" />
+	<meta name="twitter:title" content="Project Management - HPM CLI" />
+	<meta name="twitter:description" content="Learn how to manage your HPM projects, from initialization to configuration, status checks, and project operations." />
 	<meta name="twitter:image" content="/images/og/project-management.png" />
-	<link rel="canonical" href="https://knot.klysium.com/docs/project-management" />
+	<link rel="canonical" href="https://hpm.klysium.com/docs/project-management" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
@@ -37,7 +37,7 @@
 			Project Management
 		</h1>
 		<p class="text-lg text-muted-foreground">
-			Efficiently manage your monorepo with Knot's comprehensive project management commands
+			Efficiently manage your monorepo with HPM's comprehensive project management commands
 		</p>
 	</div>
 
@@ -48,7 +48,7 @@
 			<h2 class="text-2xl font-bold">Initializing a Project</h2>
 		</div>
 		<p class="text-muted-foreground mb-6 leading-relaxed">
-			Start a new monorepo with a single command. Knot will set up the basic structure for you, including the root <code class="bg-muted px-1.5 py-0.5 rounded text-sm">knot.yml</code> configuration file and organize your workspace.
+			Start a new monorepo with a single command. HPM will set up the basic structure for you, including the root <code class="bg-muted px-1.5 py-0.5 rounded text-sm">hpm.yml</code> configuration file and organize your workspace.
 		</p>
 		
 		<div class="space-y-6">
@@ -56,13 +56,13 @@
 				<h3 class="text-lg font-semibold mb-3">Create a new project</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 					<div class="overflow-x-auto p-4 pr-12">
-						<code class="whitespace-nowrap block">knot init &lt;project-name&gt;</code>
+						<code class="whitespace-nowrap block">hpm init &lt;project-name&gt;</code>
 					</div>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-						on:click={() => copyToClipboard('knot init my-project')}
+						on:click={() => copyToClipboard('hpm init my-project')}
 					>
-						{#if showCopied && copyText === 'knot init my-project'}
+						{#if showCopied && copyText === 'hpm init my-project'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -80,7 +80,7 @@
 					<span>Generated Project Structure</span>
 				</h4>
 				<pre class="text-sm font-mono"><code>my-project/
-├── <span class="text-blue-400">knot.yml</span>          # Project configuration
+├── <span class="text-blue-400">hpm.yml</span>          # Project configuration
 ├── <span class="text-yellow-400">packages/</span>        # Shared packages go here
 ├── <span class="text-green-400">apps/</span>             # Applications go here
 ├── <span class="text-gray-400">node_modules/</span>     # Dependencies
@@ -92,13 +92,13 @@
 				<h3 class="text-lg font-semibold mb-3">Initialize in existing directory</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 					<div class="overflow-x-auto p-4 pr-12">
-						<code class="whitespace-nowrap block">knot init .</code>
+						<code class="whitespace-nowrap block">hpm init .</code>
 					</div>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-						on:click={() => copyToClipboard('knot init .')}
+						on:click={() => copyToClipboard('hpm init .')}
 					>
-						{#if showCopied && copyText === 'knot init .'}
+						{#if showCopied && copyText === 'hpm init .'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -106,7 +106,7 @@
 					</button>
 				</div>
 				<p class="text-sm text-muted-foreground mt-2">
-					Initialize Knot in your current directory without creating a new folder.
+					Initialize HPM in your current directory without creating a new folder.
 				</p>
 			</div>
 		</div>
@@ -119,14 +119,14 @@
 			<h2 class="text-2xl font-bold">Project Configuration</h2>
 		</div>
 		<p class="text-muted-foreground mb-6 leading-relaxed">
-			The <code class="bg-muted px-1.5 py-0.5 rounded text-sm">knot.yml</code> file is the heart of your Knot project. It defines the project's metadata, scripts, and global configurations that apply to your entire monorepo.
+			The <code class="bg-muted px-1.5 py-0.5 rounded text-sm">hpm.yml</code> file is the heart of your HPM project. It defines the project's metadata, scripts, and global configurations that apply to your entire monorepo.
 		</p>
 		
 		<div class="space-y-6">
 			<div>
-				<h3 class="text-lg font-semibold mb-3">Basic knot.yml structure</h3>
+				<h3 class="text-lg font-semibold mb-3">Basic hpm.yml structure</h3>
 				<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg">
-					<pre><code>{@html `<span class="text-gray-400"># knot.yml - Project configuration</span>
+					<pre><code>{@html `<span class="text-gray-400"># hpm.yml - Project configuration</span>
 <span class="text-blue-400">name:</span> <span class="text-green-400">"my-awesome-project"</span>
 <span class="text-blue-400">description:</span> <span class="text-green-400">"A modern TypeScript monorepo"</span>
 <span class="text-blue-400">version:</span> <span class="text-green-400">"1.0.0"</span>
@@ -135,8 +135,8 @@
 <span class="text-blue-400">scripts:</span>
   <span class="text-blue-400">test:</span> <span class="text-green-400">"echo 'Running tests for all packages'"</span>
   <span class="text-blue-400">lint:</span> <span class="text-green-400">"eslint . --ext .ts,.tsx,.js,.jsx"</span>
-  <span class="text-blue-400">build:</span> <span class="text-green-400">"knot run build --all"</span>
-  <span class="text-blue-400">dev:</span> <span class="text-green-400">"knot run dev --parallel"</span>`}</code></pre>
+  <span class="text-blue-400">build:</span> <span class="text-green-400">"hpm run build --all"</span>
+  <span class="text-blue-400">dev:</span> <span class="text-green-400">"hpm run dev --parallel"</span>`}</code></pre>
 				</div>
 				<p class="text-sm text-muted-foreground mt-2">
 					Define project metadata and global scripts that can be run from anywhere in your monorepo.
@@ -146,7 +146,7 @@
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Advanced configuration options</h3>
 				<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg">
-					<pre><code>{@html `<span class="text-gray-400"># Advanced knot.yml configuration</span>
+					<pre><code>{@html `<span class="text-gray-400"># Advanced hpm.yml configuration</span>
 <span class="text-blue-400">workspaces:</span>
   <span class="text-blue-400">packages:</span>
     - <span class="text-green-400">"packages/*"</span>
@@ -176,7 +176,7 @@
 			<h2 class="text-2xl font-bold">Checking Project Status</h2>
 		</div>
 		<p class="text-muted-foreground mb-6 leading-relaxed">
-			Get comprehensive insights into your project's health, dependencies, and workspace organization with Knot's status commands.
+			Get comprehensive insights into your project's health, dependencies, and workspace organization with HPM's status commands.
 		</p>
 		
 		<div class="space-y-6">
@@ -184,13 +184,13 @@
 				<h3 class="text-lg font-semibold mb-3">Project overview</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 					<div class="overflow-x-auto p-4 pr-12">
-						<code class="whitespace-nowrap block">knot status</code>
+						<code class="whitespace-nowrap block">hpm status</code>
 					</div>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-						on:click={() => copyToClipboard('knot status')}
+						on:click={() => copyToClipboard('hpm status')}
 					>
-						{#if showCopied && copyText === 'knot status'}
+						{#if showCopied && copyText === 'hpm status'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -206,13 +206,13 @@
 				<h3 class="text-lg font-semibold mb-3">Detailed workspace information</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 					<div class="overflow-x-auto p-4 pr-12">
-						<code class="whitespace-nowrap block">knot status --detailed</code>
+						<code class="whitespace-nowrap block">hpm status --detailed</code>
 					</div>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-						on:click={() => copyToClipboard('knot status --detailed')}
+						on:click={() => copyToClipboard('hpm status --detailed')}
 					>
-						{#if showCopied && copyText === 'knot status --detailed'}
+						{#if showCopied && copyText === 'hpm status --detailed'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -249,7 +249,7 @@
 			<h2 class="text-2xl font-bold">Running Project Scripts</h2>
 		</div>
 		<p class="text-muted-foreground mb-6 leading-relaxed">
-			Execute scripts across your entire monorepo or target specific workspaces with Knot's powerful script execution system.
+			Execute scripts across your entire monorepo or target specific workspaces with HPM's powerful script execution system.
 		</p>
 		
 		<div class="space-y-6">
@@ -257,13 +257,13 @@
 				<h3 class="text-lg font-semibold mb-3">Run project-wide scripts</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 					<div class="overflow-x-auto p-4 pr-12">
-						<code class="whitespace-nowrap block">knot run &lt;script-name&gt;</code>
+						<code class="whitespace-nowrap block">hpm run &lt;script-name&gt;</code>
 					</div>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-						on:click={() => copyToClipboard('knot run build')}
+						on:click={() => copyToClipboard('hpm run build')}
 					>
-						{#if showCopied && copyText === 'knot run build'}
+						{#if showCopied && copyText === 'hpm run build'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -271,7 +271,7 @@
 					</button>
 				</div>
 				<p class="text-sm text-muted-foreground mt-2">
-					Executes the specified script defined in your <code>knot.yml</code> file.
+					Executes the specified script defined in your <code>hpm.yml</code> file.
 				</p>
 			</div>
 
@@ -279,13 +279,13 @@
 				<h3 class="text-lg font-semibold mb-3">Run scripts in parallel</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 					<div class="overflow-x-auto p-4 pr-12">
-						<code class="whitespace-nowrap block">knot run build --parallel</code>
+						<code class="whitespace-nowrap block">hpm run build --parallel</code>
 					</div>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-						on:click={() => copyToClipboard('knot run build --parallel')}
+						on:click={() => copyToClipboard('hpm run build --parallel')}
 					>
-						{#if showCopied && copyText === 'knot run build --parallel'}
+						{#if showCopied && copyText === 'hpm run build --parallel'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -301,13 +301,13 @@
 				<h3 class="text-lg font-semibold mb-3">Target specific workspaces</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 					<div class="overflow-x-auto p-4 pr-12">
-						<code class="whitespace-nowrap block">knot run test --filter="packages/*"</code>
+						<code class="whitespace-nowrap block">hpm run test --filter="packages/*"</code>
 					</div>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-						on:click={() => copyToClipboard('knot run test --filter="packages/*"')}
+						on:click={() => copyToClipboard('hpm run test --filter="packages/*"')}
 					>
-						{#if showCopied && copyText === 'knot run test --filter="packages/*"'}
+						{#if showCopied && copyText === 'hpm run test --filter="packages/*"'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -336,13 +336,13 @@
 				<h3 class="text-lg font-semibold mb-3">Clean build artifacts</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 					<div class="overflow-x-auto p-4 pr-12">
-						<code class="whitespace-nowrap block">knot clean</code>
+						<code class="whitespace-nowrap block">hpm clean</code>
 					</div>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-						on:click={() => copyToClipboard('knot clean')}
+						on:click={() => copyToClipboard('hpm clean')}
 					>
-						{#if showCopied && copyText === 'knot clean'}
+						{#if showCopied && copyText === 'hpm clean'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -358,13 +358,13 @@
 				<h3 class="text-lg font-semibold mb-3">Update dependencies</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 					<div class="overflow-x-auto p-4 pr-12">
-						<code class="whitespace-nowrap block">knot update</code>
+						<code class="whitespace-nowrap block">hpm update</code>
 					</div>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-						on:click={() => copyToClipboard('knot update')}
+						on:click={() => copyToClipboard('hpm update')}
 					>
-						{#if showCopied && copyText === 'knot update'}
+						{#if showCopied && copyText === 'hpm update'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -380,13 +380,13 @@
 				<h3 class="text-lg font-semibold mb-3">Validate project structure</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 					<div class="overflow-x-auto p-4 pr-12">
-						<code class="whitespace-nowrap block">knot validate</code>
+						<code class="whitespace-nowrap block">hpm validate</code>
 					</div>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-						on:click={() => copyToClipboard('knot validate')}
+						on:click={() => copyToClipboard('hpm validate')}
 					>
-						{#if showCopied && copyText === 'knot validate'}
+						{#if showCopied && copyText === 'hpm validate'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -417,7 +417,7 @@
 							<li>• Keep packages focused and single-purpose</li>
 							<li>• Use consistent naming conventions</li>
 							<li>• Document your project structure in README</li>
-							<li>• Regularly run <code>knot status</code> to monitor health</li>
+							<li>• Regularly run <code>hpm status</code> to monitor health</li>
 						</ul>
 					</div>
 				</div>
@@ -429,7 +429,7 @@
 					<div>
 						<h3 class="font-semibold text-blue-900 mb-2">Configuration Tips</h3>
 						<ul class="text-sm text-blue-700 space-y-1">
-							<li>• Version your <code>knot.yml</code> configuration</li>
+							<li>• Version your <code>hpm.yml</code> configuration</li>
 							<li>• Use environment-specific scripts</li>
 							<li>• Leverage TypeScript aliases for clean imports</li>
 							<li>• Set up parallel builds for performance</li>
@@ -444,7 +444,7 @@
 					<div>
 						<h3 class="font-semibold text-orange-900 mb-2">Maintenance</h3>
 						<ul class="text-sm text-orange-700 space-y-1">
-							<li>• Run <code>knot clean</code> before major builds</li>
+							<li>• Run <code>hpm clean</code> before major builds</li>
 							<li>• Validate project structure regularly</li>
 							<li>• Keep dependencies up to date</li>
 							<li>• Monitor build performance metrics</li>
@@ -490,7 +490,7 @@
 					<h3 class="font-semibold">CLI Commands</h3>
 				</div>
 				<p class="text-sm text-muted-foreground">
-					Complete reference for all Knot CLI commands and their options.
+					Complete reference for all HPM CLI commands and their options.
 				</p>
 			</a>
 
@@ -500,7 +500,7 @@
 					<h3 class="font-semibold">Workflows</h3>
 				</div>
 				<p class="text-sm text-muted-foreground">
-					Set up CI/CD workflows and automation for your Knot projects.
+					Set up CI/CD workflows and automation for your HPM projects.
 				</p>
 			</a>
 
@@ -530,7 +530,7 @@
 					<h3 class="font-semibold">Troubleshooting</h3>
 				</div>
 				<p class="text-sm text-muted-foreground">
-					Common issues and solutions for Knot project management.
+					Common issues and solutions for HPM project management.
 				</p>
 			</a>
 		</div>

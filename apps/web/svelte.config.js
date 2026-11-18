@@ -7,8 +7,8 @@ const config = {
   kit: {
     adapter: adapter(),
     alias: {
-      "#": "./knot_packages",
-      "#/*": "./knot_packages/*",
+      "#": "./hpm_packages",
+      "#/*": "./hpm_packages/*",
       $lib: "./src/lib",
     },
   },

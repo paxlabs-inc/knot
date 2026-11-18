@@ -255,8 +255,8 @@ async fn create_resolver(project: &Project) -> Result<DependencyResolver> {
     };
     
     let local_registry = LocalPackageRegistry::new(project.root.join("packages"));
-    let remote_registry = RemotePackageRegistry::new("https://knot.space".to_string());
-    let cache_dir = project.root.join(".knot").join("cache");
+    let remote_registry = RemotePackageRegistry::new("https://hpm.space".to_string());
+    let cache_dir = project.root.join(".hpm").join("cache");
     
     Ok(DependencyResolver::new(context, local_registry, remote_registry, cache_dir))
 }
@@ -311,7 +311,7 @@ fn parse_package_spec(spec: &str, dev: bool, optional: bool) -> Result<Dependenc
     
     let source = if name.starts_with('@') {
         crate::dependency::types::PackageSource::Remote {
-            registry: "knot-space".to_string(),
+            registry: "hpm-registry".to_string(),
         }
     } else {
         crate::dependency::types::PackageSource::Local
@@ -368,11 +368,11 @@ async fn link_resolved_packages(
     app_name: &str, 
     resolved_packages: &HashMap<PackageId, PackageVersion>
 ) -> Result<()> {
-    // This would link the resolved packages to the app's knot_packages directory
+    // This would link the resolved packages to the app's hpm_packages directory
     println!("🔗 Would link {} packages for app '{}'", resolved_packages.len(), app_name);
     
     // In a real implementation, this would:
-    // 1. Create/clean the knot_packages directory
+    // 1. Create/clean the hpm_packages directory
     // 2. Link each resolved package (symlink or copy)
     // 3. Update TypeScript configurations
     
@@ -466,8 +466,8 @@ async fn resolve_app_dependencies(
     let mut resolver = DependencyResolver::new(
         context,
         LocalPackageRegistry::new(project.root.join("packages")),
-        RemotePackageRegistry::new("https://knot.space".to_string()),
-        project.root.join(".knot").join("cache"),
+        RemotePackageRegistry::new("https://hpm.space".to_string()),
+        project.root.join(".hpm").join("cache"),
     );
     
     match resolver.resolve_dependencies(deps).await {

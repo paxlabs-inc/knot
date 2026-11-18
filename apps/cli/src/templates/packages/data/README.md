@@ -20,7 +20,7 @@ data (depends on utils + heavy external deps)
 
 ```bash
 # The package.yml automatically handles all dependencies
-knot add data
+hpm add data
 ```
 
 ```typescript
@@ -214,14 +214,14 @@ interface CacheConfig {
 
 ### Running Tests
 ```bash
-knot test data
+hpm test data
 ```
 
 ### Database Migrations
 ```bash
-knot run migrate    # Run Prisma migrations
-knot run generate   # Generate Prisma client
-knot run seed       # Seed database with test data
+hpm run migrate    # Run Prisma migrations
+hpm run generate   # Generate Prisma client
+hpm run seed       # Seed database with test data
 ```
 
 ## Best Practices

@@ -3,10 +3,10 @@ use std::process::{Command, Stdio};
 use std::fs;
 use tempfile::TempDir;
 
-// Test helper to execute knot command and capture output
-fn run_knot_command(args: &[&str], working_dir: &std::path::Path) -> (String, String, bool) {
+// Test helper to execute hpm command and capture output
+fn run_hpm_command(args: &[&str], working_dir: &std::path::Path) -> (String, String, bool) {
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot"])
+        .args(&["run", "--bin", "hpm"])
         .args(args)
         .current_dir(working_dir)
         .stdin(Stdio::null())
@@ -45,14 +45,14 @@ fn test_missing_config_file_errors() -> Result<()> {
 
     let temp_dir = TempDir::new()?;
 
-    // Test running knot in directory with no config files
-    let (stdout, stderr, success) = run_knot_command(&["run", "build"], temp_dir.path());
+    // Test running hpm in directory with no config files
+    let (stdout, stderr, success) = run_hpm_command(&["run", "build"], temp_dir.path());
     assert!(!success, "Command should fail when no config files exist");
 
     let error_message = format!("{}{}", stdout, stderr);
 
     // Should provide helpful error message
-    assert!(error_message.contains("knot.yml") || error_message.contains("config"),
+    assert!(error_message.contains("hpm.yml") || error_message.contains("config"),
            "Error should mention config files: {}", error_message);
 
     assert!(is_helpful_error_message(&error_message),
@@ -79,9 +79,9 @@ description: invalid yaml
 scripts
   build: "npm build"  # Missing colon after scripts
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), invalid_yaml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), invalid_yaml)?;
 
-    let (stdout, stderr, success) = run_knot_command(&["run", "build"], temp_dir.path());
+    let (stdout, stderr, success) = run_hpm_command(&["run", "build"], temp_dir.path());
     assert!(!success, "Command should fail with invalid YAML");
 
     let error_message = format!("{}{}", stdout, stderr);
@@ -110,7 +110,7 @@ description: Missing version field
 "#;
     fs::write(temp_dir.path().join("package.yml"), package_yml)?;
 
-    let (stdout, stderr, success) = run_knot_command(&["publish"], temp_dir.path());
+    let (stdout, stderr, success) = run_hpm_command(&["publish"], temp_dir.path());
 
     let error_message = format!("{}{}", stdout, stderr);
 
@@ -131,17 +131,17 @@ fn test_script_not_found_errors() -> Result<()> {
     let temp_dir = TempDir::new()?;
 
     // Create valid config with scripts
-    let knot_yml = r#"
+    let hpm_yml = r#"
 name: test-project
 scripts:
   build: "echo 'Building...'"
   test: "echo 'Testing...'"
   dev: "echo 'Development...'"
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
     // Try to run non-existent script
-    let (stdout, stderr, success) = run_knot_command(&["run", "nonexistent"], temp_dir.path());
+    let (stdout, stderr, success) = run_hpm_command(&["run", "nonexistent"], temp_dir.path());
 
     let error_message = format!("{}{}", stdout, stderr);
 
@@ -175,7 +175,7 @@ description: Test package for auth
     fs::write(temp_dir.path().join("package.yml"), package_yml)?;
 
     // Try to publish without authentication
-    let (stdout, stderr, success) = run_knot_command(&["publish"], temp_dir.path());
+    let (stdout, stderr, success) = run_hpm_command(&["publish"], temp_dir.path());
 
     let error_message = format!("{}{}", stdout, stderr);
 
@@ -185,7 +185,7 @@ description: Test package for auth
                "Auth error should be helpful: {}", error_message);
 
         // Should suggest how to authenticate
-        assert!(error_message.contains("knot auth") || error_message.contains("log in"),
+        assert!(error_message.contains("hpm auth") || error_message.contains("log in"),
                "Should suggest authentication: {}", error_message);
     }
 
@@ -204,9 +204,9 @@ fn test_validation_error_messages() -> Result<()> {
 name: "../invalid-name"
 description: Invalid project name
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), invalid_name_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), invalid_name_yml)?;
 
-    let (stdout, stderr, success) = run_knot_command(&["status"], temp_dir.path());
+    let (stdout, stderr, success) = run_hpm_command(&["status"], temp_dir.path());
 
     let error_message = format!("{}{}", stdout, stderr);
 
@@ -235,7 +235,7 @@ packages:
 "#;
     fs::write(temp_dir.path().join("app.yml"), app_yml)?;
 
-    let (stdout, stderr, success) = run_knot_command(&["link"], temp_dir.path());
+    let (stdout, stderr, success) = run_hpm_command(&["link"], temp_dir.path());
 
     let error_message = format!("{}{}", stdout, stderr);
 
@@ -256,15 +256,15 @@ fn test_interactive_mode_error_messages() -> Result<()> {
     let temp_dir = TempDir::new()?;
 
     // Create project with scripts
-    let knot_yml = r#"
+    let hpm_yml = r#"
 name: test-project
 scripts:
   build: "echo 'Building...'"
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
     // Try interactive mode in non-interactive environment
-    let (stdout, stderr, success) = run_knot_command(&["run"], temp_dir.path());
+    let (stdout, stderr, success) = run_hpm_command(&["run"], temp_dir.path());
 
     let error_message = format!("{}{}", stdout, stderr);
 
@@ -274,7 +274,7 @@ scripts:
                "Interactive mode error should be helpful: {}", error_message);
 
         // Should suggest alternative
-        assert!(error_message.contains("knot run <script_name>") || error_message.contains("specific script"),
+        assert!(error_message.contains("hpm run <script_name>") || error_message.contains("specific script"),
                "Should suggest alternative: {}", error_message);
     }
 
@@ -296,7 +296,7 @@ description: Package with invalid version
 "#;
     fs::write(temp_dir.path().join("package.yml"), invalid_version_yml)?;
 
-    let (stdout, stderr, success) = run_knot_command(&["publish"], temp_dir.path());
+    let (stdout, stderr, success) = run_hpm_command(&["publish"], temp_dir.path());
 
     let error_message = format!("{}{}", stdout, stderr);
 
@@ -321,18 +321,18 @@ fn test_help_message_quality() -> Result<()> {
     let temp_dir = TempDir::new()?;
 
     // Test main help
-    let (stdout, stderr, _) = run_knot_command(&["--help"], temp_dir.path());
+    let (stdout, stderr, _) = run_hpm_command(&["--help"], temp_dir.path());
     let help_message = format!("{}{}", stdout, stderr);
 
     // Help should be comprehensive and well-formatted
-    assert!(help_message.contains("Knot") && help_message.contains("Monorepo"),
+    assert!(help_message.contains("HPM") && help_message.contains("Monorepo"),
            "Help should contain project description: {}", help_message);
 
     assert!(help_message.contains("COMMANDS") || help_message.contains("SUBCOMMANDS"),
            "Help should list commands: {}", help_message);
 
     // Test subcommand help
-    let (stdout, stderr, _) = run_knot_command(&["run", "--help"], temp_dir.path());
+    let (stdout, stderr, _) = run_hpm_command(&["run", "--help"], temp_dir.path());
     let run_help = format!("{}{}", stdout, stderr);
 
     assert!(run_help.contains("run") || run_help.contains("script"),
@@ -355,13 +355,13 @@ fn test_error_context_and_suggestions() -> Result<()> {
     // Test various error scenarios and verify they provide context and suggestions
     let test_cases = vec![
         // (command, expected_context_keywords)
-        (&["status"] as &[&str], vec!["knot.yml", "project"]),
+        (&["status"] as &[&str], vec!["hpm.yml", "project"]),
         (&["run", "missing-script"], vec!["script", "Available"]),
         (&["link"], vec!["package", "app"]),
     ];
 
     for (command, context_keywords) in test_cases {
-        let (stdout, stderr, _) = run_knot_command(command, temp_dir.path());
+        let (stdout, stderr, _) = run_hpm_command(command, temp_dir.path());
         let output = format!("{}{}", stdout, stderr);
 
         // Check if at least one context keyword is present
@@ -386,12 +386,12 @@ fn test_emoji_usage_consistency() -> Result<()> {
     let temp_dir = TempDir::new()?;
 
     // Test that error messages use consistent emoji patterns
-    let knot_yml = r#"
+    let hpm_yml = r#"
 name: test-project
 scripts:
   build: "echo 'Building...'"
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
     let test_commands = vec![
         vec!["run", "nonexistent"],
@@ -400,7 +400,7 @@ scripts:
     ];
 
     for command in test_commands {
-        let (stdout, stderr, _) = run_knot_command(&command, temp_dir.path());
+        let (stdout, stderr, _) = run_hpm_command(&command, temp_dir.path());
         let output = format!("{}{}", stdout, stderr);
 
         if !output.is_empty() {

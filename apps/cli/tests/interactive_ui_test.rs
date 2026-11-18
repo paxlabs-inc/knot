@@ -9,8 +9,8 @@ use tempfile::TempDir;
 fn create_test_project() -> Result<TempDir> {
     let temp_dir = TempDir::new()?;
 
-    // Create knot.yml with scripts
-    let knot_yml = r#"
+    // Create hpm.yml with scripts
+    let hpm_yml = r#"
 name: test-project
 description: A test project for UI testing
 scripts:
@@ -19,7 +19,7 @@ scripts:
   dev: "echo 'Starting development server...'"
   deploy: "echo 'Deploying application...'"
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
     // Create app directory with app.yml
     let app_dir = temp_dir.path().join("apps").join("web");
@@ -77,7 +77,7 @@ fn test_run_command_help_messages() -> Result<()> {
 
     // Test help message output for run command without interactive terminal
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "run", "--help"])
+        .args(&["run", "--bin", "hpm", "run", "--help"])
         .current_dir(temp_project.path())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -106,7 +106,7 @@ fn test_run_script_validation() -> Result<()> {
 
     // Test running a valid script
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "run", "build"])
+        .args(&["run", "--bin", "hpm", "run", "build"])
         .current_dir(temp_project.path())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -125,7 +125,7 @@ fn test_run_script_validation() -> Result<()> {
 
     // Test running a non-existent script
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "run", "nonexistent-script"])
+        .args(&["run", "--bin", "hpm", "run", "nonexistent-script"])
         .current_dir(temp_project.path())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -152,7 +152,7 @@ fn test_non_interactive_mode_handling() -> Result<()> {
 
     // Test interactive command in non-interactive environment
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "run"])
+        .args(&["run", "--bin", "hpm", "run"])
         .current_dir(temp_project.path())
         .stdin(Stdio::null()) // Explicitly no stdin
         .stdout(Stdio::piped())
@@ -179,7 +179,7 @@ fn test_script_context_detection() -> Result<()> {
 
     // Test from project root
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "run", "build"])
+        .args(&["run", "--bin", "hpm", "run", "build"])
         .current_dir(temp_project.path())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -193,7 +193,7 @@ fn test_script_context_detection() -> Result<()> {
     // Test from app directory
     let app_dir = temp_project.path().join("apps").join("web");
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "run", "start"])
+        .args(&["run", "--bin", "hpm", "run", "start"])
         .current_dir(&app_dir)
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -206,7 +206,7 @@ fn test_script_context_detection() -> Result<()> {
     // Test from package directory
     let package_dir = temp_project.path().join("packages").join("utils");
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "run", "build"])
+        .args(&["run", "--bin", "hpm", "run", "build"])
         .current_dir(&package_dir)
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -227,16 +227,16 @@ fn test_script_execution_safety() -> Result<()> {
     let temp_dir = TempDir::new()?;
 
     // Create a project with potentially dangerous script names
-    let knot_yml_dangerous = r#"
+    let hpm_yml_dangerous = r#"
 name: test-project
 scripts:
   "normal-script": "echo 'safe command'"
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), knot_yml_dangerous)?;
+    fs::write(temp_dir.path().join("hpm.yml"), hpm_yml_dangerous)?;
 
     // Test normal script execution
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "run", "normal-script"])
+        .args(&["run", "--bin", "hpm", "run", "normal-script"])
         .current_dir(temp_dir.path())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -261,13 +261,13 @@ fn test_working_directory_validation() -> Result<()> {
 
     // Verify the directory structure was created correctly
     assert!(temp_project.path().exists(), "Project directory should exist");
-    assert!(temp_project.path().join("knot.yml").exists(), "knot.yml should exist");
+    assert!(temp_project.path().join("hpm.yml").exists(), "hpm.yml should exist");
     assert!(app_dir.exists(), "App directory should exist");
     assert!(app_dir.join("app.yml").exists(), "app.yml should exist");
 
     // Test command execution from valid directory
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "run", "start"])
+        .args(&["run", "--bin", "hpm", "run", "start"])
         .current_dir(&app_dir)
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -289,7 +289,7 @@ fn test_error_message_quality() -> Result<()> {
 
     // Test error when no config files exist
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "run", "build"])
+        .args(&["run", "--bin", "hpm", "run", "build"])
         .current_dir(temp_dir.path())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -300,19 +300,19 @@ fn test_error_message_quality() -> Result<()> {
     let stderr = String::from_utf8_lossy(&output.stderr);
 
     // Should provide helpful error message
-    assert!(stdout.contains("No knot.yml") || stdout.contains("config") ||
-            stderr.contains("No knot.yml") || stderr.contains("config"),
+    assert!(stdout.contains("No hpm.yml") || stdout.contains("config") ||
+            stderr.contains("No hpm.yml") || stderr.contains("config"),
            "Should provide helpful error when no config files exist");
 
     // Create empty project with no scripts
-    let knot_yml_no_scripts = r#"
+    let hpm_yml_no_scripts = r#"
 name: empty-project
 description: Project with no scripts
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), knot_yml_no_scripts)?;
+    fs::write(temp_dir.path().join("hpm.yml"), hpm_yml_no_scripts)?;
 
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "run"])
+        .args(&["run", "--bin", "hpm", "run"])
         .current_dir(temp_dir.path())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -338,18 +338,18 @@ fn test_script_name_and_command_validation() -> Result<()> {
     let temp_dir = TempDir::new()?;
 
     // Create project with valid scripts for baseline
-    let knot_yml = r#"
+    let hpm_yml = r#"
 name: validation-test
 scripts:
   build: "echo 'Building...'"
   test: "echo 'Testing...'"
   valid-script-name: "echo 'Valid script'"
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
     // Test valid script execution
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "run", "build"])
+        .args(&["run", "--bin", "hpm", "run", "build"])
         .current_dir(temp_dir.path())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -386,7 +386,7 @@ fn test_context_label_format() -> Result<()> {
     for (dir, expected_context) in contexts {
         if dir.exists() {
             let output = Command::new("cargo")
-                .args(&["run", "--bin", "knot", "run"])
+                .args(&["run", "--bin", "hpm", "run"])
                 .current_dir(&dir)
                 .stdin(Stdio::null())
                 .stdout(Stdio::piped())

@@ -22,7 +22,7 @@ pub async fn run_script(script_name: &str) -> Result<()> {
     validate_script_name(&sanitized_script_name)?;
 
     // First try to find script in current directory config files
-    // Priority: app.yml/yaml > package.yml/yaml > knot.yml/yaml (project root)
+    // Priority: app.yml/yaml > package.yml/yaml > hpm.yml/yaml (project root)
 
     // Check if we're in an app directory (has app.yml or app.yaml)
     if let Some(app_config_path) = utils::find_yaml_file(&current_dir, "app") {
@@ -38,17 +38,17 @@ pub async fn run_script(script_name: &str) -> Result<()> {
         }
     }
 
-    // Check project root for knot.yml
+    // Check project root for hpm.yml
     let project = match Project::find_and_load(&current_dir) {
         Ok(project) => project,
         Err(_) => {
-            println!("❌ No knot.yml/yaml, app.yml/yaml, or package.yml/yaml found");
+            println!("❌ No hpm.yml/yaml, app.yml/yaml, or package.yml/yaml found");
             println!("💡 Run from a directory containing one of these config files");
             return Ok(());
         }
     };
 
-    // Check knot.yml for scripts
+    // Check hpm.yml for scripts
     if let Some(scripts) = &project.config.scripts {
         if let Some(script_command) = scripts.get(script_name) {
             return execute_script(script_name, script_command, &project.root, "project").await;
@@ -69,7 +69,7 @@ pub async fn run_script_interactive() -> Result<()> {
     // Check if we're in an interactive environment
     if !is_interactive() {
         display_error("Interactive mode requires a terminal");
-        display_info("Use 'knot run <script_name>' to run a specific script");
+        display_info("Use 'hpm run <script_name>' to run a specific script");
         return Ok(());
     }
 
@@ -133,11 +133,11 @@ pub async fn run_script_interactive() -> Result<()> {
         let has_project = project.is_some();
         
         if !has_app_config && !has_package_config && !has_project {
-            display_error("No knot.yml/yaml, app.yml/yaml, or package.yml/yaml found");
+            display_error("No hpm.yml/yaml, app.yml/yaml, or package.yml/yaml found");
             display_info("Run from a directory containing one of these config files");
         } else {
             display_error("No scripts found");
-            display_info("Add scripts to knot.yml/yaml, app.yml/yaml, or package.yml/yaml");
+            display_info("Add scripts to hpm.yml/yaml, app.yml/yaml, or package.yml/yaml");
             println!("\n{}", style("Example:").bold());
             println!("scripts:");
             println!("  build: \"npm run build\"");
@@ -223,11 +223,11 @@ async fn execute_script(
 ) -> Result<()> {
     // Validate script name and command
     if script_name.is_empty() {
-        anyhow::bail!("Script name cannot be empty when executing script\n💡 Provide a script name as argument: knot run <script-name>\n💡 Use 'knot run' without arguments for interactive selection");
+        anyhow::bail!("Script name cannot be empty when executing script\n💡 Provide a script name as argument: hpm run <script-name>\n💡 Use 'hpm run' without arguments for interactive selection");
     }
 
     if script_command.is_empty() {
-        anyhow::bail!("Script command cannot be empty for script '{}'\n💡 Add a command to your script in knot.yml, app.yml, or package.yml\n💡 Example: scripts:\n    {}: \"npm start\"", script_name, script_name);
+        anyhow::bail!("Script command cannot be empty for script '{}'\n💡 Add a command to your script in hpm.yml, app.yml, or package.yml\n💡 Example: scripts:\n    {}: \"npm start\"", script_name, script_name);
     }
 
     // Check working directory exists and is accessible

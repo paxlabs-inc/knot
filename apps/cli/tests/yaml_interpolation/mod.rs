@@ -30,7 +30,7 @@ impl Default for YamlInterpolator {
 impl YamlInterpolator {
     pub fn new() -> Self {
         let mut built_in_vars = HashMap::new();
-        built_in_vars.insert("project_name".to_string(), "knot-test".to_string());
+        built_in_vars.insert("project_name".to_string(), "hpm-test".to_string());
         built_in_vars.insert("workspace_root".to_string(), "/test/workspace".to_string());
         built_in_vars.insert("timestamp".to_string(), "2024-01-01T00:00:00Z".to_string());
 

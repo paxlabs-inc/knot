@@ -74,13 +74,13 @@
 </script>
 
 <svelte:head>
-	<title>Sign Up - Knot Space</title>
+	<title>Sign Up - HPM Registry</title>
 </svelte:head>
 
 <div class="max-w-md mx-auto">
 	<div class="text-center mb-8">
 		<h1 class="text-3xl font-bold mb-2" style="font-family: 'Gambarino', 'Satoshi', sans-serif;">Create Account</h1>
-		<p class="text-muted-foreground">Join Knot Space and start publishing packages</p>
+		<p class="text-muted-foreground">Join HPM Registry and start publishing packages</p>
 	</div>
 
 	<div class="border rounded-lg p-6">

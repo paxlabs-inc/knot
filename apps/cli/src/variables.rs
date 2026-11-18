@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 use anyhow::{Context, Result};
-use crate::config::{KnotConfig, AppConfig, PackageConfig};
+use crate::config::{HpmConfig, AppConfig, PackageConfig};
 #[cfg(test)]
 use crate::config::ConfigVariable;
 
@@ -14,7 +14,7 @@ use crate::config::ConfigVariable;
 pub struct VariableContext {
     /// Built-in system variables
     built_in: HashMap<String, String>,
-    /// Project-level variables from knot.yml
+    /// Project-level variables from hpm.yml
     project: HashMap<String, String>,
     /// App-level variables from app.yml
     app: HashMap<String, String>,
@@ -57,8 +57,8 @@ impl VariableContext {
         }
     }
     
-    /// Add project variables from KnotConfig
-    pub fn with_project_variables(mut self, config: &KnotConfig) -> Self {
+    /// Add project variables from HpmConfig
+    pub fn with_project_variables(mut self, config: &HpmConfig) -> Self {
         if let Some(variables) = &config.variables {
             for (key, var) in variables {
                 self.project.insert(key.clone(), var.get_value().to_string());
@@ -236,7 +236,7 @@ impl VariableInterpolation for Option<String> {
     }
 }
 
-impl VariableInterpolation for KnotConfig {
+impl VariableInterpolation for HpmConfig {
     fn interpolate_variables(&mut self, context: &VariableContext) -> Result<()> {
         // Interpolate description
         self.description.interpolate_variables(context)
@@ -358,7 +358,7 @@ mod tests {
     #[test]
     fn test_variable_context_precedence() {
         let context = VariableContext::new("test-project", Path::new("/test"))
-            .with_project_variables(&KnotConfig {
+            .with_project_variables(&HpmConfig {
                 name: "test".to_string(),
                 description: None,
                 ts_alias: None,

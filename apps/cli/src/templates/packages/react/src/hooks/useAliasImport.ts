@@ -15,7 +15,7 @@ export interface UseAliasImportResult {
 
 /**
  * Hook for working with alias-imported packages
- * This demonstrates patterns that work with Knot's alias system
+ * This demonstrates patterns that work with HPM's alias system
  */
 export const useAliasImport = (config: AliasImportConfig): UseAliasImportResult => {
   const [packageData, setPackageData] = useState<PackageMetadata | null>(null);

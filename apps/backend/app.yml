@@ -1,5 +1,5 @@
-name: knot-space
-description: Online repository server for Knot packages
+name: hpm-registry
+description: Online repository server for HPM packages
 tsAlias: null
 packages:
 - '@hono-modules-loader'
@@ -8,12 +8,12 @@ scripts:
   build-release: cargo build --release
   clean: cargo clean
   fmt-check: cargo fmt -- --check
-  docker-build: docker build -t knot-space .
+  docker-build: docker build -t hpm-registry .
   fmt: cargo fmt
   doc: cargo doc --open
   check: cargo check
   serve: cargo run --release
-  docker-run: docker run -p 8000:8000 knot-space
+  docker-run: docker run -p 8000:8000 hpm-registry
   lint: cargo clippy -- -D warnings
   load-test: echo 'Load testing not implemented yet'
   test: cargo test

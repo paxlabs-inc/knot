@@ -4,10 +4,10 @@ use std::fs;
 use std::path::Path;
 use tempfile::TempDir;
 
-// Test helper to execute knot command and capture output
-fn run_knot_command(args: &[&str], working_dir: &std::path::Path) -> (String, String, bool) {
+// Test helper to execute hpm command and capture output
+fn run_hpm_command(args: &[&str], working_dir: &std::path::Path) -> (String, String, bool) {
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot"])
+        .args(&["run", "--bin", "hpm"])
         .args(args)
         .current_dir(working_dir)
         .stdin(Stdio::null())
@@ -27,8 +27,8 @@ fn run_knot_command(args: &[&str], working_dir: &std::path::Path) -> (String, St
 fn create_complete_project() -> Result<TempDir> {
     let temp_dir = TempDir::new()?;
 
-    // Create main knot.yml
-    let knot_yml = r#"
+    // Create main hpm.yml
+    let hpm_yml = r#"
 name: integration-test-project
 description: A complete test project for UX integration testing
 tsAlias: true
@@ -59,7 +59,7 @@ variables:
   api_url: "https://api.example.com"
   build_env: "production"
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
     // Create apps directory structure
     let apps_dir = temp_dir.path().join("apps");
@@ -242,7 +242,7 @@ fn test_complete_project_workflow() -> Result<()> {
     let project = create_complete_project()?;
 
     // Test project status from root
-    let (stdout, stderr, success) = run_knot_command(&["status"], project.path());
+    let (stdout, stderr, success) = run_hpm_command(&["status"], project.path());
     let output = format!("{}{}", stdout, stderr);
 
     // Status should work without errors and provide useful information
@@ -260,7 +260,7 @@ fn test_complete_project_workflow() -> Result<()> {
 
     for (context_path, script, context_name) in contexts {
         if context_path.exists() {
-            let (stdout, stderr, success) = run_knot_command(&["run", script], &context_path);
+            let (stdout, stderr, success) = run_hpm_command(&["run", script], &context_path);
             let output = format!("{}{}", stdout, stderr);
 
             // Should either succeed or provide helpful feedback
@@ -294,7 +294,7 @@ fn test_interactive_script_discovery() -> Result<()> {
     for location in test_locations {
         if location.exists() {
             // Test interactive mode (will fail in non-interactive environment, but should be graceful)
-            let (stdout, stderr, _) = run_knot_command(&["run"], &location);
+            let (stdout, stderr, _) = run_hpm_command(&["run"], &location);
             let output = format!("{}{}", stdout, stderr);
 
             // Should handle non-interactive gracefully and provide script information
@@ -303,7 +303,7 @@ fn test_interactive_script_discovery() -> Result<()> {
             }
 
             // Test script listing with nonexistent script (should show available scripts)
-            let (stdout, stderr, _) = run_knot_command(&["run", "nonexistent-script"], &location);
+            let (stdout, stderr, _) = run_hpm_command(&["run", "nonexistent-script"], &location);
             let output = format!("{}{}", stdout, stderr);
 
             if output.contains("Available scripts") || output.contains("not found") {
@@ -333,7 +333,7 @@ fn test_context_aware_execution() -> Result<()> {
     for (context_path, context_name) in contexts {
         if context_path.exists() {
             // Try running "build" script which exists in most contexts
-            let (stdout, stderr, success) = run_knot_command(&["run", "build"], &context_path);
+            let (stdout, stderr, success) = run_hpm_command(&["run", "build"], &context_path);
             let output = format!("{}{}", stdout, stderr);
 
             // Should execute context-appropriate script
@@ -344,7 +344,7 @@ fn test_context_aware_execution() -> Result<()> {
             }
 
             // Try running "test" script
-            let (stdout, stderr, success) = run_knot_command(&["run", "test"], &context_path);
+            let (stdout, stderr, success) = run_hpm_command(&["run", "test"], &context_path);
             let output = format!("{}{}", stdout, stderr);
 
             if success {
@@ -371,14 +371,14 @@ fn test_error_recovery_workflow() -> Result<()> {
     let empty_dir = project.path().join("empty");
     fs::create_dir_all(&empty_dir)?;
 
-    let (stdout, stderr, success) = run_knot_command(&["run", "build"], &empty_dir);
+    let (stdout, stderr, success) = run_hpm_command(&["run", "build"], &empty_dir);
     assert!(!success, "Should fail in directory without config");
     let output = format!("{}{}", stdout, stderr);
-    assert!(output.contains("knot.yml") || output.contains("config"),
+    assert!(output.contains("hpm.yml") || output.contains("config"),
            "Should provide helpful guidance: {}", output);
 
     // 2. Try to run nonexistent script and verify helpful error
-    let (stdout, stderr, success) = run_knot_command(&["run", "nonexistent"], project.path());
+    let (stdout, stderr, success) = run_hpm_command(&["run", "nonexistent"], project.path());
     let output = format!("{}{}", stdout, stderr);
     if !success {
         assert!(output.contains("not found") || output.contains("Available"),
@@ -387,7 +387,7 @@ fn test_error_recovery_workflow() -> Result<()> {
 
     // 3. Test recovery when switching between contexts
     let web_dir = project.path().join("apps").join("web");
-    let (stdout, stderr, _) = run_knot_command(&["run", "migrate"], &web_dir);
+    let (stdout, stderr, _) = run_hpm_command(&["run", "migrate"], &web_dir);
     let output = format!("{}{}", stdout, stderr);
     // Web app doesn't have migrate script, should suggest available ones
     if output.contains("not found") {
@@ -414,7 +414,7 @@ fn test_help_and_guidance_integration() -> Result<()> {
     ];
 
     for command in help_commands {
-        let (stdout, stderr, _) = run_knot_command(&command, project.path());
+        let (stdout, stderr, _) = run_hpm_command(&command, project.path());
         let output = format!("{}{}", stdout, stderr);
 
         if !output.is_empty() {
@@ -441,7 +441,7 @@ fn test_multi_level_script_priority() -> Result<()> {
     // Project has "build-all", apps have "build", packages have "build"
 
     // From project root - should find project-level "build-all"
-    let (stdout, stderr, success) = run_knot_command(&["run", "build-all"], project.path());
+    let (stdout, stderr, success) = run_hpm_command(&["run", "build-all"], project.path());
     let output = format!("{}{}", stdout, stderr);
     if success {
         println!("✓ Project-level script found from root");
@@ -449,7 +449,7 @@ fn test_multi_level_script_priority() -> Result<()> {
 
     // From app directory - should find app-level "build" first
     let web_dir = project.path().join("apps").join("web");
-    let (stdout, stderr, success) = run_knot_command(&["run", "build"], &web_dir);
+    let (stdout, stderr, success) = run_hpm_command(&["run", "build"], &web_dir);
     let output = format!("{}{}", stdout, stderr);
     if success {
         println!("✓ App-level script prioritized in app directory");
@@ -457,7 +457,7 @@ fn test_multi_level_script_priority() -> Result<()> {
 
     // From package directory - should find package-level "build" first
     let utils_dir = project.path().join("packages").join("utils");
-    let (stdout, stderr, success) = run_knot_command(&["run", "build"], &utils_dir);
+    let (stdout, stderr, success) = run_hpm_command(&["run", "build"], &utils_dir);
     let output = format!("{}{}", stdout, stderr);
     if success {
         println!("✓ Package-level script prioritized in package directory");
@@ -474,7 +474,7 @@ fn test_comprehensive_status_output() -> Result<()> {
     let project = create_complete_project()?;
 
     // Test status command provides comprehensive information
-    let (stdout, stderr, success) = run_knot_command(&["status"], project.path());
+    let (stdout, stderr, success) = run_hpm_command(&["status"], project.path());
     let output = format!("{}{}", stdout, stderr);
 
     // Status should work and provide useful information
@@ -500,7 +500,7 @@ fn test_linking_workflow() -> Result<()> {
     let project = create_complete_project()?;
 
     // Test package linking
-    let (stdout, stderr, success) = run_knot_command(&["link"], project.path());
+    let (stdout, stderr, success) = run_hpm_command(&["link"], project.path());
     let output = format!("{}{}", stdout, stderr);
 
     // Linking should either work or provide helpful feedback
@@ -513,7 +513,7 @@ fn test_linking_workflow() -> Result<()> {
     }
 
     // Test linking with symlinks option
-    let (stdout, stderr, success) = run_knot_command(&["link", "--symlink"], project.path());
+    let (stdout, stderr, success) = run_hpm_command(&["link", "--symlink"], project.path());
     let output = format!("{}{}", stdout, stderr);
 
     // Should handle symlink option appropriately
@@ -532,7 +532,7 @@ fn test_variable_resolution_workflow() -> Result<()> {
     let project = create_complete_project()?;
 
     // Test variable listing
-    let (stdout, stderr, success) = run_knot_command(&["vars", "list"], project.path());
+    let (stdout, stderr, success) = run_hpm_command(&["vars", "list"], project.path());
     let output = format!("{}{}", stdout, stderr);
 
     if success || output.contains("variable") {
@@ -540,7 +540,7 @@ fn test_variable_resolution_workflow() -> Result<()> {
     }
 
     // Test getting specific variable
-    let (stdout, stderr, success) = run_knot_command(&["vars", "get", "project_version"], project.path());
+    let (stdout, stderr, success) = run_hpm_command(&["vars", "get", "project_version"], project.path());
     let output = format!("{}{}", stdout, stderr);
 
     if success || output.contains("variable") || output.contains("1.0.0") {
@@ -550,7 +550,7 @@ fn test_variable_resolution_workflow() -> Result<()> {
     // Test variable listing from app context
     let web_dir = project.path().join("apps").join("web");
     if web_dir.exists() {
-        let (stdout, stderr, success) = run_knot_command(&["vars", "list"], &web_dir);
+        let (stdout, stderr, success) = run_hpm_command(&["vars", "list"], &web_dir);
         let output = format!("{}{}", stdout, stderr);
 
         if success || output.contains("variable") {

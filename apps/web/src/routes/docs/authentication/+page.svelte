@@ -24,7 +24,7 @@
 			Authentication
 		</h1>
 		<p class="text-lg text-muted-foreground">
-			Set up authentication to publish and manage packages with Knot CLI
+			Set up authentication to publish and manage packages with HPM CLI
 		</p>
 	</div>
 
@@ -33,8 +33,8 @@
 		<h2 class="text-2xl font-bold mb-6">How Authentication Works</h2>
 		<div class="space-y-6">
 			<p class="text-muted-foreground leading-relaxed">
-				Knot uses JWT (JSON Web Token) based authentication for secure package publishing and management. 
-				You'll need to authenticate with Knot Space to publish packages, manage teams, and access private packages.
+				HPM uses JWT (JSON Web Token) based authentication for secure package publishing and management. 
+				You'll need to authenticate with HPM Registry to publish packages, manage teams, and access private packages.
 			</p>
 			
 			<div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
@@ -67,7 +67,7 @@
 				</div>
 				<div class="ml-9 space-y-3">
 					<p class="text-muted-foreground">
-						First, you'll need a Knot Space account. You can create one or sign in if you already have an account.
+						First, you'll need a HPM Registry account. You can create one or sign in if you already have an account.
 					</p>
 					<div class="flex flex-wrap gap-3">
 						<a href="/register" class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-md hover:bg-primary/90 transition-colors">
@@ -95,10 +95,10 @@
 						Once logged in, go to your account settings to access your authentication token.
 					</p>
 					<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-						<code>https://knot-space-production.up.railway.app/settings</code>
+						<code>https://backend-production-4dbc03a7.up.railway.app/settings</code>
 						<button 
 							class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-							on:click={() => copyToClipboard('https://knot-space-production.up.railway.app/settings')}
+							on:click={() => copyToClipboard('https://backend-production-4dbc03a7.up.railway.app/settings')}
 						>
 							{#if showCopied && copyText.includes('settings')}
 								<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
@@ -145,7 +145,7 @@
 
 	<!-- Setting Up CLI -->
 	<section class="mb-12">
-		<h2 class="text-2xl font-bold mb-6">Configure Knot CLI</h2>
+		<h2 class="text-2xl font-bold mb-6">Configure HPM CLI</h2>
 		
 		<div class="space-y-6">
 			<div>
@@ -160,10 +160,10 @@
 						<div>
 							<h4 class="font-medium mb-2">macOS / Linux</h4>
 							<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded-lg relative group">
-								<code>export KNOT_TOKEN=your-token-here</code>
+								<code>export HPM_TOKEN=your-token-here</code>
 								<button 
 									class="absolute top-1 right-1 p-1.5 rounded bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-									on:click={() => copyToClipboard('export KNOT_TOKEN=your-token-here')}
+									on:click={() => copyToClipboard('export HPM_TOKEN=your-token-here')}
 								>
 									{#if showCopied && copyText.includes('export')}
 										<Icon icon="lucide:check-circle" class="w-3 h-3 text-green-400" />
@@ -181,12 +181,12 @@
 						<div>
 							<h4 class="font-medium mb-2">Windows</h4>
 							<div class="bg-blue-900 text-blue-100 font-mono text-sm p-3 rounded-lg relative group">
-								<code>set KNOT_TOKEN=your-token-here</code>
+								<code>set HPM_TOKEN=your-token-here</code>
 								<button 
 									class="absolute top-1 right-1 p-1.5 rounded bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-									on:click={() => copyToClipboard('set KNOT_TOKEN=your-token-here')}
+									on:click={() => copyToClipboard('set HPM_TOKEN=your-token-here')}
 								>
-									{#if showCopied && copyText.includes('set KNOT_TOKEN')}
+									{#if showCopied && copyText.includes('set HPM_TOKEN')}
 										<Icon icon="lucide:check-circle" class="w-3 h-3 text-green-400" />
 									{:else}
 										<Icon icon="lucide:copy" class="w-3 h-3" />
@@ -208,12 +208,12 @@
 						Alternatively, you can store your token in a configuration file.
 					</p>
 					<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg">
-						<code><span class="text-gray-400"># ~/.knotrc</span>
-<span class="text-blue-400">KNOT_TOKEN</span>=<span class="text-green-400">your-token-here</span>
-<span class="text-blue-400">KNOT_SPACE_URL</span>=<span class="text-green-400">https://knot-space-production.up.railway.app</span></code>
+						<code><span class="text-gray-400"># ~/.hpmrc</span>
+<span class="text-blue-400">HPM_TOKEN</span>=<span class="text-green-400">your-token-here</span>
+<span class="text-blue-400">HPM_REGISTRY_URL</span>=<span class="text-green-400">https://backend-production-4dbc03a7.up.railway.app</span></code>
 					</div>
 					<div class="text-sm text-muted-foreground">
-						The CLI will automatically read from <code>~/.knotrc</code> if it exists.
+						The CLI will automatically read from <code>~/.hpmrc</code> if it exists.
 					</div>
 				</div>
 			</div>
@@ -228,12 +228,12 @@
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Test your authentication</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>knot auth</code>
+					<code>hpm auth</code>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('knot auth')}
+						on:click={() => copyToClipboard('hpm auth')}
 					>
-						{#if showCopied && copyText === 'knot auth'}
+						{#if showCopied && copyText === 'hpm auth'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -272,7 +272,7 @@
 						</h4>
 						<ul class="text-sm text-muted-foreground space-y-1 ml-6">
 							<li>• Check your internet connection</li>
-							<li>• Verify the KNOT_SPACE_URL is correct</li>
+							<li>• Verify the HPM_REGISTRY_URL is correct</li>
 							<li>• Check if you're behind a corporate firewall</li>
 						</ul>
 					</div>
@@ -287,20 +287,20 @@
 		
 		<div class="space-y-6">
 			<p class="text-muted-foreground">
-				If you're using a self-hosted Knot Space instance, you'll need to configure the CLI 
+				If you're using a self-hosted HPM Registry instance, you'll need to configure the CLI 
 				to point to your instance URL.
 			</p>
 
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Configure custom URL</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>export KNOT_SPACE_URL=https://your-knot-instance.com
-export KNOT_TOKEN=your-auth-token</code>
+					<code>export HPM_REGISTRY_URL=https://your-hpm-instance.com
+export HPM_TOKEN=your-auth-token</code>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('export KNOT_SPACE_URL=https://your-knot-instance.com\nexport KNOT_TOKEN=your-auth-token')}
+						on:click={() => copyToClipboard('export HPM_REGISTRY_URL=https://your-hpm-instance.com\nexport HPM_TOKEN=your-auth-token')}
 					>
-						{#if showCopied && copyText.includes('your-knot-instance')}
+						{#if showCopied && copyText.includes('your-hpm-instance')}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -312,12 +312,12 @@ export KNOT_TOKEN=your-auth-token</code>
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Verify connection</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>knot auth</code>
+					<code>hpm auth</code>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('knot auth')}
+						on:click={() => copyToClipboard('hpm auth')}
 					>
-						{#if showCopied && copyText === 'knot auth'}
+						{#if showCopied && copyText === 'hpm auth'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -371,7 +371,7 @@ export KNOT_TOKEN=your-auth-token</code>
 					<li>• Tokens automatically expire for security</li>
 					<li>• Generate new tokens from your settings</li>
 					<li>• Old tokens are invalidated when new ones are created</li>
-					<li>• Check token status with <code>knot auth</code></li>
+					<li>• Check token status with <code>hpm auth</code></li>
 				</ul>
 			</div>
 

@@ -172,7 +172,7 @@ impl ResolutionError {
         ResolutionError::NetworkError {
             package,
             error: error.into(),
-            retry_suggestion: "Check your network connection and try again. You can also try clearing the cache with 'knot cache clean'.".to_string(),
+            retry_suggestion: "Check your network connection and try again. You can also try clearing the cache with 'hpm cache clean'.".to_string(),
         }
     }
 

@@ -60,8 +60,8 @@ pnpm-debug.log*
 .docker/
 docker-compose.override.yml
 
-# Knot-specific
-# knot_packages/ are now committed via pre-commit hook
+# HPM-specific
+# hpm_packages/ are now committed via pre-commit hook
 
 # Development artifacts
 test-*

@@ -162,7 +162,7 @@ impl LocalPackageRegistry {
 
         let source = if name.starts_with('@') {
             PackageSource::Remote {
-                registry: "knot-space".to_string(),
+                registry: "hpm-registry".to_string(),
             }
         } else {
             PackageSource::Local
@@ -451,14 +451,14 @@ impl RemotePackageRegistry {
         for dep in deps {
             let version_req = semver::VersionReq::parse(&dep.version)
                 .map_err(|e| ResolutionError::invalid_version(
-                    PackageId::remote(&dep.name, "knot-space"),
+                    PackageId::remote(&dep.name, "hpm-registry"),
                     dep.version.clone(),
                     e.to_string()
                 ))?;
 
             let source = if dep.name.starts_with('@') {
                 PackageSource::Remote {
-                    registry: "knot-space".to_string(),
+                    registry: "hpm-registry".to_string(),
                 }
             } else {
                 PackageSource::Local

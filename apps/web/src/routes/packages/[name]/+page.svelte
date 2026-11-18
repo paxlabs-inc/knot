@@ -113,19 +113,19 @@
 
 <svelte:head>
 	{#if selectedPackage}
-		<title>{selectedPackage.name} v{selectedPackage.version} - Knot Space Package</title>
-		<meta name="description" content="{selectedPackage.description || `${selectedPackage.name} - A package in the Knot Space registry`}. Version {selectedPackage.version} by {selectedPackage.owner.username}{selectedPackage.team ? ` (${selectedPackage.team.name} team)` : ''}. {formatDownloadCount(selectedPackage.totalDownloadsCount || selectedPackage.downloadsCount)} downloads." />
-		<meta name="keywords" content="package, {selectedPackage.name}, knot space, monorepo, programming, development, {selectedPackage.tags ? selectedPackage.tags.join(', ') : ''}" />
+		<title>{selectedPackage.name} v{selectedPackage.version} - HPM Registry Package</title>
+		<meta name="description" content="{selectedPackage.description || `${selectedPackage.name} - A package in the HPM Registry registry`}. Version {selectedPackage.version} by {selectedPackage.owner.username}{selectedPackage.team ? ` (${selectedPackage.team.name} team)` : ''}. {formatDownloadCount(selectedPackage.totalDownloadsCount || selectedPackage.downloadsCount)} downloads." />
+		<meta name="keywords" content="package, {selectedPackage.name}, hpm space, monorepo, programming, development, {selectedPackage.tags ? selectedPackage.tags.join(', ') : ''}" />
 		<meta name="author" content="{selectedPackage.owner.username}" />
 		
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="article" />
-		<meta property="og:url" content="https://knot.klysium.com/packages/{encodeURIComponent(selectedPackage.name)}" />
-		<meta property="og:title" content="{selectedPackage.name} v{selectedPackage.version} - Knot Space Package" />
-		<meta property="og:description" content="{selectedPackage.description || `${selectedPackage.name} package in the Knot Space registry`}. Version {selectedPackage.version} by {selectedPackage.owner.username}." />
-		<meta property="og:image" content="https://knot.klysium.com/images/og/package.png" />
+		<meta property="og:url" content="https://hpm.klysium.com/packages/{encodeURIComponent(selectedPackage.name)}" />
+		<meta property="og:title" content="{selectedPackage.name} v{selectedPackage.version} - HPM Registry Package" />
+		<meta property="og:description" content="{selectedPackage.description || `${selectedPackage.name} package in the HPM Registry registry`}. Version {selectedPackage.version} by {selectedPackage.owner.username}." />
+		<meta property="og:image" content="https://hpm.klysium.com/images/og/package.png" />
 		<meta property="og:image:alt" content="{selectedPackage.name} Package" />
-		<meta property="og:site_name" content="Knot Space" />
+		<meta property="og:site_name" content="HPM Registry" />
 		<meta property="article:author" content="{selectedPackage.owner.username}" />
 		<meta property="article:published_time" content="{selectedPackage.createdAt}" />
 		{#if selectedPackage.tags}
@@ -136,17 +136,17 @@
 
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:url" content="https://knot.klysium.com/packages/{encodeURIComponent(selectedPackage.name)}" />
-		<meta name="twitter:title" content="{selectedPackage.name} v{selectedPackage.version} - Knot Space Package" />
+		<meta name="twitter:url" content="https://hpm.klysium.com/packages/{encodeURIComponent(selectedPackage.name)}" />
+		<meta name="twitter:title" content="{selectedPackage.name} v{selectedPackage.version} - HPM Registry Package" />
 		<meta name="twitter:description" content="{selectedPackage.description || `${selectedPackage.name} package`}. By {selectedPackage.owner.username} • {formatDownloadCount(selectedPackage.totalDownloadsCount || selectedPackage.downloadsCount)} downloads" />
-		<meta name="twitter:image" content="https://knot.klysium.com/images/og/package.png" />
+		<meta name="twitter:image" content="https://hpm.klysium.com/images/og/package.png" />
 		<meta name="twitter:image:alt" content="{selectedPackage.name} Package" />
-		<meta name="twitter:creator" content="@knotspace" />
-		<meta name="twitter:site" content="@knotspace" />
+		<meta name="twitter:creator" content="@hpmregistry" />
+		<meta name="twitter:site" content="@hpmregistry" />
 
 		<!-- Additional SEO -->
 		<meta name="robots" content="index, follow" />
-		<link rel="canonical" href="https://knot.klysium.com/packages/{encodeURIComponent(selectedPackage.name)}" />
+		<link rel="canonical" href="https://hpm.klysium.com/packages/{encodeURIComponent(selectedPackage.name)}" />
 		
 		<!-- Schema.org structured data -->
 		<script type="application/ld+json">
@@ -156,19 +156,19 @@
 			"name": "{selectedPackage.name}",
 			"description": "{selectedPackage.description || `${selectedPackage.name} package`}",
 			"version": "{selectedPackage.version}",
-			"url": "https://knot.klysium.com/packages/{encodeURIComponent(selectedPackage.name)}",
+			"url": "https://hpm.klysium.com/packages/{encodeURIComponent(selectedPackage.name)}",
 			"author": {
 				"@type": "Person",
 				"name": "{selectedPackage.owner.username}"
 			},
 			"publisher": {
 				"@type": "Organization",
-				"name": "Knot Space",
-				"url": "https://knot.klysium.com"
+				"name": "HPM Registry",
+				"url": "https://hpm.klysium.com"
 			},
 			"datePublished": "{selectedPackage.createdAt}",
 			"dateModified": "{selectedPackage.updatedAt}",
-			"downloadUrl": "https://knot.klysium.com/packages/{encodeURIComponent(selectedPackage.name)}",
+			"downloadUrl": "https://hpm.klysium.com/packages/{encodeURIComponent(selectedPackage.name)}",
 			"applicationCategory": "DeveloperApplication",
 			"operatingSystem": "Any",
 			{#if selectedPackage.tags && selectedPackage.tags.length > 0}
@@ -181,27 +181,27 @@
 						"@type": "ListItem",
 						"position": 1,
 						"name": "Home",
-						"item": "https://knot.klysium.com"
+						"item": "https://hpm.klysium.com"
 					},
 					{
 						"@type": "ListItem",
 						"position": 2,
 						"name": "Packages",
-						"item": "https://knot.klysium.com/packages"
+						"item": "https://hpm.klysium.com/packages"
 					},
 					{
 						"@type": "ListItem",
 						"position": 3,
 						"name": "{selectedPackage.name}",
-						"item": "https://knot.klysium.com/packages/{encodeURIComponent(selectedPackage.name)}"
+						"item": "https://hpm.klysium.com/packages/{encodeURIComponent(selectedPackage.name)}"
 					}
 				]
 			}
 		}
 		</script>
 	{:else}
-		<title>{packageName ? `${packageName} - Package` : 'Package'} - Knot Space</title>
-		<meta name="description" content="View package details in the Knot Space registry" />
+		<title>{packageName ? `${packageName} - Package` : 'Package'} - HPM Registry</title>
+		<meta name="description" content="View package details in the HPM Registry registry" />
 		<meta name="robots" content="noindex, follow" />
 	{/if}
 </svelte:head>
@@ -357,10 +357,10 @@
 			<h3 class="text-xl font-semibold">Installation</h3>
 			<div class="bg-muted rounded-lg p-4">
 				<div class="flex items-center justify-between mb-2">
-					<span class="text-sm font-medium">Knot CLI</span>
+					<span class="text-sm font-medium">HPM CLI</span>
 					<button 
 						on:click={async () => {
-							await navigator.clipboard.writeText(`knot install @${selectedPackage.name}@${selectedPackage.version}`);
+							await navigator.clipboard.writeText(`hpm install @${selectedPackage.name}@${selectedPackage.version}`);
 							copySuccess = true;
 							setTimeout(() => copySuccess = false, 2000);
 						}}
@@ -375,7 +375,7 @@
 						{/if}
 					</button>
 				</div>
-				<code class="text-sm">knot install @{selectedPackage.name}@{selectedPackage.version}</code>
+				<code class="text-sm">hpm install @{selectedPackage.name}@{selectedPackage.version}</code>
 			</div>
 		</div>
 

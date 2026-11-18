@@ -14,7 +14,7 @@ pub enum ConfigVariable {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct KnotConfig {
+pub struct HpmConfig {
     pub name: String,
     pub variables: Option<HashMap<String, ConfigVariable>>,
 }
@@ -31,7 +31,7 @@ variables:
 "#;
     
     print!("✅ YAML with quoted numbers (strings): ");
-    match serde_yaml::from_str::<KnotConfig>(working_yaml) {
+    match serde_yaml::from_str::<HpmConfig>(working_yaml) {
         Ok(_) => println!("SUCCESS"),
         Err(e) => println!("FAILED: {}", e),
     }
@@ -45,7 +45,7 @@ variables:
 "#;
     
     print!("❌ YAML with unquoted numbers: ");
-    match serde_yaml::from_str::<KnotConfig>(failing_yaml) {
+    match serde_yaml::from_str::<HpmConfig>(failing_yaml) {
         Ok(_) => println!("SUCCESS (unexpected!)"),
         Err(e) => println!("FAILED: {}", e),
     }

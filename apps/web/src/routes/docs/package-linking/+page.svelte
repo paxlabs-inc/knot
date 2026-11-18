@@ -24,7 +24,7 @@
 			Package Linking
 		</h1>
 		<p class="text-lg text-muted-foreground">
-			Understanding how Knot links packages and manages dependencies in your monorepo
+			Understanding how HPM links packages and manages dependencies in your monorepo
 		</p>
 	</div>
 
@@ -32,8 +32,8 @@
 	<section class="mb-12">
 		<h2 class="text-2xl font-bold mb-6">How Package Linking Works</h2>
 		<p class="text-muted-foreground leading-relaxed mb-6">
-			Knot's package linking system is designed to be simple, reliable, and production-friendly. 
-			Unlike traditional symlink-based approaches, Knot uses a copy-first strategy that works 
+			HPM's package linking system is designed to be simple, reliable, and production-friendly. 
+			Unlike traditional symlink-based approaches, HPM uses a copy-first strategy that works 
 			seamlessly across different environments and deployment scenarios.
 		</p>
 		
@@ -43,7 +43,7 @@
 				<div>
 					<h3 class="font-semibold text-blue-900 mb-2">Copy-First Approach</h3>
 					<p class="text-sm text-blue-700">
-						By default, Knot copies package contents to <code>knot_packages/</code> directories in your apps. 
+						By default, HPM copies package contents to <code>hpm_packages/</code> directories in your apps. 
 						This ensures compatibility with Docker, CI/CD systems, and deployment environments that don't 
 						support symlinks reliably.
 					</p>
@@ -71,7 +71,7 @@
 				
 				<div class="space-y-3">
 					<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded">
-						<code>knot link</code>
+						<code>hpm link</code>
 					</div>
 					
 					<div class="text-sm space-y-2">
@@ -109,7 +109,7 @@
 				
 				<div class="space-y-3">
 					<div class="bg-black/90 text-purple-400 font-mono text-sm p-3 rounded">
-						<code>knot link --symlink</code>
+						<code>hpm link --symlink</code>
 					</div>
 					
 					<div class="text-sm space-y-2">
@@ -150,10 +150,10 @@
 				</div>
 				<div class="ml-9 space-y-3">
 					<p class="text-muted-foreground">
-						Knot reads your project configuration and identifies which packages each app depends on.
+						HPM reads your project configuration and identifies which packages each app depends on.
 					</p>
 					<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg">
-						<code><span class="text-gray-400"># From knot.yml or app.yml</span>
+						<code><span class="text-gray-400"># From hpm.yml or app.yml</span>
 <span class="text-blue-400">apps:</span>
   <span class="text-blue-400">frontend:</span>
     <span class="text-blue-400">packages:</span>
@@ -187,7 +187,7 @@
 						<div class="border rounded p-3">
 							<h4 class="font-medium mb-2">Remote Packages</h4>
 							<div class="text-sm text-muted-foreground">
-								Downloaded from: Knot registry<br>
+								Downloaded from: HPM registry<br>
 								Cached locally for performance
 							</div>
 						</div>
@@ -205,12 +205,12 @@
 				</div>
 				<div class="ml-9 space-y-3">
 					<p class="text-muted-foreground">
-						The <code>knot_packages/</code> directory is created in each app that has package dependencies.
+						The <code>hpm_packages/</code> directory is created in each app that has package dependencies.
 					</p>
 					<div class="bg-muted/30 rounded-lg p-4">
 						<div class="text-sm font-mono">
 							apps/frontend/<br>
-							├── knot_packages/  <span class="text-green-600"># Auto-generated</span><br>
+							├── hpm_packages/  <span class="text-green-600"># Auto-generated</span><br>
 							│   ├── types/<br>
 							│   ├── utils/<br>
 							│   └── @team_shared/  <span class="text-blue-600"># Team packages</span><br>
@@ -238,9 +238,9 @@
   <span class="text-blue-400">"compilerOptions"</span>: {
     <span class="text-blue-400">"baseUrl"</span>: <span class="text-green-400">"."</span>,
     <span class="text-blue-400">"paths"</span>: {
-      <span class="text-green-400">"@/types"</span>: [<span class="text-green-400">"./knot_packages/types"</span>],
-      <span class="text-green-400">"@/utils"</span>: [<span class="text-green-400">"./knot_packages/utils"</span>],
-      <span class="text-green-400">"@/shared"</span>: [<span class="text-green-400">"./knot_packages/@team_shared"</span>]
+      <span class="text-green-400">"@/types"</span>: [<span class="text-green-400">"./hpm_packages/types"</span>],
+      <span class="text-green-400">"@/utils"</span>: [<span class="text-green-400">"./hpm_packages/utils"</span>],
+      <span class="text-green-400">"@/shared"</span>: [<span class="text-green-400">"./hpm_packages/@team_shared"</span>]
     }
   }
 }`}</code></pre>
@@ -256,17 +256,17 @@
 		
 		<div class="space-y-6">
 			<p class="text-muted-foreground">
-				Knot's linking system automatically configures TypeScript path mappings based on your chosen alias prefix, 
+				HPM's linking system automatically configures TypeScript path mappings based on your chosen alias prefix, 
 				making package imports clean and consistent across your applications.
 			</p>
 
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Alias Configuration During Linking</h3>
 				<p class="text-muted-foreground mb-4">
-					When you run <code>knot link</code>, the system reads your alias configuration and updates TypeScript paths accordingly.
+					When you run <code>hpm link</code>, the system reads your alias configuration and updates TypeScript paths accordingly.
 				</p>
 				<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg">
-					<code><span class="text-gray-400"># In knot.yml or app.yml</span>
+					<code><span class="text-gray-400"># In hpm.yml or app.yml</span>
 <span class="text-blue-400">apps:</span>
   <span class="text-blue-400">frontend:</span>
     <span class="text-blue-400">ts_alias:</span> <span class="text-green-400">"@"</span>        <span class="text-gray-400"># Results in @/package-name</span>
@@ -305,11 +305,11 @@
   <span class="text-blue-400">"compilerOptions"</span>: {"{"}
     <span class="text-blue-400">"baseUrl"</span>: <span class="text-green-400">"."</span>,
     <span class="text-blue-400">"paths"</span>: {"{"}
-      <span class="text-green-400">"@/ui-components"</span>: [<span class="text-green-400">"./knot_packages/ui-components"</span>],
-      <span class="text-green-400">"@/shared-types"</span>: [<span class="text-green-400">"./knot_packages/shared-types"</span>]
+      <span class="text-green-400">"@/ui-components"</span>: [<span class="text-green-400">"./hpm_packages/ui-components"</span>],
+      <span class="text-green-400">"@/shared-types"</span>: [<span class="text-green-400">"./hpm_packages/shared-types"</span>]
     {"}"}
   {"}"}, 
-  <span class="text-blue-400">"include"</span>: [<span class="text-green-400">"knot_packages/**/*"</span>]
+  <span class="text-blue-400">"include"</span>: [<span class="text-green-400">"hpm_packages/**/*"</span>]
 {"}"}</code></pre>
 						</div>
 					</div>
@@ -332,7 +332,7 @@
 						</div>
 						<div class="ml-9">
 							<p class="text-sm text-muted-foreground mb-2">
-								Knot scans your configuration to find which packages each app needs.
+								HPM scans your configuration to find which packages each app needs.
 							</p>
 							<div class="bg-black/90 text-white font-mono text-xs p-3 rounded">
 								<code><span class="text-gray-400"># Found packages for frontend app:</span>
@@ -356,9 +356,9 @@
 							</p>
 							<div class="bg-black/90 text-white font-mono text-xs p-3 rounded">
 								<code><span class="text-gray-400"># Generated mappings:</span>
-<span class="text-green-400">"@/ui-components"</span> → <span class="text-blue-400">./knot_packages/ui-components</span>
-<span class="text-green-400">"@/shared-types"</span> → <span class="text-blue-400">./knot_packages/shared-types</span>
-<span class="text-green-400">"@/design-system"</span> → <span class="text-blue-400">./knot_packages/@company_design-system</span></code>
+<span class="text-green-400">"@/ui-components"</span> → <span class="text-blue-400">./hpm_packages/ui-components</span>
+<span class="text-green-400">"@/shared-types"</span> → <span class="text-blue-400">./hpm_packages/shared-types</span>
+<span class="text-green-400">"@/design-system"</span> → <span class="text-blue-400">./hpm_packages/@company_design-system</span></code>
 							</div>
 						</div>
 					</div>
@@ -377,7 +377,7 @@
 							<div class="bg-black/90 text-white font-mono text-xs p-3 rounded">
 								<code><span class="text-gray-400"># Updated tsconfig.json paths section</span>
 <span class="text-blue-400">"paths"</span>: {"{"}
-  <span class="text-green-400">"@/*"</span>: [<span class="text-green-400">"./knot_packages/*"</span>]
+  <span class="text-green-400">"@/*"</span>: [<span class="text-green-400">"./hpm_packages/*"</span>]
 {"}"}</code>
 							</div>
 						</div>
@@ -444,9 +444,9 @@ import {"{ Button }"} from '<span class="text-green-600">@/ui-kit</span>';</code
 					<div class="border rounded-lg p-4 bg-green-50">
 						<h4 class="font-semibold mb-2 text-green-700">Copy Mode</h4>
 						<div class="space-y-2 text-sm">
-							<p class="text-muted-foreground">Packages are copied to knot_packages/</p>
+							<p class="text-muted-foreground">Packages are copied to hpm_packages/</p>
 							<div class="bg-black/90 text-green-400 font-mono text-xs p-2 rounded">
-								<code>knot link</code>
+								<code>hpm link</code>
 							</div>
 							<div class="text-xs text-muted-foreground">
 								→ Stable imports<br>
@@ -459,9 +459,9 @@ import {"{ Button }"} from '<span class="text-green-600">@/ui-kit</span>';</code
 					<div class="border rounded-lg p-4 bg-purple-50">
 						<h4 class="font-semibold mb-2 text-purple-700">Symlink Mode</h4>
 						<div class="space-y-2 text-sm">
-							<p class="text-muted-foreground">Packages are symlinked to knot_packages/</p>
+							<p class="text-muted-foreground">Packages are symlinked to hpm_packages/</p>
 							<div class="bg-black/90 text-purple-400 font-mono text-xs p-2 rounded">
-								<code>knot link --symlink</code>
+								<code>hpm link --symlink</code>
 							</div>
 							<div class="text-xs text-muted-foreground">
 								→ Live updates<br>
@@ -556,7 +556,7 @@ import {"{ Button }"} from '<span class="text-green-600">@/ui-kit</span>';</code
 						<h4 class="font-semibold">Development Environment</h4>
 						<div class="border rounded p-4 bg-purple-50">
 							<div class="bg-black/90 text-purple-400 font-mono text-sm p-3 rounded mb-3">
-								<code>knot link --symlink</code>
+								<code>hpm link --symlink</code>
 							</div>
 							<ul class="text-xs text-muted-foreground space-y-1">
 								<li>• Live package updates</li>
@@ -571,7 +571,7 @@ import {"{ Button }"} from '<span class="text-green-600">@/ui-kit</span>';</code
 						<h4 class="font-semibold">Production Environment</h4>
 						<div class="border rounded p-4 bg-green-50">
 							<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded mb-3">
-								<code>knot link</code>
+								<code>hpm link</code>
 							</div>
 							<ul class="text-xs text-muted-foreground space-y-1">
 								<li>• Stable package versions</li>
@@ -637,7 +637,7 @@ import {"{ Button }"} from '<span class="text-green-600">@/ui-kit</span>';</code
 				</h3>
 				<div class="space-y-3">
 					<p class="text-sm text-muted-foreground">
-						Packages downloaded from Knot registry
+						Packages downloaded from HPM registry
 					</p>
 					<div class="bg-black/90 text-white font-mono text-xs p-3 rounded">
 						<code><span class="text-blue-400">packages:</span>
@@ -662,7 +662,7 @@ import {"{ Button }"} from '<span class="text-green-600">@/ui-kit</span>';</code
 		
 		<div class="space-y-6">
 			<p class="text-muted-foreground">
-				Here's the typical workflow for developing with linked packages in a Knot monorepo.
+				Here's the typical workflow for developing with linked packages in a HPM monorepo.
 			</p>
 
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -674,12 +674,12 @@ import {"{ Button }"} from '<span class="text-green-600">@/ui-kit</span>';</code
 					</h3>
 					<div class="space-y-3">
 						<div class="bg-black/90 text-purple-400 font-mono text-sm p-3 rounded relative group">
-							<code>knot link --symlink</code>
+							<code>hpm link --symlink</code>
 							<button 
 								class="absolute top-1 right-1 p-1.5 rounded bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot link --symlink')}
+								on:click={() => copyToClipboard('hpm link --symlink')}
 							>
-								{#if showCopied && copyText === 'knot link --symlink'}
+								{#if showCopied && copyText === 'hpm link --symlink'}
 									<Icon icon="lucide:check-circle" class="w-3 h-3 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-3 h-3" />
@@ -703,12 +703,12 @@ import {"{ Button }"} from '<span class="text-green-600">@/ui-kit</span>';</code
 					</h3>
 					<div class="space-y-3">
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded relative group">
-							<code>knot link</code>
+							<code>hpm link</code>
 							<button 
 								class="absolute top-1 right-1 p-1.5 rounded bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot link')}
+								on:click={() => copyToClipboard('hpm link')}
 							>
-								{#if showCopied && copyText === 'knot link'}
+								{#if showCopied && copyText === 'hpm link'}
 									<Icon icon="lucide:check-circle" class="w-3 h-3 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-3 h-3" />
@@ -738,12 +738,12 @@ import {"{ Button }"} from '<span class="text-green-600">@/ui-kit</span>';</code
 					<div>
 						<h3 class="font-semibold text-blue-900 mb-2">Pre-commit Hook</h3>
 						<p class="text-sm text-blue-700 mb-3">
-							Knot automatically includes a pre-commit hook that updates copied packages 
+							HPM automatically includes a pre-commit hook that updates copied packages 
 							before each commit, ensuring your linked packages are always current.
 						</p>
 						<div class="bg-black/90 text-green-400 font-mono text-xs p-3 rounded">
 							<code># Automatically runs before each commit
-knot link --update-copied</code>
+hpm link --update-copied</code>
 						</div>
 					</div>
 				</div>
@@ -755,12 +755,12 @@ knot link --update-copied</code>
 					You can also manually update copied packages when needed:
 				</p>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>knot link --force</code>
+					<code>hpm link --force</code>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('knot link --force')}
+						on:click={() => copyToClipboard('hpm link --force')}
 					>
-						{#if showCopied && copyText === 'knot link --force'}
+						{#if showCopied && copyText === 'hpm link --force'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -792,7 +792,7 @@ knot link --update-copied</code>
 						</div>
 						<div>
 							<div class="font-medium">TypeScript errors</div>
-							<div class="text-muted-foreground">Run <code>knot link --force</code> to refresh</div>
+							<div class="text-muted-foreground">Run <code>hpm link --force</code> to refresh</div>
 						</div>
 						<div>
 							<div class="font-medium">Import paths not working</div>
@@ -808,15 +808,15 @@ knot link --update-copied</code>
 					</h3>
 					<div class="space-y-3 text-sm">
 						<div>
-							<div class="font-medium"><code>knot status</code></div>
+							<div class="font-medium"><code>hpm status</code></div>
 							<div class="text-muted-foreground">Show project and linking status</div>
 						</div>
 						<div>
-							<div class="font-medium"><code>knot link --verbose</code></div>
+							<div class="font-medium"><code>hpm link --verbose</code></div>
 							<div class="text-muted-foreground">Detailed linking output</div>
 						</div>
 						<div>
-							<div class="font-medium"><code>knot link --dry-run</code></div>
+							<div class="font-medium"><code>hpm link --dry-run</code></div>
 							<div class="text-muted-foreground">Preview changes without applying</div>
 						</div>
 					</div>

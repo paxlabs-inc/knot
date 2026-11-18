@@ -9,7 +9,7 @@
 </script>
 
 <svelte:head>
-	<title>Redirecting - Knot Space</title>
+	<title>Redirecting - HPM Registry</title>
 </svelte:head>
 
 <div class="flex items-center justify-center min-h-screen">

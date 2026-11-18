@@ -10,7 +10,7 @@ COPY package.json bun.lock ./
 # Install dependencies
 RUN bun install --frozen-lockfile
 
-# Copy app source code (knot_packages already included via pre-commit hook)
+# Copy app source code (hpm_packages already included via pre-commit hook)
 COPY . ./
 
 # Set build-time environment variables for SvelteKit
@@ -28,7 +28,7 @@ WORKDIR /app
 
 # Copy built application
 COPY --from=builder /app/build ./build
-COPY --from=builder /app/knot_packages ./knot_packages
+COPY --from=builder /app/hpm_packages ./hpm_packages
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 

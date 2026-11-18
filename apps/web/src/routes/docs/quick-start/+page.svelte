@@ -19,16 +19,16 @@
 </script>
 
 <svelte:head>
-	<title>Quick Start Guide - Knot CLI Documentation</title>
-	<meta name="description" content="Get started with Knot CLI in under 5 minutes. Learn to initialize projects, create packages, and link dependencies for TypeScript monorepos." />
-	<meta property="og:title" content="Quick Start Guide - Knot CLI" />
-	<meta property="og:description" content="Get started with Knot CLI in under 5 minutes. Learn to initialize projects, create packages, and link dependencies for TypeScript monorepos." />
+	<title>Quick Start Guide - HPM CLI Documentation</title>
+	<meta name="description" content="Get started with HPM CLI in under 5 minutes. Learn to initialize projects, create packages, and link dependencies for TypeScript monorepos." />
+	<meta property="og:title" content="Quick Start Guide - HPM CLI" />
+	<meta property="og:description" content="Get started with HPM CLI in under 5 minutes. Learn to initialize projects, create packages, and link dependencies for TypeScript monorepos." />
 	<meta property="og:image" content="/images/og/quick-start.png" />
-	<meta property="og:url" content="https://knot.klysium.com/docs/quick-start" />
-	<meta name="twitter:title" content="Quick Start Guide - Knot CLI" />
-	<meta name="twitter:description" content="Get started with Knot CLI in under 5 minutes. Learn to initialize projects, create packages, and link dependencies for TypeScript monorepos." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs/quick-start" />
+	<meta name="twitter:title" content="Quick Start Guide - HPM CLI" />
+	<meta name="twitter:description" content="Get started with HPM CLI in under 5 minutes. Learn to initialize projects, create packages, and link dependencies for TypeScript monorepos." />
 	<meta name="twitter:image" content="/images/og/quick-start.png" />
-	<link rel="canonical" href="https://knot.klysium.com/docs/quick-start" />
+	<link rel="canonical" href="https://hpm.klysium.com/docs/quick-start" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
@@ -37,7 +37,7 @@
 			Quick Start Guide
 		</h1>
 		<p class="text-lg text-muted-foreground">
-			Get your first Knot project up and running in under 5 minutes
+			Get your first HPM project up and running in under 5 minutes
 		</p>
 	</div>
 
@@ -51,7 +51,7 @@
 					<h3 class="font-semibold text-blue-900 mb-2">Before we start</h3>
 					<ul class="text-sm text-blue-700 space-y-1">
 						<li>• Node.js 18+ installed on your system</li>
-						<li>• Knot CLI installed (<a href="/docs/installation" class="underline hover:no-underline">installation guide</a>)</li>
+						<li>• HPM CLI installed (<a href="/docs/installation" class="underline hover:no-underline">installation guide</a>)</li>
 						<li>• A text editor or IDE (VS Code recommended)</li>
 						<li>• Basic knowledge of command-line tools</li>
 					</ul>
@@ -74,13 +74,13 @@
 				<h3 class="text-lg font-semibold mb-3">Initialize a new project</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 					<div class="overflow-x-auto p-4 pr-12">
-						<code class="whitespace-nowrap block">knot init my-awesome-project</code>
+						<code class="whitespace-nowrap block">hpm init my-awesome-project</code>
 					</div>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-						on:click={() => copyToClipboard('knot init my-awesome-project')}
+						on:click={() => copyToClipboard('hpm init my-awesome-project')}
 					>
-						{#if showCopied && copyText === 'knot init my-awesome-project'}
+						{#if showCopied && copyText === 'hpm init my-awesome-project'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -114,7 +114,7 @@
 			<div class="bg-muted/30 rounded-lg p-6">
 				<h4 class="font-semibold mb-3">Project structure created</h4>
 				<pre class="text-sm font-mono"><code>my-awesome-project/
-├── <span class="text-blue-400">knot.yml</span>          # Project configuration
+├── <span class="text-blue-400">hpm.yml</span>          # Project configuration
 ├── <span class="text-yellow-400">packages/</span>        # Your packages will go here
 ├── <span class="text-green-400">apps/</span>             # Your applications will go here
 └── <span class="text-gray-400">README.md</span>         # Getting started guide</code></pre>
@@ -135,12 +135,12 @@
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Generate a utility package</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>knot init:package utils</code>
+					<code>hpm init:package utils</code>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('knot init:package utils')}
+						on:click={() => copyToClipboard('hpm init:package utils')}
 					>
-						{#if showCopied && copyText === 'knot init:package utils'}
+						{#if showCopied && copyText === 'hpm init:package utils'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -189,12 +189,12 @@
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Generate a React app</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>knot init:app frontend</code>
+					<code>hpm init:app frontend</code>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('knot init:app frontend')}
+						on:click={() => copyToClipboard('hpm init:app frontend')}
 					>
-						{#if showCopied && copyText === 'knot init:app frontend'}
+						{#if showCopied && copyText === 'hpm init:app frontend'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -212,12 +212,12 @@
 					Navigate to your app directory and install the utils package:
 				</p>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>cd apps/frontend && knot install utils</code>
+					<code>cd apps/frontend && hpm install utils</code>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('cd apps/frontend && knot install utils')}
+						on:click={() => copyToClipboard('cd apps/frontend && hpm install utils')}
 					>
-						{#if showCopied && copyText === 'cd apps/frontend && knot install utils'}
+						{#if showCopied && copyText === 'cd apps/frontend && hpm install utils'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -244,12 +244,12 @@
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Link your packages</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>knot link</code>
+					<code>hpm link</code>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('knot link')}
+						on:click={() => copyToClipboard('hpm link')}
 					>
-						{#if showCopied && copyText === 'knot link'}
+						{#if showCopied && copyText === 'hpm link'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -316,12 +316,12 @@
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Start development server</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>knot run dev</code>
+					<code>hpm run dev</code>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('knot run dev')}
+						on:click={() => copyToClipboard('hpm run dev')}
 					>
-						{#if showCopied && copyText === 'knot run dev'}
+						{#if showCopied && copyText === 'hpm run dev'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -336,12 +336,12 @@
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Build for production</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>knot run build</code>
+					<code>hpm run build</code>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('knot run build')}
+						on:click={() => copyToClipboard('hpm run build')}
 					>
-						{#if showCopied && copyText === 'knot run build'}
+						{#if showCopied && copyText === 'hpm run build'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -363,7 +363,7 @@
 				<div>
 					<h3 class="font-semibold text-green-900 mb-2">Congratulations! 🎉</h3>
 					<p class="text-sm text-green-700 mb-4">
-						You've successfully created your first Knot monorepo with a shared package and a React app that uses it.
+						You've successfully created your first HPM monorepo with a shared package and a React app that uses it.
 						Your utilities are automatically typed and available with clean imports.
 					</p>
 					<div class="flex flex-wrap gap-3">
@@ -417,7 +417,7 @@
 					<h3 class="font-semibold">Package Publishing</h3>
 				</div>
 				<p class="text-sm text-muted-foreground mb-4">
-					Share your packages with the world by publishing them to Knot Space registry.
+					Share your packages with the world by publishing them to HPM Registry registry.
 				</p>
 				<a href="/docs/publishing" class="text-sm text-primary hover:underline">
 					Publishing Guide →
@@ -430,7 +430,7 @@
 					<h3 class="font-semibold">Self-Hosting</h3>
 				</div>
 				<p class="text-sm text-muted-foreground mb-4">
-					Host your own private Knot Space instance for complete control over your package registry.
+					Host your own private HPM Registry instance for complete control over your package registry.
 				</p>
 				<a href="/docs/self-hosting" class="text-sm text-primary hover:underline">
 					Self-Hosting Guide →

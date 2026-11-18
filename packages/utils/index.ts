@@ -1,4 +1,4 @@
-// Shared utility functions for Knot applications
+// Shared utility functions for HPM applications
 
 /**
  * Format a file size in bytes to a human readable string

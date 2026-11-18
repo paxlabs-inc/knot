@@ -78,12 +78,12 @@ struct AddTeamMemberRequest {
 }
 
 // Helper functions
-fn get_knot_space_url() -> String {
-    env::var("KNOT_SPACE_URL").unwrap_or_else(|_| "https://knot-space-production.up.railway.app".to_string())
+fn get_hpm_space_url() -> String {
+    env::var("HPM_REGISTRY_URL").or_else(|_| env::var("KNOT_SPACE_URL")).unwrap_or_else(|_| "https://backend-production-4dbc03a7.up.railway.app".to_string())
 }
 
 fn get_auth_token() -> Result<Option<String>> {
-    match env::var("KNOT_TOKEN") {
+    match env::var("HPM_TOKEN").or_else(|_| env::var("KNOT_TOKEN")) {
         Ok(token) if !token.trim().is_empty() => Ok(Some(token)),
         _ => Ok(None),
     }
@@ -91,7 +91,7 @@ fn get_auth_token() -> Result<Option<String>> {
 
 fn require_auth_token() -> Result<String> {
     get_auth_token()?
-        .ok_or_else(|| anyhow::anyhow!("Authentication required. Set KNOT_TOKEN environment variable."))
+        .ok_or_else(|| anyhow::anyhow!("Authentication required. Set HPM_TOKEN environment variable."))
 }
 
 fn format_api_error(status: reqwest::StatusCode, response_text: &str) -> String {
@@ -128,7 +128,7 @@ async fn select_team_interactively(prompt_message: &str) -> Result<String> {
     }
 
     // Fetch available teams
-    let base_url = get_knot_space_url();
+    let base_url = get_hpm_space_url();
     let url = format!("{}/api/teams", base_url);
 
     let client = reqwest::Client::new();
@@ -151,7 +151,7 @@ async fn select_team_interactively(prompt_message: &str) -> Result<String> {
     let teams = api_response.data.unwrap_or_default();
 
     if teams.is_empty() {
-        anyhow::bail!("No teams found. Create a team first with 'knot team create'");
+        anyhow::bail!("No teams found. Create a team first with 'hpm team create'");
     }
 
     // Create selection options
@@ -234,7 +234,7 @@ pub async fn create_team(name: Option<&str>, description: Option<&str>) -> Resul
                 )?;
                 sanitize_input(&input)
             } else {
-                anyhow::bail!("Team name is required. Use: knot team create <name>");
+                anyhow::bail!("Team name is required. Use: hpm team create <name>");
             }
         }
     };
@@ -264,7 +264,7 @@ pub async fn create_team(name: Option<&str>, description: Option<&str>) -> Resul
 
     let spinner = create_spinner(&format!("Creating team '{}'...", team_name));
 
-    let base_url = get_knot_space_url();
+    let base_url = get_hpm_space_url();
     let url = format!("{}/api/teams", base_url);
 
     let client = reqwest::Client::new();
@@ -335,7 +335,7 @@ pub async fn create_team(name: Option<&str>, description: Option<&str>) -> Resul
 }
 
 pub async fn list_teams() -> Result<()> {
-    let base_url = get_knot_space_url();
+    let base_url = get_hpm_space_url();
     let url = format!("{}/api/teams", base_url);
 
     let client = reqwest::Client::new();
@@ -404,12 +404,12 @@ pub async fn team_info(name: Option<&str>) -> Result<()> {
                 println!();
                 select_team_interactively("Select team").await?
             } else {
-                anyhow::bail!("Team name is required. Use: knot team info <name>");
+                anyhow::bail!("Team name is required. Use: hpm team info <name>");
             }
         }
     };
 
-    let base_url = get_knot_space_url();
+    let base_url = get_hpm_space_url();
     let url = format!("{}/api/teams/{}", base_url, team_name);
 
     let client = reqwest::Client::new();
@@ -476,7 +476,7 @@ pub async fn add_team_member(team: Option<&str>, username: Option<&str>, role: &
                 println!();
                 select_team_interactively("Select team to add member to").await?
             } else {
-                anyhow::bail!("Team name is required. Use: knot team add-member <team> <username>");
+                anyhow::bail!("Team name is required. Use: hpm team add-member <team> <username>");
             }
         }
     };
@@ -487,7 +487,7 @@ pub async fn add_team_member(team: Option<&str>, username: Option<&str>, role: &
             if is_interactive() {
                 prompt_for_username("👤 Username to add to team")?
             } else {
-                anyhow::bail!("Username is required. Use: knot team add-member <team> <username>");
+                anyhow::bail!("Username is required. Use: hpm team add-member <team> <username>");
             }
         }
     };
@@ -529,7 +529,7 @@ pub async fn add_team_member(team: Option<&str>, username: Option<&str>, role: &
         role: selected_role,
     };
 
-    let base_url = get_knot_space_url();
+    let base_url = get_hpm_space_url();
     // URL encode the team name to handle special characters
     let encoded_team = urlencoding::encode(&team_name);
     let url = format!("{}/api/teams/{}/members", base_url, encoded_team);
@@ -566,7 +566,7 @@ pub async fn remove_team_member(team: Option<&str>, username: Option<&str>) -> R
                 println!();
                 select_team_interactively("Select team to remove member from").await?
             } else {
-                anyhow::bail!("Team name is required. Use: knot team remove-member <team> <username>");
+                anyhow::bail!("Team name is required. Use: hpm team remove-member <team> <username>");
             }
         }
     };
@@ -580,12 +580,12 @@ pub async fn remove_team_member(team: Option<&str>, username: Option<&str>) -> R
                 // For now, just prompt for username
                 prompt_for_username("👤 Username to remove from team")?
             } else {
-                anyhow::bail!("Username is required. Use: knot team remove-member <team> <username>");
+                anyhow::bail!("Username is required. Use: hpm team remove-member <team> <username>");
             }
         }
     };
 
-    let base_url = get_knot_space_url();
+    let base_url = get_hpm_space_url();
     // URL encode the team name and username to handle special characters
     let encoded_team = urlencoding::encode(&team_name);
     let encoded_username = urlencoding::encode(&username_str);

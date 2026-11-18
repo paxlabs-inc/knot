@@ -6,7 +6,7 @@ dependencies:
   external:
     - clsx@^1.2.1
     - framer-motion@^10.12.16
-  # Internal knot package dependencies
+  # Internal hpm package dependencies
   internal:
     - utils # Depends on the utils package for validation, formatting, and helpers
 scripts:

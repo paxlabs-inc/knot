@@ -3,10 +3,10 @@ use std::process::{Command, Stdio};
 use std::fs;
 use tempfile::TempDir;
 
-// Test helper to execute knot command and capture output
-fn run_knot_command(args: &[&str], working_dir: &std::path::Path) -> (String, String, bool) {
+// Test helper to execute hpm command and capture output
+fn run_hpm_command(args: &[&str], working_dir: &std::path::Path) -> (String, String, bool) {
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot"])
+        .args(&["run", "--bin", "hpm"])
         .args(args)
         .current_dir(working_dir)
         .stdin(Stdio::null())
@@ -33,17 +33,17 @@ fn create_temp_yaml_file(content: &str, filename: &str) -> Result<(TempDir, std:
 fn test_empty_yaml_files() -> Result<()> {
     println!("=== Testing Empty YAML Files ===");
 
-    // Test empty knot.yml
-    let (temp_dir, _) = create_temp_yaml_file("", "knot.yml")?;
-    let (stdout, stderr, success) = run_knot_command(&["status"], temp_dir.path());
-    assert!(!success, "Empty knot.yml should cause error");
+    // Test empty hpm.yml
+    let (temp_dir, _) = create_temp_yaml_file("", "hpm.yml")?;
+    let (stdout, stderr, success) = run_hpm_command(&["status"], temp_dir.path());
+    assert!(!success, "Empty hpm.yml should cause error");
     let error_msg = format!("{}{}", stdout, stderr);
     assert!(error_msg.contains("empty") || error_msg.contains("parse") || error_msg.contains("invalid"),
            "Expected empty file error, got: {}", error_msg);
 
     // Test empty package.yml
     let (temp_dir, _) = create_temp_yaml_file("", "package.yml")?;
-    let (stdout, stderr, success) = run_knot_command(&["publish"], temp_dir.path());
+    let (stdout, stderr, success) = run_hpm_command(&["publish"], temp_dir.path());
     let error_msg = format!("{}{}", stdout, stderr);
     if error_msg.contains("empty") || error_msg.contains("parse") {
         println!("✓ Empty package.yml properly rejected");
@@ -51,7 +51,7 @@ fn test_empty_yaml_files() -> Result<()> {
 
     // Test empty app.yml
     let (temp_dir, _) = create_temp_yaml_file("", "app.yml")?;
-    let (stdout, stderr, success) = run_knot_command(&["link"], temp_dir.path());
+    let (stdout, stderr, success) = run_hpm_command(&["link"], temp_dir.path());
     let error_msg = format!("{}{}", stdout, stderr);
     if error_msg.contains("empty") || error_msg.contains("parse") {
         println!("✓ Empty app.yml properly rejected");
@@ -65,14 +65,14 @@ fn test_empty_yaml_files() -> Result<()> {
 fn test_missing_required_fields() -> Result<()> {
     println!("=== Testing Missing Required Fields ===");
 
-    // Test knot.yml missing name field
-    let invalid_knot = r#"
+    // Test hpm.yml missing name field
+    let invalid_hpm = r#"
 description: "Project without name"
 scripts:
   build: "npm build"
 "#;
-    let (_temp_dir, knot_path) = create_temp_yaml_file(invalid_knot, "knot.yml")?;
-    let result = KnotConfig::from_file(&knot_path);
+    let (_temp_dir, hpm_path) = create_temp_yaml_file(invalid_hpm, "hpm.yml")?;
+    let result = HpmConfig::from_file(&hpm_path);
     assert!(result.is_err());
     let error_msg = result.unwrap_err().to_string();
     assert!(error_msg.contains("Missing name field") || error_msg.contains("missing field"),
@@ -131,8 +131,8 @@ scripts:
 build: "npm build"  # Wrong indentation
   test: "npm test"
 "#;
-    let (_temp_dir, path) = create_temp_yaml_file(invalid_indentation, "knot.yml")?;
-    let result = KnotConfig::from_file(&path);
+    let (_temp_dir, path) = create_temp_yaml_file(invalid_indentation, "hpm.yml")?;
+    let result = HpmConfig::from_file(&path);
     assert!(result.is_err());
     let error_msg = result.unwrap_err().to_string();
     assert!(error_msg.contains("Invalid YAML syntax") || error_msg.contains("while parsing"),
@@ -143,8 +143,8 @@ build: "npm build"  # Wrong indentation
 name: test-project
 description: This has: invalid characters without quotes
 "#;
-    let (_temp_dir, path) = create_temp_yaml_file(invalid_quotes, "knot.yml")?;
-    let result = KnotConfig::from_file(&path);
+    let (_temp_dir, path) = create_temp_yaml_file(invalid_quotes, "hpm.yml")?;
+    let result = HpmConfig::from_file(&path);
     assert!(result.is_err());
 
     // Test invalid list syntax
@@ -155,8 +155,8 @@ apps:
     - types
     - utils
 "#;
-    let (_temp_dir, path) = create_temp_yaml_file(invalid_list, "knot.yml")?;
-    let result = KnotConfig::from_file(&path);
+    let (_temp_dir, path) = create_temp_yaml_file(invalid_list, "hpm.yml")?;
+    let result = HpmConfig::from_file(&path);
     assert!(result.is_err());
 
     // Test duplicate keys
@@ -165,8 +165,8 @@ name: test-project
 name: duplicate-project
 description: Project with duplicate names
 "#;
-    let (_temp_dir, path) = create_temp_yaml_file(duplicate_keys, "knot.yml")?;
-    let result = KnotConfig::from_file(&path);
+    let (_temp_dir, path) = create_temp_yaml_file(duplicate_keys, "hpm.yml")?;
+    let result = HpmConfig::from_file(&path);
     assert!(result.is_err());
 
     println!("✅ Invalid YAML syntax tests passed");
@@ -182,8 +182,8 @@ fn test_invalid_field_types() -> Result<()> {
 name: 123
 description: "Project with numeric name"
 "#;
-    let (_temp_dir, path) = create_temp_yaml_file(invalid_name_type, "knot.yml")?;
-    let result = KnotConfig::from_file(&path);
+    let (_temp_dir, path) = create_temp_yaml_file(invalid_name_type, "hpm.yml")?;
+    let result = HpmConfig::from_file(&path);
     assert!(result.is_err());
     let error_msg = result.unwrap_err().to_string();
     assert!(error_msg.contains("Expected string value") || error_msg.contains("invalid type"),
@@ -194,8 +194,8 @@ description: "Project with numeric name"
 name: test-project
 scripts: "not a map"
 "#;
-    let (_temp_dir, path) = create_temp_yaml_file(invalid_scripts_type, "knot.yml")?;
-    let result = KnotConfig::from_file(&path);
+    let (_temp_dir, path) = create_temp_yaml_file(invalid_scripts_type, "hpm.yml")?;
+    let result = HpmConfig::from_file(&path);
     assert!(result.is_err());
     let error_msg = result.unwrap_err().to_string();
     assert!(error_msg.contains("Expected object/mapping value") || error_msg.contains("invalid type"),
@@ -267,8 +267,8 @@ fn test_unsafe_name_validation() -> Result<()> {
 name: "../../../dangerous"
 description: "Project with path traversal"
 "#;
-    let (_temp_dir, path) = create_temp_yaml_file(path_traversal, "knot.yml")?;
-    let result = KnotConfig::from_file(&path);
+    let (_temp_dir, path) = create_temp_yaml_file(path_traversal, "hpm.yml")?;
+    let result = HpmConfig::from_file(&path);
     assert!(result.is_err());
     let error_msg = result.unwrap_err().to_string();
     assert!(error_msg.contains("invalid path characters"), "Expected path error, got: {}", error_msg);
@@ -278,8 +278,8 @@ description: "Project with path traversal"
 name: ".hidden"
 description: "Project with dot prefix"
 "#;
-    let (_temp_dir, path) = create_temp_yaml_file(dot_name, "knot.yml")?;
-    let result = KnotConfig::from_file(&path);
+    let (_temp_dir, path) = create_temp_yaml_file(dot_name, "hpm.yml")?;
+    let result = HpmConfig::from_file(&path);
     assert!(result.is_err());
     let error_msg = result.unwrap_err().to_string();
     assert!(error_msg.contains("unsafe characters"), "Expected unsafe character error, got: {}", error_msg);
@@ -289,8 +289,8 @@ description: "Project with dot prefix"
 name: "-invalid"
 description: "Project with hyphen prefix"
 "#;
-    let (_temp_dir, path) = create_temp_yaml_file(hyphen_name, "knot.yml")?;
-    let result = KnotConfig::from_file(&path);
+    let (_temp_dir, path) = create_temp_yaml_file(hyphen_name, "hpm.yml")?;
+    let result = HpmConfig::from_file(&path);
     assert!(result.is_err());
     let error_msg = result.unwrap_err().to_string();
     assert!(error_msg.contains("unsafe characters"), "Expected unsafe character error, got: {}", error_msg);
@@ -301,8 +301,8 @@ description: "Project with hyphen prefix"
 name: "{}"
 description: "Project with very long name"
 "#, long_name);
-    let (_temp_dir, path) = create_temp_yaml_file(&long_name_yaml, "knot.yml")?;
-    let result = KnotConfig::from_file(&path);
+    let (_temp_dir, path) = create_temp_yaml_file(&long_name_yaml, "hpm.yml")?;
+    let result = HpmConfig::from_file(&path);
     assert!(result.is_err());
     let error_msg = result.unwrap_err().to_string();
     assert!(error_msg.contains("too long"), "Expected length error, got: {}", error_msg);
@@ -321,8 +321,8 @@ name: test-project
 scripts:
   "build app": "npm run build"
 "#;
-    let (_temp_dir, path) = create_temp_yaml_file(whitespace_script, "knot.yml")?;
-    let result = KnotConfig::from_file(&path);
+    let (_temp_dir, path) = create_temp_yaml_file(whitespace_script, "hpm.yml")?;
+    let result = HpmConfig::from_file(&path);
     assert!(result.is_err());
     let error_msg = result.unwrap_err().to_string();
     assert!(error_msg.contains("cannot contain whitespace"), "Expected whitespace error, got: {}", error_msg);
@@ -333,8 +333,8 @@ name: test-project
 scripts:
   build: ""
 "#;
-    let (_temp_dir, path) = create_temp_yaml_file(empty_command, "knot.yml")?;
-    let result = KnotConfig::from_file(&path);
+    let (_temp_dir, path) = create_temp_yaml_file(empty_command, "hpm.yml")?;
+    let result = HpmConfig::from_file(&path);
     assert!(result.is_err());
     let error_msg = result.unwrap_err().to_string();
     assert!(error_msg.contains("cannot be empty"), "Expected empty command error, got: {}", error_msg);
@@ -345,8 +345,8 @@ name: test-project
 scripts:
   "": "npm run build"
 "#;
-    let (_temp_dir, path) = create_temp_yaml_file(empty_script_name, "knot.yml")?;
-    let result = KnotConfig::from_file(&path);
+    let (_temp_dir, path) = create_temp_yaml_file(empty_script_name, "hpm.yml")?;
+    let result = HpmConfig::from_file(&path);
     assert!(result.is_err());
     let error_msg = result.unwrap_err().to_string();
     assert!(error_msg.contains("cannot be empty"), "Expected empty name error, got: {}", error_msg);
@@ -510,8 +510,8 @@ fn test_error_message_parser() -> Result<()> {
 fn test_valid_configurations() -> Result<()> {
     println!("=== Testing Valid Configurations (Regression Tests) ===");
 
-    // Test valid knot.yml
-    let valid_knot = r#"
+    // Test valid hpm.yml
+    let valid_hpm = r#"
 name: test-project
 description: A valid test project
 tsAlias: true
@@ -535,9 +535,9 @@ variables:
     value: "complex value"
     description: "A complex variable"
 "#;
-    let (_temp_dir, path) = create_temp_yaml_file(valid_knot, "knot.yml")?;
-    let result = KnotConfig::from_file(&path);
-    assert!(result.is_ok(), "Valid knot.yml should parse successfully: {:?}", result.err());
+    let (_temp_dir, path) = create_temp_yaml_file(valid_hpm, "hpm.yml")?;
+    let result = HpmConfig::from_file(&path);
+    assert!(result.is_ok(), "Valid hpm.yml should parse successfully: {:?}", result.err());
 
     // Test valid package.yml
     let valid_package = r#"

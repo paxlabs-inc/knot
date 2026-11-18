@@ -56,7 +56,7 @@ COPY --from=builder /app/start.sh ./start.sh
 COPY --from=builder /app/src ./src
 COPY --from=builder /app/scripts ./scripts
 COPY --from=builder /app/tsconfig.json ./tsconfig.json
-COPY --from=builder /app/knot_packages ./knot_packages
+COPY --from=builder /app/hpm_packages ./hpm_packages
 COPY --from=builder /app/package.json ./package.json
 
 # Make scripts executable

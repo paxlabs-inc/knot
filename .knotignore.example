@@ -1,4 +1,4 @@
-# Knot Package Ignore Rules
+# HPM Package Ignore Rules
 # This file works similar to .gitignore but for package publishing
 # Lines starting with # are comments and will be ignored
 # Empty lines are also ignored

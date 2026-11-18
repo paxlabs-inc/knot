@@ -1,7 +1,7 @@
 {
-  "name": "knot-space",
+  "name": "hpm-registry",
   "version": "0.1.0",
-  "description": "Knot Space - Online Package Repository Server",
+  "description": "HPM Registry - Online Package Repository Server",
   "main": "dist/index.js",
   "scripts": {
     "dev": "bun --hot src/index.ts",
@@ -61,6 +61,6 @@
     "prisma",
     "better-auth"
   ],
-  "author": "Knot Team",
+  "author": "HPM Team",
   "license": "MIT"
 }

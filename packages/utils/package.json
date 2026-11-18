@@ -1,7 +1,7 @@
 {
-  "name": "@knot/utils",
+  "name": "@hpm/utils",
   "version": "1.0.0",
-  "description": "Shared utility functions for Knot applications",
+  "description": "Shared utility functions for HPM applications",
   "main": "index.ts",
   "type": "module",
   "scripts": {
@@ -12,6 +12,6 @@
   "devDependencies": {
     "typescript": "^5.5.4"
   },
-  "keywords": ["knot", "utilities", "helpers"],
+  "keywords": ["hpm", "utilities", "helpers"],
   "private": true
 }

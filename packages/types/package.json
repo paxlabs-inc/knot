@@ -1,7 +1,7 @@
 {
-  "name": "@knot/types",
+  "name": "@hpm/types",
   "version": "1.0.0",
-  "description": "Shared TypeScript types for Knot applications",
+  "description": "Shared TypeScript types for HPM applications",
   "main": "index.ts",
   "types": "index.ts",
   "scripts": {

@@ -1,5 +1,5 @@
 name: utils
-description: Shared utility functions for Knot applications
+description: Shared utility functions for HPM applications
 version: 1.0.0
 scripts:
   build: "tsc"

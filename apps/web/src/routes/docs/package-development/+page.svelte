@@ -19,16 +19,16 @@
 </script>
 
 <svelte:head>
-	<title>Package Development - Knot CLI Documentation</title>
-	<meta name="description" content="Learn how to create, manage, and publish packages with Knot CLI. Covers package development workflows, dependency management, and publishing strategies." />
-	<meta property="og:title" content="Package Development Guide - Knot CLI" />
-	<meta property="og:description" content="Learn how to create, manage, and publish packages with Knot CLI. Covers package development workflows, dependency management, and publishing strategies." />
+	<title>Package Development - HPM CLI Documentation</title>
+	<meta name="description" content="Learn how to create, manage, and publish packages with HPM CLI. Covers package development workflows, dependency management, and publishing strategies." />
+	<meta property="og:title" content="Package Development Guide - HPM CLI" />
+	<meta property="og:description" content="Learn how to create, manage, and publish packages with HPM CLI. Covers package development workflows, dependency management, and publishing strategies." />
 	<meta property="og:image" content="/images/og/package-development.png" />
-	<meta property="og:url" content="https://knot.klysium.com/docs/package-development" />
-	<meta name="twitter:title" content="Package Development Guide - Knot CLI" />
-	<meta name="twitter:description" content="Learn how to create, manage, and publish packages with Knot CLI. Covers package development workflows, dependency management, and publishing strategies." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs/package-development" />
+	<meta name="twitter:title" content="Package Development Guide - HPM CLI" />
+	<meta name="twitter:description" content="Learn how to create, manage, and publish packages with HPM CLI. Covers package development workflows, dependency management, and publishing strategies." />
 	<meta name="twitter:image" content="/images/og/package-development.png" />
-	<link rel="canonical" href="https://knot.klysium.com/docs/package-development" />
+	<link rel="canonical" href="https://hpm.klysium.com/docs/package-development" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
@@ -37,7 +37,7 @@
 			Package Development
 		</h1>
 		<p class="text-lg text-muted-foreground">
-			Comprehensive guide to creating, developing, and managing packages with Knot CLI
+			Comprehensive guide to creating, developing, and managing packages with HPM CLI
 		</p>
 	</div>
 
@@ -45,7 +45,7 @@
 	<section class="mb-12">
 		<h2 class="text-2xl font-bold mb-6">Package Development Workflow</h2>
 		<p class="text-muted-foreground leading-relaxed mb-6">
-			Knot CLI provides powerful tools for package development, from creation to publishing. 
+			HPM CLI provides powerful tools for package development, from creation to publishing. 
 			Packages are reusable libraries that can be shared across your monorepo or published to registries 
 			for broader use.
 		</p>
@@ -93,13 +93,13 @@
 				<h3 class="text-lg font-semibold mb-3">Generate a new package</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 					<div class="overflow-x-auto p-4 pr-12">
-						<code class="whitespace-nowrap block">knot init:package &lt;package-name&gt;</code>
+						<code class="whitespace-nowrap block">hpm init:package &lt;package-name&gt;</code>
 					</div>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-						on:click={() => copyToClipboard('knot init:package utils')}
+						on:click={() => copyToClipboard('hpm init:package utils')}
 					>
-						{#if showCopied && copyText === 'knot init:package utils'}
+						{#if showCopied && copyText === 'hpm init:package utils'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -150,13 +150,13 @@
 						<h4 class="font-medium mb-2">Build the package</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 							<div class="overflow-x-auto p-4 pr-12">
-								<code class="whitespace-nowrap block">cd packages/utils && knot run build</code>
+								<code class="whitespace-nowrap block">cd packages/utils && hpm run build</code>
 							</div>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-								on:click={() => copyToClipboard('cd packages/utils && knot run build')}
+								on:click={() => copyToClipboard('cd packages/utils && hpm run build')}
 							>
-								{#if showCopied && copyText === 'cd packages/utils && knot run build'}
+								{#if showCopied && copyText === 'cd packages/utils && hpm run build'}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -172,13 +172,13 @@
 						<h4 class="font-medium mb-2">Watch mode for development</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 							<div class="overflow-x-auto p-4 pr-12">
-								<code class="whitespace-nowrap block">knot run build --watch</code>
+								<code class="whitespace-nowrap block">hpm run build --watch</code>
 							</div>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-								on:click={() => copyToClipboard('knot run build --watch')}
+								on:click={() => copyToClipboard('hpm run build --watch')}
 							>
-								{#if showCopied && copyText === 'knot run build --watch'}
+								{#if showCopied && copyText === 'hpm run build --watch'}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -194,13 +194,13 @@
 						<h4 class="font-medium mb-2">Run tests</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 							<div class="overflow-x-auto p-4 pr-12">
-								<code class="whitespace-nowrap block">knot run test</code>
+								<code class="whitespace-nowrap block">hpm run test</code>
 							</div>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-								on:click={() => copyToClipboard('knot run test')}
+								on:click={() => copyToClipboard('hpm run test')}
 							>
-								{#if showCopied && copyText === 'knot run test'}
+								{#if showCopied && copyText === 'hpm run test'}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -353,13 +353,13 @@
 						<h4 class="font-medium mb-2">Package Creation with Alias-Friendly Names</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 							<div class="overflow-x-auto p-4 pr-12">
-								<code class="whitespace-nowrap block">knot init:package user-management</code>
+								<code class="whitespace-nowrap block">hpm init:package user-management</code>
 							</div>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-								on:click={() => copyToClipboard('knot init:package user-management')}
+								on:click={() => copyToClipboard('hpm init:package user-management')}
 							>
-								{#if showCopied && copyText === 'knot init:package user-management'}
+								{#if showCopied && copyText === 'hpm init:package user-management'}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -449,7 +449,7 @@
 								<span class="font-medium text-purple-900">Use Symlink Mode</span>
 							</div>
 							<div class="bg-black/90 text-purple-400 font-mono text-sm p-3 rounded">
-								<code>knot link --symlink</code>
+								<code>hpm link --symlink</code>
 							</div>
 							<ul class="text-xs text-muted-foreground mt-2 space-y-1">
 								<li>• Live updates while coding</li>
@@ -464,7 +464,7 @@
 								<span class="font-medium text-blue-900">Watch Mode Development</span>
 							</div>
 							<div class="bg-black/90 text-blue-400 font-mono text-sm p-3 rounded">
-								<code>knot run build --watch</code>
+								<code>hpm run build --watch</code>
 							</div>
 							<ul class="text-xs text-muted-foreground mt-2 space-y-1">
 								<li>• Automatic rebuilds on changes</li>
@@ -482,7 +482,7 @@
 								<span class="font-medium text-green-900">Use Copy Mode</span>
 							</div>
 							<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded">
-								<code>knot link</code>
+								<code>hpm link</code>
 							</div>
 							<ul class="text-xs text-muted-foreground mt-2 space-y-1">
 								<li>• Stable production environment</li>
@@ -497,7 +497,7 @@
 								<span class="font-medium text-yellow-900">Pre-commit Testing</span>
 							</div>
 							<div class="bg-black/90 text-yellow-400 font-mono text-sm p-3 rounded">
-								<code>knot run test</code>
+								<code>hpm run test</code>
 							</div>
 							<ul class="text-xs text-muted-foreground mt-2 space-y-1">
 								<li>• Automatic package updates</li>
@@ -698,7 +698,7 @@
 					<h3 class="font-semibold">Publishing Guide</h3>
 				</div>
 				<p class="text-sm text-muted-foreground">
-					Detailed guide to publishing packages to Knot Space and other registries.
+					Detailed guide to publishing packages to HPM Registry and other registries.
 				</p>
 			</a>
 
@@ -718,7 +718,7 @@
 					<h3 class="font-semibold">Package Linking</h3>
 				</div>
 				<p class="text-sm text-muted-foreground">
-					Understand how Knot links packages and manages dependencies.
+					Understand how HPM links packages and manages dependencies.
 				</p>
 			</a>
 

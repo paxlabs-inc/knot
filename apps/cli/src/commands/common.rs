@@ -32,7 +32,7 @@ pub fn prompt_for_input_with_validation(
         if let Some(default_val) = default {
             return Ok(default_val.to_string());
         } else {
-            anyhow::bail!("Interactive input required but running in non-interactive environment\n💡 You are using Knot in a non-interactive terminal (like a script or CI/CD)\n💡 Please provide all required values via command line arguments\n💡 Add flags like --name, --description, etc. to your command");
+            anyhow::bail!("Interactive input required but running in non-interactive environment\n💡 You are using HPM in a non-interactive terminal (like a script or CI/CD)\n💡 Please provide all required values via command line arguments\n💡 Add flags like --name, --description, etc. to your command");
         }
     }
 
@@ -194,7 +194,7 @@ pub fn determine_target_directory(
     // Try to find project root
     match Project::find_project_root(current_dir) {
         Ok(project_root) => {
-            // We're in a Knot project
+            // We're in a HPM project
             let target_dir = match item_type {
                 "packages" => project_root.join("packages"),
                 "apps" => project_root.join("apps"),
@@ -205,7 +205,7 @@ pub fn determine_target_directory(
                 format!("in project root, will create in {}/ directory", item_type)
             } else {
                 format!(
-                    "in Knot project, will create in {}/ directory relative to project root",
+                    "in HPM project, will create in {}/ directory relative to project root",
                     item_type
                 )
             };
@@ -213,8 +213,8 @@ pub fn determine_target_directory(
             Ok((target_dir, context, true))
         }
         Err(_) => {
-            // Not in a Knot project, create in current directory
-            let context = "outside Knot project, will create in current directory".to_string();
+            // Not in a HPM project, create in current directory
+            let context = "outside HPM project, will create in current directory".to_string();
             Ok((current_dir.to_path_buf(), context, false))
         }
     }
@@ -295,7 +295,7 @@ pub fn format_api_error(status: reqwest::StatusCode, response_text: &str) -> Str
     // Provide user-friendly context based on status code and add appropriate emoji
     match status.as_u16() {
         400 => format!("❌ Bad request: {}", error_message),
-        401 => "🔐 Authentication failed. Please log in again with 'knot auth'".to_string(),
+        401 => "🔐 Authentication failed. Please log in again with 'hpm auth'".to_string(),
         403 => "🚫 You don't have permission to perform this action".to_string(),
         404 => format!("🔍 Resource not found: {}", error_message),
         409 => format!("⚠️  Conflict: {}", error_message),

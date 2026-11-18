@@ -83,11 +83,11 @@ impl<'a> TypeScriptManager<'a> {
             .ok_or_else(|| anyhow::anyhow!("paths is not an object"))?;
 
         // Add or append to the path alias
-        let knot_packages_path = format!("{}/*", alias);
-        let new_path = "./knot_packages/*";
+        let hpm_packages_path = format!("{}/*", alias);
+        let new_path = "./hpm_packages/*";
 
         // Check if this path alias already exists
-        if let Some(existing_paths) = paths_obj.get_mut(&knot_packages_path) {
+        if let Some(existing_paths) = paths_obj.get_mut(&hpm_packages_path) {
             // If it exists, ensure it's an array and append if not already present
             match existing_paths {
                 Value::Array(arr) => {
@@ -103,10 +103,10 @@ impl<'a> TypeScriptManager<'a> {
             }
         } else {
             // Path doesn't exist, create it
-            paths_obj.insert(knot_packages_path, json!([new_path]));
+            paths_obj.insert(hpm_packages_path, json!([new_path]));
         }
 
-        // Handle the include array - add knot_packages/**/* if not present
+        // Handle the include array - add hpm_packages/**/* if not present
         let include = tsconfig_obj.entry("include").or_insert_with(|| json!(["src/**/*"]));
         
         match include {
@@ -117,15 +117,15 @@ impl<'a> TypeScriptManager<'a> {
                     arr.insert(0, Value::String("src/**/*".to_string()));
                 }
                 
-                // Check if knot_packages is already included in any form
-                if !self.has_include_pattern(arr, "knot_packages") {
-                    arr.push(Value::String("knot_packages/**/*".to_string()));
+                // Check if hpm_packages is already included in any form
+                if !self.has_include_pattern(arr, "hpm_packages") {
+                    arr.push(Value::String("hpm_packages/**/*".to_string()));
                 }
             }
             Value::String(single_path) => {
                 // Handle case where include is a single string instead of array
                 let existing_path = single_path.clone();
-                *include = json!([existing_path, "knot_packages/**/*"]);
+                *include = json!([existing_path, "hpm_packages/**/*"]);
                 
                 // Add src if not already the existing path
                 if !self.is_pattern_match(&existing_path, "src") {
@@ -136,7 +136,7 @@ impl<'a> TypeScriptManager<'a> {
             }
             _ => {
                 // If it's null, undefined, or any other type, create proper array
-                *include = json!(["src/**/*", "knot_packages/**/*"]);
+                *include = json!(["src/**/*", "hpm_packages/**/*"]);
             }
         }
 
@@ -159,10 +159,10 @@ impl<'a> TypeScriptManager<'a> {
                         "skipLibCheck": true,
                         "forceConsistentCasingInFileNames": true,
                         "paths": {
-                            format!("{}/*", alias): ["./knot_packages/*"]
+                            format!("{}/*", alias): ["./hpm_packages/*"]
                         }
                     },
-                    "include": ["src/**/*", "knot_packages/**/*"],
+                    "include": ["src/**/*", "hpm_packages/**/*"],
                     "exclude": ["node_modules", "dist"]
                 });
                 
@@ -174,7 +174,7 @@ impl<'a> TypeScriptManager<'a> {
         fs::write(tsconfig_path, updated_content)
             .with_context(|| format!("Failed to write updated tsconfig to {:?}", tsconfig_path))?;
 
-        println!("✅ Updated tsconfig.json with alias '{}' and knot_packages include", alias);
+        println!("✅ Updated tsconfig.json with alias '{}' and hpm_packages include", alias);
         Ok(())
     }
 
@@ -206,22 +206,22 @@ impl<'a> TypeScriptManager<'a> {
 
         // Check for exact matches or pattern matches
         match pattern_base.as_str() {
-            "knot_packages" => {
-                // Check for various knot_packages patterns
-                let knot_patterns = [
-                    "knot_packages",
-                    "knot_packages/*",
-                    "knot_packages/**",
-                    "knot_packages/**/*",
-                    "knot_packages/**/*.ts",
-                    "knot_packages/**/*.tsx",
-                    "knot_packages/**/*.js",
-                    "knot_packages/**/*.jsx",
+            "hpm_packages" => {
+                // Check for various hpm_packages patterns
+                let hpm_patterns = [
+                    "hpm_packages",
+                    "hpm_packages/*",
+                    "hpm_packages/**",
+                    "hpm_packages/**/*",
+                    "hpm_packages/**/*.ts",
+                    "hpm_packages/**/*.tsx",
+                    "hpm_packages/**/*.js",
+                    "hpm_packages/**/*.jsx",
                 ];
-                knot_patterns.iter().any(|p| normalized == *p) || 
-                (normalized.starts_with("knot_packages/") && 
-                 !normalized.starts_with("knot_packages_") && 
-                 normalized != "knot_packages")
+                hpm_patterns.iter().any(|p| normalized == *p) || 
+                (normalized.starts_with("hpm_packages/") && 
+                 !normalized.starts_with("hpm_packages_") && 
+                 normalized != "hpm_packages")
             }
             "src" => {
                 // Check for various src patterns
@@ -317,7 +317,7 @@ impl<'a> TypeScriptManager<'a> {
 
 
     fn create_default_tsconfig(&self, tsconfig_path: &Path, alias: &str) -> Result<()> {
-        let knot_packages_path = format!("{}/*", alias);
+        let hpm_packages_path = format!("{}/*", alias);
 
         let tsconfig = json!({
             "compilerOptions": {
@@ -331,10 +331,10 @@ impl<'a> TypeScriptManager<'a> {
                 "skipLibCheck": true,
                 "forceConsistentCasingInFileNames": true,
                 "paths": {
-                    knot_packages_path: ["./knot_packages/*"]
+                    hpm_packages_path: ["./hpm_packages/*"]
                 }
             },
-            "include": ["src/**/*", "knot_packages/**/*"],
+            "include": ["src/**/*", "hpm_packages/**/*"],
             "exclude": ["node_modules", "dist"]
         });
 
@@ -342,7 +342,7 @@ impl<'a> TypeScriptManager<'a> {
         fs::write(tsconfig_path, content)
             .with_context(|| format!("Failed to create default tsconfig at {:?}", tsconfig_path))?;
 
-        println!("✅ Created tsconfig.json with alias '{}' and knot_packages include", alias);
+        println!("✅ Created tsconfig.json with alias '{}' and hpm_packages include", alias);
         Ok(())
     }
 }

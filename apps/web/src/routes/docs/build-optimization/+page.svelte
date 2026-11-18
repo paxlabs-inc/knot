@@ -3,8 +3,8 @@
 </script>
 
 <svelte:head>
-	<title>Build Optimization - Knot CLI Documentation</title>
-	<meta name="description" content="Optimize your builds for maximum performance and efficiency with Knot's build optimization features." />
+	<title>Build Optimization - HPM CLI Documentation</title>
+	<meta name="description" content="Optimize your builds for maximum performance and efficiency with HPM's build optimization features." />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
@@ -24,13 +24,13 @@
 			<h3 class="font-semibold mb-2">Parallel Building</h3>
 			<p class="text-sm text-muted-foreground mb-3">Leverage multiple CPU cores for faster builds</p>
 			<pre class="bg-background rounded p-3 overflow-x-auto"><code class="text-sm">{`# Build with parallel processing
-knot build --parallel
+hpm build --parallel
 
 # Specify number of workers
-knot build --parallel 4
+hpm build --parallel 4
 
 # Build specific packages in parallel
-knot build @org/package-* --parallel`}</code></pre>
+hpm build @org/package-* --parallel`}</code></pre>
 		</div>
 
 		<h2 class="text-2xl font-bold mb-4 mt-8">Caching Strategies</h2>
@@ -38,28 +38,28 @@ knot build @org/package-* --parallel`}</code></pre>
 		<div class="space-y-4">
 			<div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
 				<h3 class="font-semibold text-blue-900 mb-2">Build Cache</h3>
-				<p class="text-sm text-blue-700 mb-3">Knot automatically caches build outputs to speed up subsequent builds</p>
+				<p class="text-sm text-blue-700 mb-3">HPM automatically caches build outputs to speed up subsequent builds</p>
 				<pre class="bg-white rounded p-3"><code class="text-sm">{`# View cache status
-knot cache status
+hpm cache status
 
 # Clear cache
-knot cache clean
+hpm cache clean
 
 # Build with cache disabled
-knot build --no-cache`}</code></pre>
+hpm build --no-cache`}</code></pre>
 			</div>
 
 			<div class="bg-green-50 border border-green-200 rounded-lg p-4">
 				<h3 class="font-semibold text-green-900 mb-2">Dependency Cache</h3>
 				<p class="text-sm text-green-700 mb-3">Cache dependencies for faster installs</p>
 				<pre class="bg-white rounded p-3"><code class="text-sm">{`# Cache location
-~/.knot/cache/
+~/.hpm/cache/
 
 # Prune unused cached packages
-knot cache prune
+hpm cache prune
 
 # Verify cache integrity
-knot cache verify`}</code></pre>
+hpm cache verify`}</code></pre>
 			</div>
 		</div>
 
@@ -69,7 +69,7 @@ knot cache verify`}</code></pre>
 			<div class="bg-muted rounded-lg p-4">
 				<h3 class="font-semibold mb-2">Tree Shaking</h3>
 				<p class="text-sm text-muted-foreground mb-3">Remove unused code from bundles</p>
-				<pre class="bg-background rounded p-3 overflow-x-auto"><code class="text-sm">{`// knot.config.js
+				<pre class="bg-background rounded p-3 overflow-x-auto"><code class="text-sm">{`// hpm.config.js
 export default {
   build: {
     treeShake: true,
@@ -85,7 +85,7 @@ export default {
 				<pre class="bg-background rounded p-3 overflow-x-auto"><code class="text-sm">{`// Dynamic imports for code splitting
 const MyComponent = () => import('./MyComponent');
 
-// knot.config.js
+// hpm.config.js
 export default {
   build: {
     splitting: true,
@@ -98,10 +98,10 @@ export default {
 				<h3 class="font-semibold mb-2">Minification</h3>
 				<p class="text-sm text-muted-foreground mb-3">Reduce bundle size with minification</p>
 				<pre class="bg-background rounded p-3 overflow-x-auto"><code class="text-sm">{`# Build with minification
-knot build --minify
+hpm build --minify
 
 # Advanced minification options
-knot build --minify --mangle --compress`}</code></pre>
+hpm build --minify --mangle --compress`}</code></pre>
 			</div>
 		</div>
 
@@ -111,13 +111,13 @@ knot build --minify --mangle --compress`}</code></pre>
 			<h3 class="font-semibold text-yellow-900 mb-2">Smart Rebuilds</h3>
 			<p class="text-sm text-yellow-700 mb-3">Only rebuild what has changed</p>
 			<pre class="bg-yellow-100 rounded p-3 overflow-x-auto"><code class="text-sm">{`# Enable incremental builds
-knot build --incremental
+hpm build --incremental
 
 # Watch mode with incremental builds
-knot dev --incremental
+hpm dev --incremental
 
 # Force full rebuild
-knot build --force`}</code></pre>
+hpm build --force`}</code></pre>
 		</div>
 
 		<h2 class="text-2xl font-bold mb-4 mt-8">Build Analysis</h2>
@@ -127,33 +127,33 @@ knot build --force`}</code></pre>
 				<h3 class="font-semibold mb-2">Bundle Analysis</h3>
 				<p class="text-sm text-muted-foreground mb-3">Analyze bundle size and composition</p>
 				<pre class="bg-background rounded p-3 overflow-x-auto"><code class="text-sm">{`# Generate bundle analysis
-knot build --analyze
+hpm build --analyze
 
 # Output detailed stats
-knot build --stats detailed
+hpm build --stats detailed
 
 # Save stats to file
-knot build --stats-json stats.json`}</code></pre>
+hpm build --stats-json stats.json`}</code></pre>
 			</div>
 
 			<div class="bg-muted rounded-lg p-4">
 				<h3 class="font-semibold mb-2">Performance Metrics</h3>
 				<p class="text-sm text-muted-foreground mb-3">Measure build performance</p>
 				<pre class="bg-background rounded p-3 overflow-x-auto"><code class="text-sm">{`# Show build timings
-knot build --timings
+hpm build --timings
 
 # Profile build process
-knot build --profile
+hpm build --profile
 
 # Generate performance report
-knot build --perf-report`}</code></pre>
+hpm build --perf-report`}</code></pre>
 			</div>
 		</div>
 
 		<h2 class="text-2xl font-bold mb-4 mt-8">Configuration</h2>
 		
 		<div class="bg-muted rounded-lg p-4 mb-6">
-			<h3 class="font-semibold mb-2">knot.config.js</h3>
+			<h3 class="font-semibold mb-2">hpm.config.js</h3>
 			<p class="text-sm text-muted-foreground mb-3">Complete build optimization configuration</p>
 			<pre class="bg-background rounded p-3 overflow-x-auto"><code class="text-sm">{`export default {
   build: {
@@ -201,17 +201,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Cache Knot
+      - name: Cache HPM
         uses: actions/cache@v2
         with:
-          path: ~/.knot/cache
-          key: knot-\${{ runner.os }}-\${{ hashFiles('**/package-lock.json') }}
+          path: ~/.hpm/cache
+          key: hpm-\${{ runner.os }}-\${{ hashFiles('**/package-lock.json') }}
           
-      - name: Install Knot
-        run: curl -fsSL https://knot.space/install.sh | bash
+      - name: Install HPM
+        run: curl -fsSL https://hpm.space/install.sh | bash
         
       - name: Build
-        run: knot build --parallel --cache`}</code></pre>
+        run: hpm build --parallel --cache`}</code></pre>
 			</div>
 		</div>
 
@@ -222,7 +222,7 @@ jobs:
 				<Icon icon="lucide:check-circle" class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
 				<div>
 					<p class="font-medium">Use production builds for deployment</p>
-					<p class="text-sm text-muted-foreground">Always use <code>knot build --production</code> for production</p>
+					<p class="text-sm text-muted-foreground">Always use <code>hpm build --production</code> for production</p>
 				</div>
 			</div>
 

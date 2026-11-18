@@ -25,7 +25,7 @@ class Cache {
     this.config = {
       ttl: 3600, // 1 hour default
       maxSize: 1000, // max items for memory cache
-      keyPrefix: 'knot:',
+      keyPrefix: 'hpm:',
       ...config,
     };
     

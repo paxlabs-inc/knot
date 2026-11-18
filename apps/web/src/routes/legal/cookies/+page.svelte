@@ -3,8 +3,8 @@
 </script>
 
 <svelte:head>
-	<title>Cookie Policy - Knot Space</title>
-	<meta name="description" content="Knot Space Cookie Policy - How we use cookies and similar technologies" />
+	<title>Cookie Policy - HPM Registry</title>
+	<meta name="description" content="HPM Registry Cookie Policy - How we use cookies and similar technologies" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -26,7 +26,7 @@
 				</div>
 				<div class="ml-3">
 					<p class="text-sm text-blue-700">
-						This Cookie Policy explains how Knot Space uses cookies and similar technologies to provide and improve our service.
+						This Cookie Policy explains how HPM Registry uses cookies and similar technologies to provide and improve our service.
 					</p>
 				</div>
 			</div>
@@ -243,7 +243,7 @@
 				
 				<div>
 					<h3 class="font-medium mb-2">GitHub</h3>
-					<a href="https://github.com/saravenpi/knot/issues" class="text-blue-600 hover:text-blue-800">Report on GitHub</a>
+					<a href="https://github.com/paxlabs-inc/knot/issues" class="text-blue-600 hover:text-blue-800">Report on GitHub</a>
 				</div>
 			</div>
 		</section>

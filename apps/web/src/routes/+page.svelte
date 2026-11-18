@@ -57,54 +57,54 @@
 </script>
 
 <svelte:head>
-	<title>Knot Space - Modern Package Registry for Monorepo Development</title>
-	<meta name="description" content="The modern package registry for Knot monorepo packages. Publish, share, and manage packages for any programming language with teams. Fast publishing, team collaboration, and secure infrastructure." />
-	<meta name="keywords" content="package registry, monorepo, package manager, team collaboration, private packages, multi-language, development tools, knot" />
-	<meta name="author" content="Knot Space" />
+	<title>HPM Registry - Modern Package Registry for Monorepo Development</title>
+	<meta name="description" content="The package registry for Hyper Package Manager (HPM) monorepo packages. Publish, share, and manage packages for any programming language with teams. Fast publishing, team collaboration, and secure infrastructure." />
+	<meta name="keywords" content="package registry, monorepo, package manager, team collaboration, private packages, multi-language, development tools, hpm" />
+	<meta name="author" content="HPM Registry" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://knot.klysium.com/" />
-	<meta property="og:title" content="Knot Space - Modern Package Registry for Monorepo Development" />
-	<meta property="og:description" content="The modern package registry for Knot monorepo packages. Publish, share, and manage packages for any programming language with teams. Fast publishing, team collaboration, and secure infrastructure." />
-	<meta property="og:image" content="https://knot.klysium.com/images/og/home.png" />
-	<meta property="og:image:alt" content="Knot Space - Modern Package Registry for Multi-Language Development" />
-	<meta property="og:site_name" content="Knot Space" />
+	<meta property="og:url" content="https://hpm.klysium.com/" />
+	<meta property="og:title" content="HPM Registry - Modern Package Registry for Monorepo Development" />
+	<meta property="og:description" content="The package registry for Hyper Package Manager (HPM) monorepo packages. Publish, share, and manage packages for any programming language with teams. Fast publishing, team collaboration, and secure infrastructure." />
+	<meta property="og:image" content="https://hpm.klysium.com/images/og/home.png" />
+	<meta property="og:image:alt" content="HPM Registry - Modern Package Registry for Multi-Language Development" />
+	<meta property="og:site_name" content="HPM Registry" />
 	<meta property="og:locale" content="en_US" />
 
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:url" content="https://knot.klysium.com/" />
-	<meta name="twitter:title" content="Knot Space - Modern Package Registry for Monorepo Development" />
-	<meta name="twitter:description" content="The modern package registry for Knot monorepo packages. Publish, share, and manage packages for any programming language with teams." />
-	<meta name="twitter:image" content="https://knot.klysium.com/images/og/home.png" />
-	<meta name="twitter:image:alt" content="Knot Space - Modern Package Registry" />
-	<meta name="twitter:creator" content="@knotspace" />
-	<meta name="twitter:site" content="@knotspace" />
+	<meta name="twitter:url" content="https://hpm.klysium.com/" />
+	<meta name="twitter:title" content="HPM Registry - Modern Package Registry for Monorepo Development" />
+	<meta name="twitter:description" content="The package registry for Hyper Package Manager (HPM) monorepo packages. Publish, share, and manage packages for any programming language with teams." />
+	<meta name="twitter:image" content="https://hpm.klysium.com/images/og/home.png" />
+	<meta name="twitter:image:alt" content="HPM Registry - Modern Package Registry" />
+	<meta name="twitter:creator" content="@hpmregistry" />
+	<meta name="twitter:site" content="@hpmregistry" />
 
 	<!-- Additional SEO -->
 	<meta name="robots" content="index, follow" />
 	<meta name="googlebot" content="index, follow" />
-	<link rel="canonical" href="https://knot.klysium.com/" />
+	<link rel="canonical" href="https://hpm.klysium.com/" />
 	
 	<!-- Schema.org structured data -->
 	<script type="application/ld+json">
 	{
 		"@context": "https://schema.org",
 		"@type": "WebSite",
-		"name": "Knot Space",
-		"description": "The modern package registry for Knot monorepo packages. Publish, share, and manage packages for any programming language with teams.",
-		"url": "https://knot.klysium.com",
+		"name": "HPM Registry",
+		"description": "The package registry for Hyper Package Manager (HPM) monorepo packages. Publish, share, and manage packages for any programming language with teams.",
+		"url": "https://hpm.klysium.com",
 		"potentialAction": {
 			"@type": "SearchAction",
-			"target": "https://knot.klysium.com/packages?search={search_term_string}",
+			"target": "https://hpm.klysium.com/packages?search={search_term_string}",
 			"query-input": "required name=search_term_string"
 		},
 		"publisher": {
 			"@type": "Organization",
-			"name": "Knot Space",
-			"url": "https://knot.klysium.com"
+			"name": "HPM Registry",
+			"url": "https://hpm.klysium.com"
 		}
 	}
 	</script>
@@ -133,10 +133,10 @@
 	</div>
 	<div class="relative z-10">
 	<h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-6" style="font-family: 'Gambarino', 'Satoshi', sans-serif;">
-		Welcome to <span class="text-black">Knot Space</span>
+		Welcome to <span class="text-black">HPM Registry</span>
 	</h1>
 	<p class="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-		The modern package registry for Knot monorepo packages. Publish, share, and manage packages for any programming language with teams.
+		The package registry for Hyper Package Manager (HPM) monorepo packages. Publish, share, and manage packages for any programming language with teams.
 	</p>
 	<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
 		<a
@@ -219,7 +219,7 @@
 				<Icon icon="solar:box-bold" class="w-16 h-16 text-muted-foreground mx-auto" />
 			</div>
 			<h3 class="text-xl font-semibold mb-2">No packages yet</h3>
-			<p class="text-muted-foreground mb-4">Be the first to publish a package to Knot Space!</p>
+			<p class="text-muted-foreground mb-4">Be the first to publish a package to HPM Registry!</p>
 			<a
 				href="/login"
 				class="bg-black text-white hover:bg-black/90 px-6 py-2 rounded-md font-medium transition-colors inline-flex items-center space-x-2"
@@ -268,15 +268,15 @@
 		<div class="bg-black/5 border border-border rounded-lg p-8">
 			<h3 class="text-xl font-semibold mb-4">Ready to get started?</h3>
 			<p class="text-muted-foreground mb-6">
-				Install the Knot CLI and start building your monorepo today.
+				Install the HPM CLI and start building your monorepo today.
 			</p>
 			<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded mb-6 text-left overflow-x-auto relative">
-				<code>curl -fsSL https://raw.githubusercontent.com/saravenpi/knot/main/install.sh | bash</code>
+				<code>curl -fsSL https://raw.githubusercontent.com/paxlabs-inc/knot/main/install.sh | bash</code>
 				<button
 					class="absolute top-2 right-2 p-1.5 rounded bg-white/10 hover:bg-white/20 transition-colors"
 					on:click={async () => {
 				try {
-					await navigator.clipboard.writeText('curl -fsSL https://raw.githubusercontent.com/saravenpi/knot/main/install.sh | bash');
+					await navigator.clipboard.writeText('curl -fsSL https://raw.githubusercontent.com/paxlabs-inc/knot/main/install.sh | bash');
 				} catch (err) {
 					console.error('Failed to copy to clipboard:', err);
 				}
@@ -326,13 +326,13 @@
 				</div>
 				<div class="bg-muted/30 rounded-lg p-4">
 					<div class="text-sm text-muted-foreground mb-2">Terminal</div>
-					<pre class="text-sm font-mono bg-black/90 text-green-400 p-3 rounded overflow-x-auto"><code>$ knot init MyProject
-✅ Initialized new Knot project: MyProject
+					<pre class="text-sm font-mono bg-black/90 text-green-400 p-3 rounded overflow-x-auto"><code>$ hpm init MyProject
+✅ Initialized new HPM project: MyProject
 📁 Created directories: packages/, apps/
-💡 Use 'knot init:package &lt;name&gt;' to create packages</code></pre>
+💡 Use 'hpm init:package &lt;name&gt;' to create packages</code></pre>
 				</div>
 				<div class="bg-muted/30 rounded-lg p-4">
-					<div class="text-sm text-muted-foreground mb-2">knot.yml</div>
+					<div class="text-sm text-muted-foreground mb-2">hpm.yml</div>
 					<pre class="text-sm font-mono bg-black/90 text-white p-3 rounded overflow-x-auto"><code><span class="text-blue-400">name:</span> <span class="text-green-400">MyProject</span>
 <span class="text-blue-400">description:</span> <span class="text-green-400">A modern TypeScript monorepo</span>
 <span class="text-blue-400">apps:</span>
@@ -341,7 +341,7 @@
     <span class="text-blue-400">packages:</span> <span class="text-yellow-400">[types, utils]</span>
 <span class="text-blue-400">scripts:</span>
   <span class="text-blue-400">setup:</span> <span class="text-green-400">"npm install"</span>
-  <span class="text-blue-400">test-all:</span> <span class="text-green-400">"knot run test --all"</span></code></pre>
+  <span class="text-blue-400">test-all:</span> <span class="text-green-400">"hpm run test --all"</span></code></pre>
 				</div>
 			</div>
 
@@ -355,7 +355,7 @@
 				</div>
 				<div class="bg-muted/30 rounded-lg p-4">
 					<div class="text-sm text-muted-foreground mb-2">Terminal</div>
-					<pre class="text-sm font-mono bg-black/90 text-green-400 p-3 rounded overflow-x-auto"><code>$ knot init:package utils --team myteam
+					<pre class="text-sm font-mono bg-black/90 text-green-400 p-3 rounded overflow-x-auto"><code>$ hpm init:package utils --team myteam
 📦 Initialized new package: utils</code></pre>
 				</div>
 				<div class="bg-muted/30 rounded-lg p-4">
@@ -387,7 +387,7 @@
 					<Icon icon="solar:link-bold" class="w-4 h-4 text-black" />
 					<span class="font-semibold">Link Packages</span>
 				</div>
-				<pre class="text-sm font-mono bg-black/90 text-green-400 p-3 rounded overflow-x-auto"><code>$ knot link
+				<pre class="text-sm font-mono bg-black/90 text-green-400 p-3 rounded overflow-x-auto"><code>$ hpm link
 🔗 Successfully copied all packages and
    updated TypeScript configurations</code></pre>
 			</div>
@@ -396,7 +396,7 @@
 					<Icon icon="solar:rocket-2-bold" class="w-4 h-4 text-black" />
 					<span class="font-semibold">Publish Package</span>
 				</div>
-				<pre class="text-sm font-mono bg-black/90 text-green-400 p-3 rounded overflow-x-auto"><code>$ knot publish --team myteam
+				<pre class="text-sm font-mono bg-black/90 text-green-400 p-3 rounded overflow-x-auto"><code>$ hpm publish --team myteam
 📦 Successfully published utils v1.0.0
    Team: myteam</code></pre>
 			</div>
@@ -405,7 +405,7 @@
 					<Icon icon="solar:play-bold" class="w-4 h-4 text-black" />
 					<span class="font-semibold">Run Scripts</span>
 				</div>
-				<pre class="text-sm font-mono bg-black/90 text-green-400 p-3 rounded overflow-x-auto"><code>$ knot run dev
+				<pre class="text-sm font-mono bg-black/90 text-green-400 p-3 rounded overflow-x-auto"><code>$ hpm run dev
 🚀 Running app script 'dev'...
 📝 Command: vite dev --port 3000</code></pre>
 			</div>
@@ -414,7 +414,7 @@
 					<Icon icon="solar:hammer-bold" class="w-4 h-4 text-black" />
 					<span class="font-semibold">Build Apps</span>
 				</div>
-				<pre class="text-sm font-mono bg-black/90 text-green-400 p-3 rounded overflow-x-auto"><code>$ knot build
+				<pre class="text-sm font-mono bg-black/90 text-green-400 p-3 rounded overflow-x-auto"><code>$ hpm build
 🔨 Building all apps...
 ✅ Successfully built: 2/2 apps</code></pre>
 			</div>
@@ -425,7 +425,7 @@
 
 <!-- Features -->
 <div class="py-12 border-t">
-	<h2 class="text-3xl font-bold text-center mb-12">Why Knot Space?</h2>
+	<h2 class="text-3xl font-bold text-center mb-12">Why HPM Registry?</h2>
 	<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 		<div class="text-center">
 			<div class="w-12 h-12 bg-black/10 rounded-lg flex items-center justify-center mx-auto mb-4">
@@ -433,7 +433,7 @@
 			</div>
 			<h3 class="font-semibold text-lg mb-2">Fast Publishing</h3>
 			<p class="text-muted-foreground">
-				Publish packages instantly with the Knot CLI. Simple, secure, and integrated with your workflow.
+				Publish packages instantly with the HPM CLI. Simple, secure, and integrated with your workflow.
 			</p>
 		</div>
 		<div class="text-center">

@@ -19,16 +19,16 @@
 </script>
 
 <svelte:head>
-	<title>Publishing Packages - Knot CLI Documentation</title>
-	<meta name="description" content="Learn how to publish packages to Knot registry, including version management, authentication, CI/CD workflows, and automated GitHub Actions." />
-	<meta property="og:title" content="Publishing Packages - Knot CLI" />
-	<meta property="og:description" content="Learn how to publish packages to Knot registry, including version management, authentication, CI/CD workflows, and automated GitHub Actions." />
+	<title>Publishing Packages - HPM CLI Documentation</title>
+	<meta name="description" content="Learn how to publish packages to HPM registry, including version management, authentication, CI/CD workflows, and automated GitHub Actions." />
+	<meta property="og:title" content="Publishing Packages - HPM CLI" />
+	<meta property="og:description" content="Learn how to publish packages to HPM registry, including version management, authentication, CI/CD workflows, and automated GitHub Actions." />
 	<meta property="og:image" content="/images/og/publishing.png" />
-	<meta property="og:url" content="https://knot.klysium.com/docs/publishing" />
-	<meta name="twitter:title" content="Publishing Packages - Knot CLI" />
-	<meta name="twitter:description" content="Learn how to publish packages to Knot registry, including version management, authentication, CI/CD workflows, and automated GitHub Actions." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs/publishing" />
+	<meta name="twitter:title" content="Publishing Packages - HPM CLI" />
+	<meta name="twitter:description" content="Learn how to publish packages to HPM registry, including version management, authentication, CI/CD workflows, and automated GitHub Actions." />
 	<meta name="twitter:image" content="/images/og/publishing.png" />
-	<link rel="canonical" href="https://knot.klysium.com/docs/publishing" />
+	<link rel="canonical" href="https://hpm.klysium.com/docs/publishing" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
@@ -37,7 +37,7 @@
 			Publishing Packages
 		</h1>
 		<p class="text-lg text-muted-foreground">
-			Share your packages with the world through Knot Space registry and team collaboration
+			Share your packages with the world through HPM Registry registry and team collaboration
 		</p>
 	</div>
 
@@ -45,9 +45,9 @@
 	<section class="mb-12">
 		<h2 class="text-2xl font-bold mb-6">Overview</h2>
 		<p class="text-muted-foreground leading-relaxed mb-6">
-			Knot Space registry allows you to publish and share packages with your team or the public. 
+			HPM Registry registry allows you to publish and share packages with your team or the public. 
 			Whether you're building internal company libraries or contributing to open source, 
-			Knot provides a seamless publishing experience with version management and access controls.
+			HPM provides a seamless publishing experience with version management and access controls.
 		</p>
 		
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -89,19 +89,19 @@
 			<div>
 				<h3 class="text-lg font-semibold mb-4">Getting Started</h3>
 				<p class="text-muted-foreground mb-4">
-					Before publishing packages, you need to authenticate with Knot Space registry.
+					Before publishing packages, you need to authenticate with HPM Registry registry.
 				</p>
 
 				<div class="space-y-4">
 					<div>
-						<h4 class="font-medium mb-2">Login to Knot Space</h4>
+						<h4 class="font-medium mb-2">Login to HPM Registry</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-							<code>knot auth</code>
+							<code>hpm auth</code>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot auth')}
+								on:click={() => copyToClipboard('hpm auth')}
 							>
-								{#if showCopied && copyText === 'knot auth'}
+								{#if showCopied && copyText === 'hpm auth'}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -116,12 +116,12 @@
 					<div>
 						<h4 class="font-medium mb-2">Verify Authentication</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-							<code>knot auth</code>
+							<code>hpm auth</code>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot auth')}
+								on:click={() => copyToClipboard('hpm auth')}
 							>
-								{#if showCopied && copyText === 'knot auth'}
+								{#if showCopied && copyText === 'hpm auth'}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -145,10 +145,10 @@
 					<div>
 						<h4 class="font-medium mb-2">Set Registry URL</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-							<code>knot config set registry https://knot.mycompany.com</code>
+							<code>hpm config set registry https://hpm.mycompany.com</code>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot config set registry https://knot.mycompany.com')}
+								on:click={() => copyToClipboard('hpm config set registry https://hpm.mycompany.com')}
 							>
 								{#if showCopied && copyText.includes('mycompany')}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
@@ -163,8 +163,8 @@
 						<h4 class="font-medium mb-2">Environment Variables</h4>
 						<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg">
 							<pre><code><span class="text-gray-400"># Set in your environment or CI/CD</span>
-<span class="text-blue-400">export</span> <span class="text-yellow-400">KNOT_TOKEN</span>=<span class="text-green-400">"your-auth-token"</span>
-<span class="text-blue-400">export</span> <span class="text-yellow-400">KNOT_SPACE_URL</span>=<span class="text-green-400">"https://knot.mycompany.com"</span></code></pre>
+<span class="text-blue-400">export</span> <span class="text-yellow-400">HPM_TOKEN</span>=<span class="text-green-400">"your-auth-token"</span>
+<span class="text-blue-400">export</span> <span class="text-yellow-400">HPM_REGISTRY_URL</span>=<span class="text-green-400">"https://hpm.mycompany.com"</span></code></pre>
 						</div>
 					</div>
 				</div>
@@ -187,10 +187,10 @@
 					<div>
 						<h4 class="font-medium mb-2">Publish Current Package</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-							<code>cd packages/utils && knot publish</code>
+							<code>cd packages/utils && hpm publish</code>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('cd packages/utils && knot publish')}
+								on:click={() => copyToClipboard('cd packages/utils && hpm publish')}
 							>
 								{#if showCopied && copyText.includes('packages/utils')}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
@@ -200,14 +200,14 @@
 							</button>
 						</div>
 						<p class="text-sm text-muted-foreground mt-2">
-							Publishes the package in the current directory to Knot Space registry.
+							Publishes the package in the current directory to HPM Registry registry.
 						</p>
 					</div>
 
 					<div>
 						<h4 class="font-medium mb-2">Pre-publication Checklist</h4>
 						<div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
-							<h5 class="font-semibold text-blue-900 mb-3">Knot automatically verifies:</h5>
+							<h5 class="font-semibold text-blue-900 mb-3">HPM automatically verifies:</h5>
 							<ul class="text-sm text-blue-700 space-y-1">
 								<li>✓ Package configuration is valid</li>
 								<li>✓ Version follows semantic versioning</li>
@@ -222,7 +222,7 @@
 					<div>
 						<h4 class="font-medium mb-2">Example Publishing Flow</h4>
 						<div class="bg-black/90 text-white font-mono text-xs p-4 rounded-lg">
-							<pre><code><span class="text-green-400">$ cd packages/utils && knot publish</span>
+							<pre><code><span class="text-green-400">$ cd packages/utils && hpm publish</span>
 
 <span class="text-blue-400">🔍 Validating package configuration...</span>
 <span class="text-green-400">✓ package.yml is valid</span>
@@ -232,12 +232,12 @@
 <span class="text-green-400">✓ TypeScript compilation successful</span>
 <span class="text-green-400">✓ All tests pass</span>
 
-<span class="text-blue-400">📦 Publishing to Knot Space...</span>
+<span class="text-blue-400">📦 Publishing to HPM Registry...</span>
 <span class="text-green-400">✓ Package uploaded successfully</span>
 <span class="text-green-400">✓ Registry updated</span>
 
 <span class="text-yellow-400">🎉 Successfully published utils@1.2.0</span>
-<span class="text-gray-400">   View at: https://knot.space/packages/utils</span></code></pre>
+<span class="text-gray-400">   View at: https://hpm.space/packages/utils</span></code></pre>
 						</div>
 					</div>
 				</div>
@@ -249,12 +249,12 @@
 					<div>
 						<h4 class="font-medium mb-2">Dry Run</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-							<code>knot publish --dry-run</code>
+							<code>hpm publish --dry-run</code>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot publish --dry-run')}
+								on:click={() => copyToClipboard('hpm publish --dry-run')}
 							>
-								{#if showCopied && copyText === 'knot publish --dry-run'}
+								{#if showCopied && copyText === 'hpm publish --dry-run'}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -269,12 +269,12 @@
 					<div>
 						<h4 class="font-medium mb-2">Force Publish</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-							<code>knot publish --force</code>
+							<code>hpm publish --force</code>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot publish --force')}
+								on:click={() => copyToClipboard('hpm publish --force')}
 							>
-								{#if showCopied && copyText === 'knot publish --force'}
+								{#if showCopied && copyText === 'hpm publish --force'}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -289,10 +289,10 @@
 					<div>
 						<h4 class="font-medium mb-2">Tag Releases</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-							<code>knot publish --tag beta</code>
+							<code>hpm publish --tag beta</code>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot publish --tag beta')}
+								on:click={() => copyToClipboard('hpm publish --tag beta')}
 							>
 								{#if showCopied && copyText.includes('--tag beta')}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
@@ -348,10 +348,10 @@ version: 1.0.0`)}
 					<div>
 						<h4 class="font-medium mb-2">Publishing Team Package</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-							<code>cd packages/shared-lib && knot publish</code>
+							<code>cd packages/shared-lib && hpm publish</code>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('cd packages/shared-lib && knot publish')}
+								on:click={() => copyToClipboard('cd packages/shared-lib && hpm publish')}
 							>
 								{#if showCopied && copyText.includes('shared-lib')}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
@@ -426,7 +426,7 @@ version: 1.0.0`)}
 			<div>
 				<h3 class="text-lg font-semibold mb-4">Semantic Versioning</h3>
 				<p class="text-muted-foreground mb-4">
-					Knot enforces semantic versioning to ensure predictable updates and compatibility.
+					HPM enforces semantic versioning to ensure predictable updates and compatibility.
 				</p>
 
 				<div class="space-y-4">
@@ -436,21 +436,21 @@ version: 1.0.0`)}
 							<div class="border rounded-lg p-4">
 								<h5 class="font-medium mb-2">Patch Release</h5>
 								<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded mb-2">
-									<code>knot version patch</code>
+									<code>hpm version patch</code>
 								</div>
 								<p class="text-xs text-muted-foreground">Bug fixes, no breaking changes</p>
 							</div>
 							<div class="border rounded-lg p-4">
 								<h5 class="font-medium mb-2">Minor Release</h5>
 								<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded mb-2">
-									<code>knot version minor</code>
+									<code>hpm version minor</code>
 								</div>
 								<p class="text-xs text-muted-foreground">New features, backward compatible</p>
 							</div>
 							<div class="border rounded-lg p-4">
 								<h5 class="font-medium mb-2">Major Release</h5>
 								<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded mb-2">
-									<code>knot version major</code>
+									<code>hpm version major</code>
 								</div>
 								<p class="text-xs text-muted-foreground">Breaking changes</p>
 							</div>
@@ -461,10 +461,10 @@ version: 1.0.0`)}
 						<h4 class="font-medium mb-2">Pre-release Versions</h4>
 						<div class="space-y-3">
 							<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded">
-								<code>knot version 2.0.0-beta.1</code>
+								<code>hpm version 2.0.0-beta.1</code>
 							</div>
 							<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded">
-								<code>knot version prerelease --preid alpha</code>
+								<code>hpm version prerelease --preid alpha</code>
 							</div>
 						</div>
 					</div>
@@ -479,22 +479,22 @@ version: 1.0.0`)}
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
 							<div class="space-y-1">
 								<div><code># 1. Update version</code></div>
-								<div><code>knot version minor</code></div>
+								<div><code>hpm version minor</code></div>
 								<div><code># 2. Build and test</code></div>
-								<div><code>knot run build && knot run test</code></div>
+								<div><code>hpm run build && hpm run test</code></div>
 								<div><code># 3. Publish to registry</code></div>
-								<div><code>knot publish</code></div>
+								<div><code>hpm publish</code></div>
 								<div><code># 4. Create git tag</code></div>
 								<div><code>git tag v1.3.0 && git push --tags</code></div>
 							</div>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
 								on:click={() => copyToClipboard(`# 1. Update version
-knot version minor
+hpm version minor
 # 2. Build and test
-knot run build && knot run test
+hpm run build && hpm run test
 # 3. Publish to registry
-knot publish
+hpm publish
 # 4. Create git tag
 git tag v1.3.0 && git push --tags`)}
 							>
@@ -523,8 +523,8 @@ git tag v1.3.0 && git push --tags`)}
   <span class="text-blue-400">publish:</span>
     <span class="text-blue-400">runs-on:</span> <span class="text-green-400">ubuntu-latest</span>
     <span class="text-blue-400">steps:</span>
-      - <span class="text-blue-400">run:</span> <span class="text-green-400">knot login --token \${{ secrets.KNOT_TOKEN }}</span>
-      - <span class="text-blue-400">run:</span> <span class="text-green-400">knot publish</span>`}</code></pre>
+      - <span class="text-blue-400">run:</span> <span class="text-green-400">hpm login --token \${{ secrets.HPM_TOKEN }}</span>
+      - <span class="text-blue-400">run:</span> <span class="text-green-400">hpm publish</span>`}</code></pre>
 						</div>
 					</div>
 				</div>
@@ -556,7 +556,7 @@ git tag v1.3.0 && git push --tags`)}
   - <span class="text-yellow-400">design-system</span></code></pre>
 						</div>
 						<p class="text-sm text-muted-foreground mt-2">
-							Tags help users discover your package in the Knot Space web interface.
+							Tags help users discover your package in the HPM Registry web interface.
 						</p>
 					</div>
 
@@ -652,7 +652,7 @@ git tag v1.3.0 && git push --tags`)}
 					<h3 class="font-semibold">Self-Hosting</h3>
 				</div>
 				<p class="text-sm text-muted-foreground">
-					Set up your own private Knot Space registry for internal package management.
+					Set up your own private HPM Registry registry for internal package management.
 				</p>
 			</a>
 		</div>

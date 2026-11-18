@@ -47,7 +47,7 @@ pub enum AppDependencies {
 
 /// Project-level configuration structure  
 #[derive(Debug, Serialize, Deserialize)]
-pub struct KnotConfig {
+pub struct HpmConfig {
     /// Project name
     pub name: String,
     /// Project description
@@ -107,7 +107,7 @@ description: A simple test project
 "#;
     
     print!("Testing simple YAML... ");
-    match serde_yaml::from_str::<KnotConfig>(simple_yaml) {
+    match serde_yaml::from_str::<HpmConfig>(simple_yaml) {
         Ok(config) => {
             println!("✅ SUCCESS");
             println!("  - Name: {}", config.name);
@@ -130,7 +130,7 @@ scripts:
 "#;
     
     print!("Testing YAML with scripts... ");
-    match serde_yaml::from_str::<KnotConfig>(yaml_with_scripts) {
+    match serde_yaml::from_str::<HpmConfig>(yaml_with_scripts) {
         Ok(config) => {
             println!("✅ SUCCESS");
             println!("  - Scripts: {:?}", config.scripts);
@@ -155,7 +155,7 @@ apps:
 "#;
     
     print!("Testing YAML with apps (simple)... ");
-    match serde_yaml::from_str::<KnotConfig>(yaml_with_apps) {
+    match serde_yaml::from_str::<HpmConfig>(yaml_with_apps) {
         Ok(config) => {
             println!("✅ SUCCESS");
             println!("  - Apps: {:?}", config.apps);
@@ -184,7 +184,7 @@ apps:
 "#;
     
     print!("Testing apps with object format... ");
-    match serde_yaml::from_str::<KnotConfig>(yaml_object_format) {
+    match serde_yaml::from_str::<HpmConfig>(yaml_object_format) {
         Ok(config) => {
             println!("✅ SUCCESS");
             println!("  - Apps: {:?}", config.apps);
@@ -210,7 +210,7 @@ apps:
 "#;
     
     print!("Testing apps with mixed formats... ");
-    match serde_yaml::from_str::<KnotConfig>(yaml_mixed_format) {
+    match serde_yaml::from_str::<HpmConfig>(yaml_mixed_format) {
         Ok(config) => {
             println!("✅ SUCCESS");
             println!("  - Apps: {:?}", config.apps);
@@ -237,7 +237,7 @@ variables:
 "#;
     
     print!("Testing simple variables... ");
-    match serde_yaml::from_str::<KnotConfig>(yaml_simple_vars) {
+    match serde_yaml::from_str::<HpmConfig>(yaml_simple_vars) {
         Ok(config) => {
             println!("✅ SUCCESS");
             if let Some(vars) = &config.variables {
@@ -263,7 +263,7 @@ variables:
 "#;
     
     print!("Testing complex variables... ");
-    match serde_yaml::from_str::<KnotConfig>(yaml_complex_vars) {
+    match serde_yaml::from_str::<HpmConfig>(yaml_complex_vars) {
         Ok(config) => {
             println!("✅ SUCCESS");
             if let Some(vars) = &config.variables {
@@ -295,7 +295,7 @@ description: "A project called ${full_name}"
 "#;
     
     print!("Testing YAML with ${{}} variable syntax... ");
-    match serde_yaml::from_str::<KnotConfig>(yaml_with_dollar_syntax) {
+    match serde_yaml::from_str::<HpmConfig>(yaml_with_dollar_syntax) {
         Ok(config) => {
             println!("✅ SUCCESS");
             println!("  - Name: {}", config.name);
@@ -323,7 +323,7 @@ description: "A project called {{full_name}}"
 "#;
     
     print!("Testing YAML with {{}} variable syntax... ");
-    match serde_yaml::from_str::<KnotConfig>(yaml_with_brace_syntax) {
+    match serde_yaml::from_str::<HpmConfig>(yaml_with_brace_syntax) {
         Ok(config) => {
             println!("✅ SUCCESS");
             println!("  - Name: {}", config.name);
@@ -344,9 +344,9 @@ description: "A project called {{full_name}}"
 }
 
 fn test_real_world_yaml() -> Result<()> {
-    println!("\n=== Testing Real-World YAML (from knot.yml) ===");
+    println!("\n=== Testing Real-World YAML (from hpm.yml) ===");
     
-    let real_knot_yaml = r#"
+    let real_hpm_yaml = r#"
 name: Marcel
 description: A gamified organisation app to boost productivity
 
@@ -379,8 +379,8 @@ scripts:
   cli-tui: cd apps/marcel-cli && bun run build:go
 "#;
     
-    print!("Testing real-world knot.yml... ");
-    match serde_yaml::from_str::<KnotConfig>(real_knot_yaml) {
+    print!("Testing real-world hpm.yml... ");
+    match serde_yaml::from_str::<HpmConfig>(real_hpm_yaml) {
         Ok(config) => {
             println!("✅ SUCCESS");
             println!("  - Name: {}", config.name);
@@ -405,7 +405,7 @@ fn test_step_by_step_parsing() -> Result<()> {
     // 1. Just name field
     print!("Testing name field only... ");
     let name_only = r#"name: "test-project""#;
-    match serde_yaml::from_str::<KnotConfig>(name_only) {
+    match serde_yaml::from_str::<HpmConfig>(name_only) {
         Ok(_) => println!("✅ SUCCESS"),
         Err(e) => println!("❌ FAILED: {}", e),
     }
@@ -416,7 +416,7 @@ fn test_step_by_step_parsing() -> Result<()> {
 name: "test-project"
 description: "A test project"
 "#;
-    match serde_yaml::from_str::<KnotConfig>(name_desc) {
+    match serde_yaml::from_str::<HpmConfig>(name_desc) {
         Ok(_) => println!("✅ SUCCESS"),
         Err(e) => println!("❌ FAILED: {}", e),
     }
@@ -429,7 +429,7 @@ description: "A test project"
 scripts:
   start: "npm start"
 "#;
-    match serde_yaml::from_str::<KnotConfig>(with_scripts) {
+    match serde_yaml::from_str::<HpmConfig>(with_scripts) {
         Ok(_) => println!("✅ SUCCESS"),
         Err(e) => println!("❌ FAILED: {}", e),
     }
@@ -445,7 +445,7 @@ apps:
   web:
     - types
 "#;
-    match serde_yaml::from_str::<KnotConfig>(with_apps) {
+    match serde_yaml::from_str::<HpmConfig>(with_apps) {
         Ok(_) => println!("✅ SUCCESS"),
         Err(e) => println!("❌ FAILED: {}", e),
     }
@@ -463,7 +463,7 @@ apps:
     packages:
       - types
 "#;
-    match serde_yaml::from_str::<KnotConfig>(with_complex_apps) {
+    match serde_yaml::from_str::<HpmConfig>(with_complex_apps) {
         Ok(_) => println!("✅ SUCCESS"),
         Err(e) => println!("❌ FAILED: {}", e),
     }
@@ -483,7 +483,7 @@ apps:
 variables:
   test_var: "test_value"
 "#;
-    match serde_yaml::from_str::<KnotConfig>(with_variables) {
+    match serde_yaml::from_str::<HpmConfig>(with_variables) {
         Ok(_) => println!("✅ SUCCESS"),
         Err(e) => println!("❌ FAILED: {}", e),
     }
@@ -521,9 +521,9 @@ apps:
         }
     }
     
-    print!("Converting generic YAML to KnotConfig... ");
+    print!("Converting generic YAML to HpmConfig... ");
     let value: serde_yaml::Value = serde_yaml::from_str(problematic_yaml)?;
-    match serde_yaml::from_value::<KnotConfig>(value) {
+    match serde_yaml::from_value::<HpmConfig>(value) {
         Ok(config) => {
             println!("✅ SUCCESS");
             println!("Config: {:#?}", config);
@@ -556,7 +556,7 @@ fn main() -> Result<()> {
     println!("- Apps section parsing works with both list and object formats");
     println!("- Variables section parsing works");
     println!("- Both ${{}} and {{{{}}}} variable syntax parse successfully");
-    println!("- Real-world YAML from knot.yml parses correctly");
+    println!("- Real-world YAML from hpm.yml parses correctly");
     println!("- Step-by-step field addition all works");
     println!("- Generic YAML parsing and conversion works");
     

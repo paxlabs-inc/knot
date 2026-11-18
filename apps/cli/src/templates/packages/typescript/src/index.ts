@@ -1,7 +1,7 @@
 /**
  * Main entry point for the package
  * 
- * This template shows how to create packages that work with Knot's alias system.
+ * This template shows how to create packages that work with HPM's alias system.
  * When this package is linked to an app, it can be imported using the app's
  * configured alias (e.g., @ui/package-name, #/package-name, $/package-name).
  */

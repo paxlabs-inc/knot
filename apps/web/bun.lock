@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "knot-space-ui",
+      "name": "hpm-registry-ui",
       "dependencies": {
         "@iconify/svelte": "^5.0.1",
         "@tailwindcss/typography": "^0.5.15",

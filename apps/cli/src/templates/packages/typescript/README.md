@@ -1,6 +1,6 @@
 # TypeScript Package Template
 
-This is a TypeScript package template that demonstrates how to create packages that work seamlessly with Knot's alias system.
+This is a TypeScript package template that demonstrates how to create packages that work seamlessly with HPM's alias system.
 
 ## Alias System Integration
 
@@ -28,7 +28,7 @@ package-name/
 │   ├── index.ts          # Main exports with alias support
 │   ├── utils.ts          # Utility functions
 │   └── types.ts          # Type definitions
-├── package.yml           # Knot package configuration
+├── package.yml           # HPM package configuration
 ├── package.json          # npm compatibility
 ├── tsconfig.json         # TypeScript configuration
 └── README.md            # This file
@@ -85,7 +85,7 @@ import { Button } from 'ui-components';  // Another local package
 
 ## Alias Configuration Examples
 
-### Global Alias (knot.yml)
+### Global Alias (hpm.yml)
 ```yaml
 name: my-project
 tsAlias: "#"  # All apps inherit this unless overridden
@@ -102,7 +102,7 @@ packages:
 
 ### Multiple Apps with Different Aliases
 ```yaml
-# knot.yml
+# hpm.yml
 name: multi-alias-project
 tsAlias: "#"  # Default
 
@@ -128,14 +128,14 @@ The generated `tsconfig.json` will automatically include the correct paths for y
 {
   "compilerOptions": {
     "paths": {
-      "@ui/*": ["./knot_packages/*"],  // If tsAlias is "@ui"
-      "#/*": ["./knot_packages/*"],    // If tsAlias is "#"  
-      "$/*": ["./knot_packages/*"]     // If tsAlias is "$"
+      "@ui/*": ["./hpm_packages/*"],  // If tsAlias is "@ui"
+      "#/*": ["./hpm_packages/*"],    // If tsAlias is "#"  
+      "$/*": ["./hpm_packages/*"]     // If tsAlias is "$"
     }
   },
   "include": [
     "src/**/*",
-    "knot_packages/**/*"  // Include linked packages
+    "hpm_packages/**/*"  // Include linked packages
   ]
 }
 ```
@@ -146,7 +146,7 @@ Run the following to test that aliases work correctly:
 
 ```bash
 # Link packages (generates tsconfig with aliases)
-knot link
+hpm link
 
 # Build with TypeScript (should resolve aliases)
 npm run build

@@ -3,8 +3,8 @@
 </script>
 
 <svelte:head>
-	<title>Security - Knot Space</title>
-	<meta name="description" content="Knot Space Security - How we protect your data and our commitment to security" />
+	<title>Security - HPM Registry</title>
+	<meta name="description" content="HPM Registry Security - How we protect your data and our commitment to security" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -26,7 +26,7 @@
 				</div>
 				<div class="ml-3">
 					<p class="text-sm text-green-700">
-						Security is at the core of Knot Space. We implement industry-standard practices to protect your packages, data, and privacy.
+						Security is at the core of HPM Registry. We implement industry-standard practices to protect your packages, data, and privacy.
 					</p>
 				</div>
 			</div>
@@ -331,7 +331,7 @@
 
 				<div>
 					<h3 class="font-medium mb-2">General Security Questions</h3>
-					<a href="https://github.com/saravenpi/knot/issues" class="text-blue-600 hover:text-blue-800">GitHub Issues</a>
+					<a href="https://github.com/paxlabs-inc/knot/issues" class="text-blue-600 hover:text-blue-800">GitHub Issues</a>
 					<p class="text-sm text-muted-foreground mt-1">For non-sensitive security discussions</p>
 				</div>
 			</div>

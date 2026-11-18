@@ -59,7 +59,7 @@ pub fn parse_yaml_error_to_user_friendly(error: &serde_yaml::Error) -> String {
 
 #[derive(Debug, Clone, Copy)]
 pub enum ConfigType {
-    Knot,
+    HPM,
     Package,
     App,
     #[allow(dead_code)]
@@ -215,7 +215,7 @@ fn format_missing_field_error(field_name: &str, suggestion: Option<String>) -> S
 
 fn format_missing_field_error_with_context(field_name: &str, suggestion: Option<String>, config_type: ConfigType) -> String {
     let base_message = match (field_name, config_type) {
-        ("name", ConfigType::Knot) => "Missing required field 'name'. Every knot.yml configuration must have a project name.",
+        ("name", ConfigType::HPM) => "Missing required field 'name'. Every hpm.yml configuration must have a project name.",
         ("name", ConfigType::Package) => "Missing required field 'name'. Every package.yml configuration must have a package name.",
         ("name", ConfigType::App) => "Missing required field 'name'. Every app.yml configuration must have an app name.",
         ("name", _) => "Missing required field 'name'. Every configuration must have a name.",
@@ -239,7 +239,7 @@ fn get_field_suggestion(field_name: &str) -> Option<String> {
 
 fn get_field_suggestion_with_context(field_name: &str, config_type: ConfigType) -> Option<String> {
     match (field_name, config_type) {
-        ("name", ConfigType::Knot) => Some("Suggestion: Add 'name: \"your-project-name\"' to your knot.yml file.".to_string()),
+        ("name", ConfigType::HPM) => Some("Suggestion: Add 'name: \"your-project-name\"' to your hpm.yml file.".to_string()),
         ("name", ConfigType::Package) => Some("Suggestion: Add 'name: \"your-package-name\"' to your package.yml file.".to_string()),
         ("name", ConfigType::App) => Some("Suggestion: Add 'name: \"your-app-name\"' to your app.yml file.".to_string()),
         ("name", _) => Some("Suggestion: Add 'name: \"your-configuration-name\"' to your configuration.".to_string()),
@@ -249,13 +249,13 @@ fn get_field_suggestion_with_context(field_name: &str, config_type: ConfigType) 
 
         ("description", _) => Some("Suggestion: Add 'description: \"Brief description of your project\"' (optional but recommended).".to_string()),
 
-        ("scripts", ConfigType::Knot) => Some("Suggestion: Add scripts like 'scripts:\n  start: \"command to start\"' to define project-level scripts.".to_string()),
+        ("scripts", ConfigType::HPM) => Some("Suggestion: Add scripts like 'scripts:\n  start: \"command to start\"' to define project-level scripts.".to_string()),
         ("scripts", ConfigType::Package) => Some("Suggestion: Add scripts like 'scripts:\n  build: \"build command\"' to define package-level scripts.".to_string()),
         ("scripts", ConfigType::App) => Some("Suggestion: Add scripts like 'scripts:\n  dev: \"development command\"' to define app-level scripts.".to_string()),
 
         ("packages", ConfigType::App) => Some("Suggestion: Add packages like 'packages:\n  - package-name' to define app dependencies.".to_string()),
 
-        ("apps", ConfigType::Knot) => Some("Suggestion: Add apps like 'apps:\n  app-name:\n    - package-name' to define project apps.".to_string()),
+        ("apps", ConfigType::HPM) => Some("Suggestion: Add apps like 'apps:\n  app-name:\n    - package-name' to define project apps.".to_string()),
 
         _ => None,
     }
@@ -322,7 +322,7 @@ fn parse_yaml_syntax_error(error_msg: &str) -> String {
 
 /// Project-level configuration structure
 #[derive(Debug, Serialize, Deserialize)]
-pub struct KnotConfig {
+pub struct HpmConfig {
     /// Project name
     pub name: String,
     /// Project description
@@ -457,21 +457,21 @@ pub struct AppConfig {
     pub variables: Option<HashMap<String, ConfigVariable>>,
 }
 
-impl KnotConfig {
+impl HpmConfig {
     #[allow(dead_code)]
     pub fn from_file(path: &std::path::Path) -> anyhow::Result<Self> {
         let file_extension = path.extension().and_then(|ext| ext.to_str()).unwrap_or("yml");
         let content = std::fs::read_to_string(path)
-            .with_context(|| format!("Failed to read knot.{} file: {}", file_extension, path.display()))?;
+            .with_context(|| format!("Failed to read hpm.{} file: {}", file_extension, path.display()))?;
 
         if content.is_empty() {
-            anyhow::bail!("Configuration file knot.{} is empty at '{}'\n💡 A valid knot.{} file should contain at least a 'name' field\n💡 Example:\n   name: my-project\n   description: My awesome project",
+            anyhow::bail!("Configuration file hpm.{} is empty at '{}'\n💡 A valid hpm.{} file should contain at least a 'name' field\n💡 Example:\n   name: my-project\n   description: My awesome project",
                 file_extension, path.display(), file_extension);
         }
 
-        let config: KnotConfig = serde_yaml::from_str(&content)
-            .map_err(|e| anyhow::anyhow!("{}", parse_yaml_error_with_context(&e, ConfigType::Knot)))
-            .with_context(|| format!("Failed to parse knot.{} file: {}", file_extension, path.display()))?;
+        let config: HpmConfig = serde_yaml::from_str(&content)
+            .map_err(|e| anyhow::anyhow!("{}", parse_yaml_error_with_context(&e, ConfigType::HPM)))
+            .with_context(|| format!("Failed to parse hpm.{} file: {}", file_extension, path.display()))?;
 
         config.validate()?;
         Ok(config)
@@ -480,7 +480,7 @@ impl KnotConfig {
     #[allow(dead_code)]
     pub fn validate(&self) -> anyhow::Result<()> {
         if self.name.trim().is_empty() {
-            anyhow::bail!("Project name cannot be empty in knot.yml configuration\n💡 Add a name field to your knot.yml file\n💡 Example: name: my-awesome-project");
+            anyhow::bail!("Project name cannot be empty in hpm.yml configuration\n💡 Add a name field to your hpm.yml file\n💡 Example: name: my-awesome-project");
         }
 
         // Validate project name for path safety

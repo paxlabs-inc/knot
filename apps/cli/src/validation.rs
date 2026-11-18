@@ -78,7 +78,7 @@ pub fn validate_package_name(name: &str) -> Result<()> {
 
     let reserved_names = [
         "node_modules", "favicon.ico", ".git", ".gitignore", ".npmignore",
-        "package.json", "package-lock.json", "knot.yml", "package.yml", "app.yml"
+        "package.json", "package-lock.json", "hpm.yml", "package.yml", "app.yml"
     ];
 
     if reserved_names.contains(&name) {
@@ -184,7 +184,7 @@ pub fn validate_team_name(name: &str) -> Result<()> {
         }));
     }
 
-    let reserved_names = ["admin", "system", "root", "api", "www", "knot"];
+    let reserved_names = ["admin", "system", "root", "api", "www", "hpm"];
     if reserved_names.contains(&name.to_lowercase().as_str()) {
         return Err(anyhow!(ValidationError {
             field: "team name".to_string(),
@@ -330,7 +330,7 @@ pub fn validate_template_name(template: &str) -> Result<()> {
     if !template.starts_with('@') {
         return Err(anyhow!(ValidationError {
             field: "template".to_string(),
-            message: "Template name must start with '@' to indicate it's from Knot Space".to_string(),
+            message: "Template name must start with '@' to indicate it's from HPM Registry".to_string(),
             example: Some("@svelte-starter, @team/template".to_string()),
         }));
     }

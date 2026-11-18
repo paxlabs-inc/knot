@@ -11,7 +11,7 @@ fn test_basic_cli_functionality() -> Result<()> {
 
     // Test help command
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "--", "--help"])
+        .args(&["run", "--bin", "hpm", "--", "--help"])
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
@@ -24,13 +24,13 @@ fn test_basic_cli_functionality() -> Result<()> {
     assert!(output.status.success() || !stdout.is_empty() || !stderr.is_empty(),
            "Help command should provide output");
 
-    if stdout.contains("Knot") || stdout.contains("Monorepo") {
+    if stdout.contains("HPM") || stdout.contains("Monorepo") {
         println!("✓ Help command working correctly");
     }
 
     // Test that the binary can be invoked without crashing
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "--", "--version"])
+        .args(&["run", "--bin", "hpm", "--", "--version"])
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
@@ -55,7 +55,7 @@ fn test_project_structure_handling() -> Result<()> {
     let temp_dir = TempDir::new()?;
 
     // Create a minimal valid project
-    let knot_yml = r#"
+    let hpm_yml = r#"
 name: test-project
 description: A test project for validation
 scripts:
@@ -64,11 +64,11 @@ scripts:
 variables:
   version: "1.0.0"
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
     // Test status command in project directory
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "--", "status"])
+        .args(&["run", "--bin", "hpm", "--", "status"])
         .current_dir(temp_dir.path())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -88,7 +88,7 @@ variables:
 
     // Test script listing
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "--", "run", "build"])
+        .args(&["run", "--bin", "hpm", "--", "run", "build"])
         .current_dir(temp_dir.path())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -119,7 +119,7 @@ fn test_error_handling_robustness() -> Result<()> {
 
     // Test with empty directory (no config files)
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "--", "status"])
+        .args(&["run", "--bin", "hpm", "--", "status"])
         .current_dir(temp_dir.path())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -133,7 +133,7 @@ fn test_error_handling_robustness() -> Result<()> {
     // Should provide helpful error about missing config
     assert!(!error_output.is_empty(), "Should provide error message for missing config");
 
-    if error_output.contains("knot.yml") || error_output.contains("config") {
+    if error_output.contains("hpm.yml") || error_output.contains("config") {
         println!("✓ Missing config error is helpful");
     }
 
@@ -143,10 +143,10 @@ name: test
 scripts
   invalid: yaml
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), invalid_yaml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), invalid_yaml)?;
 
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "--", "status"])
+        .args(&["run", "--bin", "hpm", "--", "status"])
         .current_dir(temp_dir.path())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -173,14 +173,14 @@ fn test_performance_characteristics() -> Result<()> {
     let temp_dir = TempDir::new()?;
 
     // Create a project for performance testing
-    let knot_yml = r#"
+    let hpm_yml = r#"
 name: performance-test
 description: Testing performance characteristics
 scripts:
   quick: "echo 'Quick operation'"
   test: "echo 'Testing performance'"
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
     // Test that basic operations complete in reasonable time
     let operations = vec![
@@ -193,7 +193,7 @@ scripts:
         let start = Instant::now();
 
         let output = Command::new("cargo")
-            .args(&["run", "--bin", "knot", "--"])
+            .args(&["run", "--bin", "hpm", "--"])
             .args(&args)
             .current_dir(temp_dir.path())
             .stdin(Stdio::null())
@@ -221,18 +221,18 @@ fn test_interactive_mode_handling() -> Result<()> {
     let temp_dir = TempDir::new()?;
 
     // Create project with scripts
-    let knot_yml = r#"
+    let hpm_yml = r#"
 name: interactive-test
 scripts:
   build: "echo 'Building...'"
   test: "echo 'Testing...'"
   dev: "echo 'Development...'"
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
     // Test interactive run command (should handle non-interactive gracefully)
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "--", "run"])
+        .args(&["run", "--bin", "hpm", "--", "run"])
         .current_dir(temp_dir.path())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
@@ -252,7 +252,7 @@ scripts:
 
     // Test script not found scenario
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot", "--", "run", "nonexistent"])
+        .args(&["run", "--bin", "hpm", "--", "run", "nonexistent"])
         .current_dir(temp_dir.path())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
