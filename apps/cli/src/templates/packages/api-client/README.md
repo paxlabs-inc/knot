@@ -22,7 +22,7 @@ api-client (depends on utils + data)
 
 ```bash
 # The package.yml automatically handles all internal dependencies
-knot add api-client
+hpm add api-client
 ```
 
 ```typescript

@@ -1,51 +1,51 @@
-# Docker Compose for Knot development environment
+# Docker Compose for HPM development environment
 version: '3.8'
 
 services:
-  # Knot development environment
-  knot-dev:
+  # HPM development environment
+  hpm-dev:
     build: 
       context: .
       dockerfile: Dockerfile
-    container_name: knot-dev
+    container_name: hpm-dev
     volumes:
-      - .:/workspace/knot:ro
-      - knot-projects:/workspace/projects
+      - .:/workspace/hpm:ro
+      - hpm-projects:/workspace/projects
     working_dir: /workspace/projects
     environment:
-      - KNOT_REPO_URL=https://github.com/saravenpi/knot.git
+      - HPM_REPO_URL=https://github.com/paxlabs-inc/knot.git
     command: info
     profiles:
       - dev
 
-  # Knot build environment
-  knot-build:
+  # HPM build environment
+  hpm-build:
     build:
       context: .
       dockerfile: Dockerfile
       target: builder
-    container_name: knot-build
+    container_name: hpm-build
     volumes:
-      - .:/usr/src/knot
+      - .:/usr/src/hpm
       - cargo-cache:/usr/local/cargo/registry
-      - target-cache:/usr/src/knot/target
-    working_dir: /usr/src/knot
+      - target-cache:/usr/src/hpm/target
+    working_dir: /usr/src/hpm
     command: cargo build --release
     profiles:
       - build
 
   # Test runner
-  knot-test:
+  hpm-test:
     build:
       context: .
       dockerfile: Dockerfile
       target: builder
-    container_name: knot-test
+    container_name: hpm-test
     volumes:
-      - .:/usr/src/knot
+      - .:/usr/src/hpm
       - cargo-cache:/usr/local/cargo/registry
-      - target-cache:/usr/src/knot/target
-    working_dir: /usr/src/knot
+      - target-cache:/usr/src/hpm/target
+    working_dir: /usr/src/hpm
     command: cargo test
     profiles:
       - test
@@ -56,20 +56,20 @@ services:
       context: .
       dockerfile: Dockerfile
       target: builder
-    container_name: knot-docs
+    container_name: hpm-docs
     ports:
       - "8000:8000"
     volumes:
-      - .:/usr/src/knot
+      - .:/usr/src/hpm
       - cargo-cache:/usr/local/cargo/registry
-      - target-cache:/usr/src/knot/target
-    working_dir: /usr/src/knot
+      - target-cache:/usr/src/hpm/target
+    working_dir: /usr/src/hpm
     command: bash -c "cargo doc --no-deps && python3 -m http.server 8000 -d target/doc"
     profiles:
       - docs
 
 volumes:
-  knot-projects:
+  hpm-projects:
     driver: local
   cargo-cache:
     driver: local

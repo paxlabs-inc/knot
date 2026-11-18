@@ -24,14 +24,14 @@ struct UserProfile {
     email: String,
 }
 
-// Helper function to get Knot Space URL
-fn get_knot_space_url() -> String {
-    env::var("KNOT_SPACE_URL").unwrap_or_else(|_| "https://knot-space-production.up.railway.app".to_string())
+// Helper function to get HPM Registry URL
+fn get_hpm_space_url() -> String {
+    env::var("HPM_REGISTRY_URL").or_else(|_| env::var("KNOT_SPACE_URL")).unwrap_or_else(|_| "https://backend-production-4dbc03a7.up.railway.app".to_string())
 }
 
 // Get authentication token from environment
 fn get_auth_token() -> Result<Option<String>> {
-    match env::var("KNOT_TOKEN") {
+    match env::var("HPM_TOKEN").or_else(|_| env::var("KNOT_TOKEN")) {
         Ok(token) if !token.trim().is_empty() => Ok(Some(token)),
         _ => Ok(None),
     }
@@ -45,19 +45,19 @@ pub fn show_status() -> Result<()> {
             // First check if we can find the project root (file exists)
             match Project::find_project_root(&current_dir) {
                 Ok(project_root) => {
-                    let config_path = project_root.join("knot.yml");
-                    println!("🔍 Found knot.yml at: {}", config_path.display());
-                    println!("❌ Failed to load knot.yml: {}", e);
+                    let config_path = project_root.join("hpm.yml");
+                    println!("🔍 Found hpm.yml at: {}", config_path.display());
+                    println!("❌ Failed to load hpm.yml: {}", e);
                     println!("💡 This could be due to:");
                     println!("   • Invalid YAML syntax");
                     println!("   • Missing required fields");
                     println!("   • File permission issues");
                     println!("   • Corrupted file content");
-                    println!("\n🛠️  Try running 'knot init --help' to create a new valid knot.yml");
+                    println!("\n🛠️  Try running 'hpm init --help' to create a new valid hpm.yml");
                 }
                 Err(_) => {
-                    println!("❌ No knot.yml found in current directory or any parent directory");
-                    println!("💡 Run 'knot init <project-name>' to initialize a new Knot project");
+                    println!("❌ No hpm.yml found in current directory or any parent directory");
+                    println!("💡 Run 'hpm init <project-name>' to initialize a new HPM project");
                 }
             }
             return Ok(());
@@ -101,7 +101,7 @@ pub async fn auth_status() -> Result<()> {
     match get_auth_token()? {
         Some(token) => {
             // Verify token by making a request to the profile endpoint
-            let base_url = get_knot_space_url();
+            let base_url = get_hpm_space_url();
             let url = format!("{}/api/auth/profile", base_url);
 
             let client = reqwest::Client::new();
@@ -127,16 +127,16 @@ pub async fn auth_status() -> Result<()> {
                 }
             } else {
                 println!("❌ Authentication token is invalid or expired");
-                println!("💡 Get a new token from the Knot Space web interface at {}", base_url);
-                println!("   Then set it with: export KNOT_TOKEN=<your-token>");
+                println!("💡 Get a new token from the HPM Registry web interface at {}", base_url);
+                println!("   Then set it with: export HPM_TOKEN=<your-token>");
             }
         }
         None => {
             println!("❌ Not authenticated");
-            println!("💡 Set your KNOT_TOKEN environment variable:");
-            println!("   1. Visit {} and go to Settings", get_knot_space_url());
+            println!("💡 Set your HPM_TOKEN environment variable:");
+            println!("   1. Visit {} and go to Settings", get_hpm_space_url());
             println!("   2. Copy your API token");
-            println!("   3. Set the token: export KNOT_TOKEN=<your-token>");
+            println!("   3. Set the token: export HPM_TOKEN=<your-token>");
         }
     }
 
@@ -144,7 +144,7 @@ pub async fn auth_status() -> Result<()> {
 }
 
 pub async fn update_cli(force: bool) -> Result<()> {
-    println!("🔄 Checking for Knot CLI updates...");
+    println!("🔄 Checking for HPM CLI updates...");
 
     let current_version = env!("CARGO_PKG_VERSION");
     println!("📦 Current version: {}", current_version);
@@ -172,8 +172,8 @@ pub async fn update_cli(force: bool) -> Result<()> {
                 println!("💡 Forcing update anyway...");
                 perform_cargo_update("latest").await?;
             } else {
-                println!("💡 You can still force an update with: knot upgrade --force");
-                println!("   Or update manually with: cargo install --git https://github.com/saravenpi/knot knot --bin knot --locked");
+                println!("💡 You can still force an update with: hpm upgrade --force");
+                println!("   Or update manually with: cargo install --git https://github.com/paxlabs-inc/knot hpm --bin hpm --locked");
             }
         }
     }
@@ -198,10 +198,10 @@ async fn perform_cargo_update(version: &str) -> Result<()> {
     let install_args = vec![
         "install".to_string(),
         "--git".to_string(),
-        "https://github.com/saravenpi/knot".to_string(),
-        "knot".to_string(),
+        "https://github.com/paxlabs-inc/knot".to_string(),
+        "hpm".to_string(),
         "--bin".to_string(),
-        "knot".to_string(),
+        "hpm".to_string(),
     ];
 
     // Add version tag if it's not "latest"
@@ -225,13 +225,13 @@ async fn perform_cargo_update(version: &str) -> Result<()> {
     let status = cmd.status()?;
 
     if status.success() {
-        println!("✅ Successfully updated Knot CLI!");
+        println!("✅ Successfully updated HPM CLI!");
         println!("🎉 New version is now available");
         println!("💡 You may need to restart your terminal or run 'hash -r' to refresh the command cache");
     } else {
         let exit_code = status.code().unwrap_or(-1);
         anyhow::bail!(
-            "Failed to update Knot CLI. Cargo install exited with code: {}.\n💡 Try running the command manually: cargo {}",
+            "Failed to update HPM CLI. Cargo install exited with code: {}.\n💡 Try running the command manually: cargo {}",
             exit_code,
             final_args.join(" ")
         );
@@ -244,8 +244,8 @@ async fn check_latest_version() -> Result<String> {
     // Check GitHub API for latest release
     let client = reqwest::Client::new();
     let response = client
-        .get("https://api.github.com/repos/saravenpi/knot/releases/latest")
-        .header("User-Agent", "knot-cli")
+        .get("https://api.github.com/repos/saravenpi/hpm/releases/latest")
+        .header("User-Agent", "hpm-cli")
         .send()
         .await
         .context("Failed to fetch latest release info")?;

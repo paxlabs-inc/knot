@@ -19,16 +19,16 @@
 </script>
 
 <svelte:head>
-	<title>Package Aliases - Knot CLI Documentation</title>
-	<meta name="description" content="Learn how to configure and use package aliases with Knot CLI for cleaner imports and better developer experience." />
-	<meta property="og:title" content="Package Aliases - Knot CLI" />
-	<meta property="og:description" content="Learn how to configure and use package aliases with Knot CLI for cleaner imports and better developer experience." />
+	<title>Package Aliases - HPM CLI Documentation</title>
+	<meta name="description" content="Learn how to configure and use package aliases with HPM CLI for cleaner imports and better developer experience." />
+	<meta property="og:title" content="Package Aliases - HPM CLI" />
+	<meta property="og:description" content="Learn how to configure and use package aliases with HPM CLI for cleaner imports and better developer experience." />
 	<meta property="og:image" content="/images/og/typescript.png" />
-	<meta property="og:url" content="https://knot.klysium.com/docs/aliases" />
-	<meta name="twitter:title" content="Package Aliases - Knot CLI" />
-	<meta name="twitter:description" content="Learn how to configure and use package aliases with Knot CLI for cleaner imports and better developer experience." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs/aliases" />
+	<meta name="twitter:title" content="Package Aliases - HPM CLI" />
+	<meta name="twitter:description" content="Learn how to configure and use package aliases with HPM CLI for cleaner imports and better developer experience." />
 	<meta name="twitter:image" content="/images/og/typescript.png" />
-	<link rel="canonical" href="https://knot.klysium.com/docs/aliases" />
+	<link rel="canonical" href="https://hpm.klysium.com/docs/aliases" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
@@ -50,7 +50,7 @@
 				<div>
 					<h3 class="font-semibold text-blue-900 mb-2">What are Package Aliases?</h3>
 					<p class="text-sm text-blue-700 mb-4">
-						Package aliases allow you to create custom names for your packages, making imports cleaner and more semantic. Instead of using long package names like <code>user-management-service</code>, you can use a simple alias like <code>users</code>. Knot automatically configures TypeScript path mappings for your aliased packages.
+						Package aliases allow you to create custom names for your packages, making imports cleaner and more semantic. Instead of using long package names like <code>user-management-service</code>, you can use a simple alias like <code>users</code>. HPM automatically configures TypeScript path mappings for your aliased packages.
 					</p>
 					<div class="space-y-2 text-sm text-blue-700">
 						<div class="flex items-center space-x-2">
@@ -79,7 +79,7 @@
 	<section class="mb-12">
 		<h2 class="text-2xl font-bold mb-6">Package-Specific Aliases</h2>
 		<p class="text-muted-foreground mb-6">
-			The most powerful feature of Knot aliases is the ability to assign custom names to individual packages, making your imports more semantic and maintainable.
+			The most powerful feature of HPM aliases is the ability to assign custom names to individual packages, making your imports more semantic and maintainable.
 		</p>
 
 		<div class="space-y-8">
@@ -92,7 +92,7 @@
 
 				<div class="space-y-4">
 					<div>
-						<h4 class="font-medium mb-2">In knot.yml</h4>
+						<h4 class="font-medium mb-2">In hpm.yml</h4>
 						<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg">
 							<pre><code><span class="text-blue-400">apps:</span>
   <span class="text-blue-400">my-app:</span>
@@ -157,14 +157,14 @@
 			<div class="border rounded-lg p-6">
 				<h3 class="text-lg font-semibold mb-3">TypeScript Integration</h3>
 				<p class="text-muted-foreground mb-4">
-					Knot automatically generates TypeScript path mappings for your aliases.
+					HPM automatically generates TypeScript path mappings for your aliases.
 				</p>
 
 				<div class="space-y-4">
 					<div>
 						<h4 class="font-medium mb-2">Generated tsconfig.json</h4>
 						<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg">
-							<pre><code>{"{"}<br/>  <span class="text-blue-400">"compilerOptions"</span>: {"{"}<br/>    <span class="text-blue-400">"paths"</span>: {"{"}<br/>      <span class="text-green-400">"#users/*"</span>: [<span class="text-green-400">"./knot_packages/users/*"</span>],<br/>      <span class="text-green-400">"#ui/*"</span>: [<span class="text-green-400">"./knot_packages/ui/*"</span>],<br/>      <span class="text-green-400">"#models/*"</span>: [<span class="text-green-400">"./knot_packages/models/*"</span>]<br/>    {"}"}<br/>  {"}"}<br/>{"}"}</code></pre>
+							<pre><code>{"{"}<br/>  <span class="text-blue-400">"compilerOptions"</span>: {"{"}<br/>    <span class="text-blue-400">"paths"</span>: {"{"}<br/>      <span class="text-green-400">"#users/*"</span>: [<span class="text-green-400">"./hpm_packages/users/*"</span>],<br/>      <span class="text-green-400">"#ui/*"</span>: [<span class="text-green-400">"./hpm_packages/ui/*"</span>],<br/>      <span class="text-green-400">"#models/*"</span>: [<span class="text-green-400">"./hpm_packages/models/*"</span>]<br/>    {"}"}<br/>  {"}"}<br/>{"}"}</code></pre>
 						</div>
 					</div>
 
@@ -174,7 +174,7 @@
 							<div class="text-sm">
 								<p class="font-medium text-yellow-800 mb-1">Directory Structure</p>
 								<p class="text-yellow-700">
-									Packages are linked using their alias names in the <code>knot_packages/</code> directory, so <code>user-management-service</code> becomes <code>knot_packages/users/</code>.
+									Packages are linked using their alias names in the <code>hpm_packages/</code> directory, so <code>user-management-service</code> becomes <code>hpm_packages/users/</code>.
 								</p>
 							</div>
 						</div>
@@ -188,7 +188,7 @@
 	<section class="mb-12">
 		<h2 class="text-2xl font-bold mb-6">Two Types of Aliases</h2>
 		<p class="text-muted-foreground mb-6">
-			Knot supports two complementary aliasing systems that work together to provide maximum flexibility.
+			HPM supports two complementary aliasing systems that work together to provide maximum flexibility.
 		</p>
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -249,7 +249,7 @@
 
 				<div class="space-y-4">
 					<div>
-						<h4 class="font-medium mb-2">In knot.yml</h4>
+						<h4 class="font-medium mb-2">In hpm.yml</h4>
 						<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg">
 							<pre><code><span class="text-blue-400">name:</span> my-project
 <span class="text-blue-400">ts_alias:</span> <span class="text-green-400">"@"</span>  <span class="text-gray-500"># Default alias prefix</span>
@@ -399,26 +399,26 @@
 			<div class="border rounded-lg p-6">
 				<h3 class="text-lg font-semibold mb-3">TypeScript Configuration</h3>
 				<p class="text-muted-foreground mb-4">
-					Knot automatically updates your <code>tsconfig.json</code> with the correct path mappings when you run <code>knot link</code>.
+					HPM automatically updates your <code>tsconfig.json</code> with the correct path mappings when you run <code>hpm link</code>.
 				</p>
 
 				<div class="space-y-4">
 					<div>
 						<h4 class="font-medium mb-2">Generated tsconfig.json paths</h4>
 						<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg">
-							<pre><code>{"{"}<br/>  <span class="text-blue-400">&quot;compilerOptions&quot;</span>: {"{"}<br/>    <span class="text-blue-400">&quot;baseUrl&quot;</span>: <span class="text-green-400">&quot;.&quot;</span>,<br/>    <span class="text-blue-400">&quot;paths&quot;</span>: {"{"}<br/>      <span class="text-green-400">&quot;@/types&quot;</span>: [<span class="text-green-400">&quot;./knot_packages/types&quot;</span>],<br/>      <span class="text-green-400">&quot;@/utils&quot;</span>: [<span class="text-green-400">&quot;./knot_packages/utils&quot;</span>],<br/>      <span class="text-green-400">&quot;@/ui-components&quot;</span>: [<span class="text-green-400">&quot;./knot_packages/ui-components&quot;</span>]<br/>    {"}"}<br/>  {"}"}<br/>{"}"}</code></pre>
+							<pre><code>{"{"}<br/>  <span class="text-blue-400">&quot;compilerOptions&quot;</span>: {"{"}<br/>    <span class="text-blue-400">&quot;baseUrl&quot;</span>: <span class="text-green-400">&quot;.&quot;</span>,<br/>    <span class="text-blue-400">&quot;paths&quot;</span>: {"{"}<br/>      <span class="text-green-400">&quot;@/types&quot;</span>: [<span class="text-green-400">&quot;./hpm_packages/types&quot;</span>],<br/>      <span class="text-green-400">&quot;@/utils&quot;</span>: [<span class="text-green-400">&quot;./hpm_packages/utils&quot;</span>],<br/>      <span class="text-green-400">&quot;@/ui-components&quot;</span>: [<span class="text-green-400">&quot;./hpm_packages/ui-components&quot;</span>]<br/>    {"}"}<br/>  {"}"}<br/>{"}"}</code></pre>
 						</div>
 					</div>
 
 					<div>
 						<h4 class="font-medium mb-2">Update aliases</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-							<code>knot link</code>
+							<code>hpm link</code>
 							<button
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot link')}
+								on:click={() => copyToClipboard('hpm link')}
 							>
-								{#if showCopied && copyText === 'knot link'}
+								{#if showCopied && copyText === 'hpm link'}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -500,7 +500,7 @@
 					<pre><code><span class="text-purple-400">import</span> {"{ "}<span class="text-yellow-400">defineConfig</span> {"} "}<span class="text-purple-400">from</span> <span class="text-green-400">&apos;vite&apos;</span>;
 <span class="text-purple-400">import</span> <span class="text-yellow-400">path</span> <span class="text-purple-400">from</span> <span class="text-green-400">&apos;path&apos;</span>;
 
-<span class="text-purple-400">export default</span> <span class="text-yellow-400">defineConfig</span>({"{"}<br/>  <span class="text-blue-400">resolve:</span> {"{"}<br/>    <span class="text-blue-400">alias:</span> {"{"}<br/>      <span class="text-green-400">&apos;@&apos;</span>: <span class="text-yellow-400">path.resolve</span>(__dirname, <span class="text-green-400">&apos;./knot_packages&apos;</span>)<br/>    {"}"}<br/>  {"}"}<br/>{"}"});</code></pre>
+<span class="text-purple-400">export default</span> <span class="text-yellow-400">defineConfig</span>({"{"}<br/>  <span class="text-blue-400">resolve:</span> {"{"}<br/>    <span class="text-blue-400">alias:</span> {"{"}<br/>      <span class="text-green-400">&apos;@&apos;</span>: <span class="text-yellow-400">path.resolve</span>(__dirname, <span class="text-green-400">&apos;./hpm_packages&apos;</span>)<br/>    {"}"}<br/>  {"}"}<br/>{"}"});</code></pre>
 				</div>
 			</div>
 
@@ -514,7 +514,7 @@
 					<pre><code><span class="text-purple-400">import</span> <span class="text-yellow-400">adapter</span> <span class="text-purple-400">from</span> <span class="text-green-400">&apos;@sveltejs/adapter-auto&apos;</span>;
 <span class="text-purple-400">import</span> {"{ "}<span class="text-yellow-400">vitePreprocess</span> {"} "}<span class="text-purple-400">from</span> <span class="text-green-400">&apos;@sveltejs/kit/vite&apos;</span>;
 
-<span class="text-purple-400">export default</span> {"{"}<br/>  <span class="text-blue-400">kit:</span> {"{"}<br/>    <span class="text-blue-400">adapter:</span> <span class="text-yellow-400">adapter</span>(),<br/>    <span class="text-blue-400">alias:</span> {"{"}<br/>      <span class="text-green-400">&apos;@/*&apos;</span>: <span class="text-green-400">&apos;./knot_packages/*&apos;</span><br/>    {"}"}<br/>  {"}"},<br/>  <span class="text-blue-400">preprocess:</span> <span class="text-yellow-400">vitePreprocess</span>()<br/>{"};"};</code></pre>
+<span class="text-purple-400">export default</span> {"{"}<br/>  <span class="text-blue-400">kit:</span> {"{"}<br/>    <span class="text-blue-400">adapter:</span> <span class="text-yellow-400">adapter</span>(),<br/>    <span class="text-blue-400">alias:</span> {"{"}<br/>      <span class="text-green-400">&apos;@/*&apos;</span>: <span class="text-green-400">&apos;./hpm_packages/*&apos;</span><br/>    {"}"}<br/>  {"}"},<br/>  <span class="text-blue-400">preprocess:</span> <span class="text-yellow-400">vitePreprocess</span>()<br/>{"};"};</code></pre>
 				</div>
 			</div>
 		</div>
@@ -531,7 +531,7 @@
 					Aliases Not Working
 				</h3>
 				<ul class="text-sm text-muted-foreground space-y-2">
-					<li>• Run <code>knot link</code> to regenerate TypeScript paths</li>
+					<li>• Run <code>hpm link</code> to regenerate TypeScript paths</li>
 					<li>• Check that <code>tsconfig.json</code> exists in your app directory</li>
 					<li>• Restart your TypeScript service in your IDE</li>
 					<li>• Verify the alias prefix in your configuration</li>
@@ -544,12 +544,12 @@
 					Force Update Aliases
 				</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>knot link --force</code>
+					<code>hpm link --force</code>
 					<button
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('knot link --force')}
+						on:click={() => copyToClipboard('hpm link --force')}
 					>
-						{#if showCopied && copyText === 'knot link --force'}
+						{#if showCopied && copyText === 'hpm link --force'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -658,7 +658,7 @@
 					Online Registry Packages
 				</h3>
 				<p class="text-muted-foreground mb-4">
-					Published packages from the Knot registry benefit from aliases for consistent organization.
+					Published packages from the HPM registry benefit from aliases for consistent organization.
 				</p>
 				
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -853,7 +853,7 @@
 								<p class="text-blue-700">
 									When you rename a package from <code>user-helpers</code> to <code>user-utils</code>, 
 									imports using aliases like <code>@/user-helpers</code> automatically update when you 
-									run <code>knot link</code>, without changing any import statements.
+									run <code>hpm link</code>, without changing any import statements.
 								</p>
 							</div>
 						</div>
@@ -917,7 +917,7 @@
 				
 				<div class="space-y-4">
 					<div>
-						<h4 class="font-medium mb-2">knot.yml (Global Default)</h4>
+						<h4 class="font-medium mb-2">hpm.yml (Global Default)</h4>
 						<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg">
 							<pre><code><span class="text-blue-400">name:</span> my-project
 <span class="text-blue-400">ts_alias:</span> <span class="text-green-400">"@"</span>  <span class="text-gray-400"># Default alias for all apps</span>
@@ -1175,7 +1175,7 @@
 						<li>• Don't use conflicting alias prefixes in same app</li>
 						<li>• Avoid aliases that conflict with node_modules</li>
 						<li>• Don't change alias prefixes frequently</li>
-						<li>• Remember to run <code>knot link</code> after changes</li>
+						<li>• Remember to run <code>hpm link</code> after changes</li>
 						<li>• Test aliases work in all build environments</li>
 					</ul>
 				</div>
@@ -1205,10 +1205,10 @@
 					<div class="text-sm">
 						<div class="font-medium mb-1">Solutions:</div>
 						<ul class="text-muted-foreground space-y-1">
-							<li>• Run <code>knot link --force</code> to regenerate TypeScript paths</li>
+							<li>• Run <code>hpm link --force</code> to regenerate TypeScript paths</li>
 							<li>• Check that <code>tsconfig.json</code> exists in your app directory</li>
 							<li>• Restart your TypeScript service in your IDE (Ctrl+Shift+P → "TypeScript: Restart TS Server")</li>
-							<li>• Verify the alias prefix in your knot.yml or app.yml configuration</li>
+							<li>• Verify the alias prefix in your hpm.yml or app.yml configuration</li>
 							<li>• Ensure package names match exactly (case-sensitive)</li>
 						</ul>
 					</div>
@@ -1230,7 +1230,7 @@
 									Add alias configuration to vite.config.js or svelte.config.js
 								</div>
 								<div class="bg-black/90 text-white font-mono text-xs p-2 rounded mt-2">
-									<code>alias: {"{"} '@': path.resolve('./knot_packages') {"}"}</code>
+									<code>alias: {"{"} '@': path.resolve('./hpm_packages') {"}"}</code>
 								</div>
 							</div>
 							<div class="border rounded p-3">
@@ -1239,7 +1239,7 @@
 									Configure webpack alias in next.config.js or webpack.config.js
 								</div>
 								<div class="bg-black/90 text-white font-mono text-xs p-2 rounded mt-2">
-									<code>resolve: {"{"} alias: {"{"} '@': path.resolve('./knot_packages') {"}"} {"}"}</code>
+									<code>resolve: {"{"} alias: {"{"} '@': path.resolve('./hpm_packages') {"}"} {"}"}</code>
 								</div>
 							</div>
 						</div>
@@ -1256,7 +1256,7 @@
 					<div>
 						<div class="font-medium mb-2">Check project status</div>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded">
-							<code>knot status</code>
+							<code>hpm status</code>
 						</div>
 						<div class="text-xs text-muted-foreground mt-1">
 							Shows which packages are linked and their current alias configuration
@@ -1265,7 +1265,7 @@
 					<div>
 						<div class="font-medium mb-2">Verbose linking output</div>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded">
-							<code>knot link --verbose</code>
+							<code>hpm link --verbose</code>
 						</div>
 						<div class="text-xs text-muted-foreground mt-1">
 							Provides detailed output about the linking process and alias setup
@@ -1274,7 +1274,7 @@
 					<div>
 						<div class="font-medium mb-2">Preview changes without applying</div>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded">
-							<code>knot link --dry-run</code>
+							<code>hpm link --dry-run</code>
 						</div>
 						<div class="text-xs text-muted-foreground mt-1">
 							Shows what changes would be made without actually modifying files
@@ -1295,7 +1295,7 @@
 					<h3 class="font-semibold">TypeScript Integration</h3>
 				</div>
 				<p class="text-sm text-muted-foreground">
-					Learn more about TypeScript configuration and best practices with Knot.
+					Learn more about TypeScript configuration and best practices with HPM.
 				</p>
 			</a>
 

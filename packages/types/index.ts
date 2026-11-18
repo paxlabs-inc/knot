@@ -1,4 +1,4 @@
-// Shared types for Knot applications
+// Shared types for HPM applications
 
 // Basic entity interfaces
 export interface User {

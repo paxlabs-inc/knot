@@ -642,6 +642,38 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
 
 [[package]]
+name = "hpm"
+version = "0.6.1"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "chrono",
+ "clap",
+ "console",
+ "crossterm 0.27.0",
+ "ctrlc",
+ "dialoguer",
+ "dirs",
+ "flate2",
+ "indicatif",
+ "inquire",
+ "regex",
+ "reqwest",
+ "semver",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "sha2",
+ "symlink",
+ "tar",
+ "tempfile",
+ "tokio",
+ "url",
+ "urlencoding",
+ "walkdir",
+]
+
+[[package]]
 name = "http"
 version = "0.2.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -920,38 +952,6 @@ checksum = "1cfaf33c695fc6e08064efbc1f72ec937429614f25eef83af942d0e227c3a28f"
 dependencies = [
  "once_cell",
  "wasm-bindgen",
-]
-
-[[package]]
-name = "knot"
-version = "0.6.0"
-dependencies = [
- "anyhow",
- "async-trait",
- "chrono",
- "clap",
- "console",
- "crossterm 0.27.0",
- "ctrlc",
- "dialoguer",
- "dirs",
- "flate2",
- "indicatif",
- "inquire",
- "regex",
- "reqwest",
- "semver",
- "serde",
- "serde_json",
- "serde_yaml",
- "sha2",
- "symlink",
- "tar",
- "tempfile",
- "tokio",
- "url",
- "urlencoding",
- "walkdir",
 ]
 
 [[package]]

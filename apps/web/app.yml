@@ -1,5 +1,5 @@
-name: knot-space-ui
-description: Frontend UI for Knot Space package registry
+name: hpm-registry-ui
+description: Frontend UI for HPM Registry package registry
 build: "npm run build"
 
 # Frontend-specific scripts

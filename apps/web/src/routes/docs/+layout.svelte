@@ -92,39 +92,39 @@
 </script>
 
 <svelte:head>
-	<title>Documentation - Knot Space</title>
-	<meta name="description" content="Complete guide to using Knot CLI for monorepo package management, TypeScript integration, and team collaboration." />
+	<title>Documentation - HPM Registry</title>
+	<meta name="description" content="Complete guide to using HPM CLI for monorepo package management, TypeScript integration, and team collaboration." />
 
 	<!-- Essential Meta Tags -->
-	<meta name="keywords" content="knot cli, monorepo, package manager, typescript, javascript, package registry, team collaboration, build tools" />
-	<meta name="author" content="Knot Space" />
+	<meta name="keywords" content="hpm cli, monorepo, package manager, typescript, javascript, package registry, team collaboration, build tools" />
+	<meta name="author" content="HPM Registry" />
 	<meta name="robots" content="index, follow" />
 	<meta name="language" content="en" />
 	<meta name="theme-color" content="#ffffff" />
 
 	<!-- Open Graph Meta Tags -->
 	<meta property="og:type" content="website" />
-	<meta property="og:title" content="Knot CLI Documentation - Modern Monorepo Package Manager" />
-	<meta property="og:description" content="Complete guide to using Knot CLI for monorepo package management, TypeScript integration, and team collaboration." />
+	<meta property="og:title" content="HPM CLI Documentation - Modern Monorepo Package Manager" />
+	<meta property="og:description" content="Complete guide to using HPM CLI for monorepo package management, TypeScript integration, and team collaboration." />
 	<meta property="og:image" content="/images/og/docs-main.png" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
-	<meta property="og:image:alt" content="Knot CLI Documentation - Modern Monorepo Package Manager" />
-	<meta property="og:url" content="https://knot.klysium.com/docs" />
-	<meta property="og:site_name" content="Knot Space" />
+	<meta property="og:image:alt" content="HPM CLI Documentation - Modern Monorepo Package Manager" />
+	<meta property="og:url" content="https://hpm.klysium.com/docs" />
+	<meta property="og:site_name" content="HPM Registry" />
 	<meta property="og:locale" content="en_US" />
 
 	<!-- Twitter Card Meta Tags -->
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:site" content="@knotspace" />
-	<meta name="twitter:creator" content="@knotspace" />
-	<meta name="twitter:title" content="Knot CLI Documentation - Modern Monorepo Package Manager" />
-	<meta name="twitter:description" content="Complete guide to using Knot CLI for monorepo package management, TypeScript integration, and team collaboration." />
+	<meta name="twitter:site" content="@hpmregistry" />
+	<meta name="twitter:creator" content="@hpmregistry" />
+	<meta name="twitter:title" content="HPM CLI Documentation - Modern Monorepo Package Manager" />
+	<meta name="twitter:description" content="Complete guide to using HPM CLI for monorepo package management, TypeScript integration, and team collaboration." />
 	<meta name="twitter:image" content="/images/og/docs-main.png" />
-	<meta name="twitter:image:alt" content="Knot CLI Documentation" />
+	<meta name="twitter:image:alt" content="HPM CLI Documentation" />
 
 	<!-- Additional SEO Meta Tags -->
-	<link rel="canonical" href="https://knot.klysium.com/docs" />
+	<link rel="canonical" href="https://hpm.klysium.com/docs" />
 	<meta name="format-detection" content="telephone=no" />
 	<meta name="HandheldFriendly" content="true" />
 
@@ -133,27 +133,27 @@
 	{
 		"@context": "https://schema.org",
 		"@type": "TechArticle",
-		"headline": "Knot CLI Documentation",
-		"description": "Complete guide to using Knot CLI for monorepo package management, TypeScript integration, and team collaboration.",
+		"headline": "HPM CLI Documentation",
+		"description": "Complete guide to using HPM CLI for monorepo package management, TypeScript integration, and team collaboration.",
 		"author": {
 			"@type": "Organization",
-			"name": "Knot Space"
+			"name": "HPM Registry"
 		},
 		"publisher": {
 			"@type": "Organization",
-			"name": "Knot Space",
+			"name": "HPM Registry",
 			"logo": {
 				"@type": "ImageObject",
-				"url": "https://knot.klysium.com/images/logo.png"
+				"url": "https://hpm.klysium.com/images/logo.png"
 			}
 		},
 		"datePublished": "2025-01-01",
 		"dateModified": "2025-01-15",
 		"mainEntityOfPage": {
 			"@type": "WebPage",
-			"@id": "https://knot.klysium.com/docs"
+			"@id": "https://hpm.klysium.com/docs"
 		},
-		"image": "https://knot.klysium.com/images/og/docs-main.png",
+		"image": "https://hpm.klysium.com/images/og/docs-main.png",
 		"articleSection": "Documentation",
 		"keywords": ["monorepo", "package manager", "typescript", "cli tools", "build tools"]
 	}
@@ -188,14 +188,14 @@
 							<Icon icon="lucide:book-open" class="w-4 h-4 text-gray-700" />
 						</div>
 						<h1 class="text-xl font-semibold text-gray-900 group-hover:text-black transition-colors duration-200" style="font-family: 'Gambarino', 'Satoshi', sans-serif;">
-							Knot Docs
+							HPM Docs
 						</h1>
 					</a>
 				</div>
 				<div class="flex items-center space-x-3">
 					<a href="/" class="flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200 px-3 py-1.5 rounded-md hover:bg-gray-100">
 						<Icon icon="lucide:arrow-left" class="w-3 h-3 mr-1.5" />
-						Back to Knot Space
+						Back to HPM Registry
 					</a>
 					<button
 						on:click={() => sidebarOpen = false}
@@ -245,9 +245,9 @@
 				<div class="flex items-center justify-between text-xs">
 					<div class="flex items-center space-x-2">
 						<div class="w-2 h-2 bg-green-500 rounded-full"></div>
-						<span class="text-gray-600 font-medium">Knot v1.0.0</span>
+						<span class="text-gray-600 font-medium">HPM v1.0.0</span>
 					</div>
-					<a href="https://github.com/saravenpi/knot" class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors duration-200 px-3 py-1.5 rounded-md hover:bg-gray-100 group">
+					<a href="https://github.com/paxlabs-inc/knot" class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors duration-200 px-3 py-1.5 rounded-md hover:bg-gray-100 group">
 						<Icon icon="lucide:github" class="w-4 h-4" />
 						<span class="font-medium">GitHub</span>
 					</a>
@@ -274,7 +274,7 @@
 					</div>
 					<div class="flex flex-col items-center">
 						<h1 class="text-lg font-semibold text-gray-900" style="font-family: 'Gambarino', 'Satoshi', sans-serif;">
-							Knot Docs
+							HPM Docs
 						</h1>
 						{#if currentPageInfo.section && $page.url.pathname !== '/docs'}
 							<div class="text-xs text-gray-600 font-medium">

@@ -20,7 +20,7 @@ ui-components (depends on utils)
 
 ```bash
 # The package.yml automatically handles internal dependencies
-knot add ui-components
+hpm add ui-components
 ```
 
 ```typescript

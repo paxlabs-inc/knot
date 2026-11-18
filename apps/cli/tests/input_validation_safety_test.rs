@@ -3,10 +3,10 @@ use std::process::{Command, Stdio};
 use std::fs;
 use tempfile::TempDir;
 
-// Test helper to execute knot command and capture output
-fn run_knot_command(args: &[&str], working_dir: &std::path::Path) -> (String, String, bool) {
+// Test helper to execute hpm command and capture output
+fn run_hpm_command(args: &[&str], working_dir: &std::path::Path) -> (String, String, bool) {
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot"])
+        .args(&["run", "--bin", "hpm"])
         .args(args)
         .current_dir(working_dir)
         .stdin(Stdio::null())
@@ -39,14 +39,14 @@ fn test_path_traversal_protection() -> Result<()> {
     ];
 
     for dangerous_name in dangerous_names {
-        let knot_yml = format!(r#"
+        let hpm_yml = format!(r#"
 name: "{}"
 description: Dangerous project name test
 "#, dangerous_name);
 
-        fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+        fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
-        let (stdout, stderr, success) = run_knot_command(&["status"], temp_dir.path());
+        let (stdout, stderr, success) = run_hpm_command(&["status"], temp_dir.path());
 
         if !success {
             let error_message = format!("{}{}", stdout, stderr);
@@ -69,14 +69,14 @@ fn test_name_length_validation() -> Result<()> {
 
     // Test extremely long project name (101 characters)
     let long_name = "a".repeat(101);
-    let knot_yml = format!(r#"
+    let hpm_yml = format!(r#"
 name: "{}"
 description: Very long name test
 "#, long_name);
 
-    fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
-    let (stdout, stderr, success) = run_knot_command(&["status"], temp_dir.path());
+    let (stdout, stderr, success) = run_hpm_command(&["status"], temp_dir.path());
 
     if !success {
         let error_message = format!("{}{}", stdout, stderr);
@@ -86,14 +86,14 @@ description: Very long name test
 
     // Test valid length name (100 characters)
     let valid_long_name = "a".repeat(100);
-    let valid_knot_yml = format!(r#"
+    let valid_hpm_yml = format!(r#"
 name: "{}"
 description: Valid long name test
 "#, valid_long_name);
 
-    fs::write(temp_dir.path().join("knot.yml"), valid_knot_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), valid_hpm_yml)?;
 
-    let (stdout, stderr, success) = run_knot_command(&["status"], temp_dir.path());
+    let (stdout, stderr, success) = run_hpm_command(&["status"], temp_dir.path());
 
     // Should either succeed or fail for reasons other than length
     if !success {
@@ -122,14 +122,14 @@ fn test_dangerous_character_validation() -> Result<()> {
     ];
 
     for dangerous_name in dangerous_chars {
-        let knot_yml = format!(r#"
+        let hpm_yml = format!(r#"
 name: "{}"
 description: Dangerous character test
 "#, dangerous_name.replace('\0', "\\0")); // Escape null for YAML
 
-        fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+        fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
-        let (stdout, stderr, success) = run_knot_command(&["status"], temp_dir.path());
+        let (stdout, stderr, success) = run_hpm_command(&["status"], temp_dir.path());
 
         if !success {
             let error_message = format!("{}{}", stdout, stderr);
@@ -163,15 +163,15 @@ fn test_script_name_validation() -> Result<()> {
     ];
 
     for (script_name, description) in invalid_script_names {
-        let knot_yml = format!(r#"
+        let hpm_yml = format!(r#"
 name: test-project
 scripts:
   "{}": "echo 'test'"
 "#, script_name.replace('\n', "\\n").replace('\t', "\\t"));
 
-        fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+        fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
-        let (stdout, stderr, success) = run_knot_command(&["run", script_name], temp_dir.path());
+        let (stdout, stderr, success) = run_hpm_command(&["run", script_name], temp_dir.path());
 
         // Command should fail due to validation
         if !success {
@@ -222,7 +222,7 @@ description: Invalid version test
 
         fs::write(temp_dir.path().join("package.yml"), package_yml)?;
 
-        let (stdout, stderr, success) = run_knot_command(&["publish"], temp_dir.path());
+        let (stdout, stderr, success) = run_hpm_command(&["publish"], temp_dir.path());
 
         let error_message = format!("{}{}", stdout, stderr);
 
@@ -268,7 +268,7 @@ tags:
 
         fs::write(temp_dir.path().join("package.yml"), package_yml)?;
 
-        let (stdout, stderr, success) = run_knot_command(&["publish"], temp_dir.path());
+        let (stdout, stderr, success) = run_hpm_command(&["publish"], temp_dir.path());
 
         if !success {
             let error_message = format!("{}{}", stdout, stderr);
@@ -309,7 +309,7 @@ packages:
 
         fs::write(temp_dir.path().join("app.yml"), app_yml)?;
 
-        let (stdout, stderr, success) = run_knot_command(&["link"], temp_dir.path());
+        let (stdout, stderr, success) = run_hpm_command(&["link"], temp_dir.path());
 
         if !success {
             let error_message = format!("{}{}", stdout, stderr);
@@ -353,9 +353,9 @@ scripts:
     ];
 
     for (config, description) in empty_field_configs {
-        fs::write(temp_dir.path().join("knot.yml"), config)?;
+        fs::write(temp_dir.path().join("hpm.yml"), config)?;
 
-        let (stdout, stderr, success) = run_knot_command(&["status"], temp_dir.path());
+        let (stdout, stderr, success) = run_hpm_command(&["status"], temp_dir.path());
 
         if !success {
             let error_message = format!("{}{}", stdout, stderr);
@@ -386,16 +386,16 @@ fn test_command_injection_protection() -> Result<()> {
     ];
 
     for dangerous_command in dangerous_commands {
-        let knot_yml = format!(r#"
+        let hpm_yml = format!(r#"
 name: test-project
 scripts:
   dangerous: "{}"
 "#, dangerous_command);
 
-        fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+        fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
         // The validation should be at the configuration level, not execution
-        let (stdout, stderr, success) = run_knot_command(&["run", "dangerous"], temp_dir.path());
+        let (stdout, stderr, success) = run_hpm_command(&["run", "dangerous"], temp_dir.path());
 
         // Commands themselves aren't blocked (that's shell responsibility),
         // but the configuration should be parseable and safe to store
@@ -423,15 +423,15 @@ fn test_file_path_validation() -> Result<()> {
     fs::create_dir_all(&nested_dir)?;
 
     // Test that working directory validation works correctly
-    let knot_yml = r#"
+    let hpm_yml = r#"
 name: test-project
 scripts:
   build: "echo 'Building from nested directory'"
 "#;
-    fs::write(nested_dir.join("knot.yml"), knot_yml)?;
+    fs::write(nested_dir.join("hpm.yml"), hpm_yml)?;
 
     // Test from the nested directory
-    let (stdout, stderr, success) = run_knot_command(&["run", "build"], &nested_dir);
+    let (stdout, stderr, success) = run_hpm_command(&["run", "build"], &nested_dir);
 
     // Should handle directory properly (either succeed or fail gracefully)
     if !success {
@@ -465,16 +465,16 @@ fn test_safe_names_acceptance() -> Result<()> {
     ];
 
     for valid_name in valid_names {
-        let knot_yml = format!(r#"
+        let hpm_yml = format!(r#"
 name: "{}"
 description: Testing valid name acceptance
 scripts:
   test: "echo 'Testing {}'"
 "#, valid_name, valid_name);
 
-        fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+        fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
-        let (stdout, stderr, success) = run_knot_command(&["status"], temp_dir.path());
+        let (stdout, stderr, success) = run_hpm_command(&["status"], temp_dir.path());
 
         // Should not fail due to name validation
         if !success {
@@ -505,14 +505,14 @@ fn test_input_sanitization() -> Result<()> {
     ];
 
     for (test_name, description) in edge_cases {
-        let knot_yml = format!(r#"
+        let hpm_yml = format!(r#"
 name: "{}"
 description: Testing {}
 "#, test_name.replace('\r', "\\r").replace('\n', "\\n").replace('\t', "\\t"), description);
 
-        fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+        fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
-        let (stdout, stderr, success) = run_knot_command(&["status"], temp_dir.path());
+        let (stdout, stderr, success) = run_hpm_command(&["status"], temp_dir.path());
 
         // Should handle edge cases gracefully
         if !success {

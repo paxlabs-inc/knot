@@ -17,7 +17,7 @@
     "outDir": "./dist",
     "paths": {
       "#/*": [
-        "./knot_packages/*"
+        "./hpm_packages/*"
       ]
     },
     "removeComments": true,
@@ -39,6 +39,6 @@
     "src/**/*",
     "src*",
     "prisma*",
-    "knot_packages/**/*"
+    "hpm_packages/**/*"
   ]
 }

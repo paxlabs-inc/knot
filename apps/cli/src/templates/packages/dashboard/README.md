@@ -40,7 +40,7 @@ graph TD
 
 ```bash
 # The package.yml automatically resolves the entire dependency tree
-knot add dashboard
+hpm add dashboard
 ```
 
 ```typescript
@@ -377,7 +377,7 @@ The dashboard package is the heaviest in the dependency tree. Monitor bundle siz
 npx webpack-bundle-analyzer dist/static/js/*.js
 
 # Check tree-shaking effectiveness
-knot build --analyze
+hpm build --analyze
 ```
 
 ## Deployment

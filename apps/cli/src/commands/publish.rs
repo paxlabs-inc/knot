@@ -1,6 +1,6 @@
 use anyhow::{Context, Result};
 use crate::config::PackageConfig;
-use crate::ignore::KnotIgnore;
+use crate::ignore::HpmIgnore;
 use crate::utils;
 use crate::validation::{validate_package_name, validate_semver, confirm_destructive_action, sanitize_input};
 use flate2::write::GzEncoder;
@@ -31,12 +31,12 @@ struct PublishPackageRequest {
 }
 
 // Helper functions
-fn get_knot_space_url() -> String {
-    env::var("KNOT_SPACE_URL").unwrap_or_else(|_| "https://knot-space-production.up.railway.app".to_string())
+fn get_hpm_space_url() -> String {
+    env::var("HPM_REGISTRY_URL").or_else(|_| env::var("KNOT_SPACE_URL")).unwrap_or_else(|_| "https://backend-production-4dbc03a7.up.railway.app".to_string())
 }
 
 fn get_auth_token() -> Result<Option<String>> {
-    match env::var("KNOT_TOKEN") {
+    match env::var("HPM_TOKEN").or_else(|_| env::var("KNOT_TOKEN")) {
         Ok(token) if !token.trim().is_empty() => Ok(Some(token)),
         _ => Ok(None),
     }
@@ -44,7 +44,7 @@ fn get_auth_token() -> Result<Option<String>> {
 
 fn require_auth_token() -> Result<String> {
     get_auth_token()?
-        .ok_or_else(|| anyhow::anyhow!("Authentication required. Set KNOT_TOKEN environment variable."))
+        .ok_or_else(|| anyhow::anyhow!("Authentication required. Set HPM_TOKEN environment variable."))
 }
 
 fn format_api_error(status: reqwest::StatusCode, response_text: &str) -> String {
@@ -133,20 +133,20 @@ fn validate_publish_version(version: &str) -> Result<()> {
     // Check for development versions - warn user about publishing prerelease versions
     if version.contains("-dev") || version.contains("-development") {
         anyhow::bail!(
-            "Cannot publish development version '{}'. \n💡 Use 'knot version set <version>' to set a proper release version first.",
+            "Cannot publish development version '{}'. \n💡 Use 'hpm version set <version>' to set a proper release version first.",
             version
         );
     }
 
     if version.contains("-alpha") || version.contains("-beta") || version.contains("-rc") {
         println!("⚠️  Publishing prerelease version: {}", version);
-        println!("💡 Use 'knot version bump major|minor|patch' for stable releases");
+        println!("💡 Use 'hpm version bump major|minor|patch' for stable releases");
     }
 
     // Version 0.0.0 is typically invalid for publishing
     if version == "0.0.0" {
         anyhow::bail!(
-            "Cannot publish version '0.0.0'. \n💡 Use 'knot version set <version>' to set a proper version first."
+            "Cannot publish version '0.0.0'. \n💡 Use 'hpm version set <version>' to set a proper version first."
         );
     }
 
@@ -155,7 +155,7 @@ fn validate_publish_version(version: &str) -> Result<()> {
 }
 
 async fn check_version_exists(package_name: &str, version: &str, token: &str) -> Result<()> {
-    let base_url = get_knot_space_url();
+    let base_url = get_hpm_space_url();
     let url = format!("{}/api/packages/{}/{}/exists", base_url, package_name, version);
 
     let client = reqwest::Client::new();
@@ -169,7 +169,7 @@ async fn check_version_exists(package_name: &str, version: &str, token: &str) ->
         200 => {
             // Version exists
             anyhow::bail!(
-                "Version '{}' of package '{}' already exists. \n💡 Use 'knot version bump major|minor|patch' to create a new version.",
+                "Version '{}' of package '{}' already exists. \n💡 Use 'hpm version bump major|minor|patch' to create a new version.",
                 version,
                 package_name
             );
@@ -192,22 +192,22 @@ fn create_package_tarball(_package_name: &str, output_path: &str) -> Result<()> 
     let mut tar = Builder::new(enc);
 
     let current_dir = std::env::current_dir()?;
-    let knotignore_path = current_dir.join(".knotignore");
+    let hpmignore_path = current_dir.join(".hpmignore");
 
-    // Load ignore patterns from .knotignore file or use defaults
-    let ignore = match KnotIgnore::from_file(&knotignore_path) {
+    // Load ignore patterns from .hpmignore file or use defaults
+    let ignore = match HpmIgnore::from_file(&hpmignore_path) {
         Ok(ignore) => {
-            if knotignore_path.exists() {
-                println!("📋 Using .knotignore file with {} patterns", ignore.patterns().len());
+            if hpmignore_path.exists() {
+                println!("📋 Using .hpmignore file with {} patterns", ignore.patterns().len());
             } else {
-                println!("📋 Using default ignore patterns (create .knotignore to customize)");
+                println!("📋 Using default ignore patterns (create .hpmignore to customize)");
             }
             ignore
         }
         Err(e) => {
-            println!("⚠️  Failed to read .knotignore file: {}", e);
+            println!("⚠️  Failed to read .hpmignore file: {}", e);
             println!("📋 Using default ignore patterns");
-            KnotIgnore::default()
+            HpmIgnore::default()
         }
     };
 
@@ -224,7 +224,7 @@ fn add_directory_to_tar(
     tar: &mut Builder<GzEncoder<fs::File>>,
     base_path: &Path,
     relative_path: &str,
-    ignore: &KnotIgnore,
+    ignore: &HpmIgnore,
 ) -> Result<()> {
     let dir_path = base_path.join(relative_path);
 
@@ -305,7 +305,7 @@ pub async fn publish_package(team: Option<&str>, description: Option<&str>) -> R
         tags: Some(package_config.tags.unwrap_or_default()),
     };
 
-    let base_url = get_knot_space_url();
+    let base_url = get_hpm_space_url();
     let client = reqwest::Client::new();
 
     // 1. Send metadata
@@ -380,7 +380,7 @@ pub async fn delete_package(name: &str, version: &str) -> Result<()> {
         return Ok(());
     }
 
-    let base_url = get_knot_space_url();
+    let base_url = get_hpm_space_url();
     let url = format!("{}/api/packages/{}/{}", base_url, sanitized_name, sanitized_version);
 
     let client = reqwest::Client::new();

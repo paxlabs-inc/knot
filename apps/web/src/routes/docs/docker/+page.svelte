@@ -24,13 +24,13 @@
 			Docker Integration
 		</h1>
 		<p class="text-lg text-muted-foreground">
-			Learn how to containerize your Knot monorepo projects and deploy them with Docker
+			Learn how to containerize your HPM monorepo projects and deploy them with Docker
 		</p>
 	</div>
 
 	<!-- Overview -->
 	<section class="mb-12">
-		<h2 class="text-2xl font-bold mb-6">Why Docker with Knot?</h2>
+		<h2 class="text-2xl font-bold mb-6">Why Docker with HPM?</h2>
 		
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
 			<div class="border rounded-lg p-6">
@@ -49,7 +49,7 @@
 				</div>
 				<h3 class="font-semibold mb-2">Copy-First Benefits</h3>
 				<p class="text-sm text-muted-foreground">
-					Knot's copy-first package linking works perfectly with Docker's layered architecture.
+					HPM's copy-first package linking works perfectly with Docker's layered architecture.
 				</p>
 			</div>
 		</div>
@@ -60,7 +60,7 @@
 				<div>
 					<h3 class="font-semibold text-amber-900 mb-2">Important Note</h3>
 					<p class="text-sm text-amber-700">
-						Always use <code>knot link</code> (copy mode) instead of <code>knot link --symlink</code> when building Docker images. 
+						Always use <code>hpm link</code> (copy mode) instead of <code>hpm link --symlink</code> when building Docker images. 
 						Symlinks don't work reliably across Docker layer boundaries.
 					</p>
 				</div>
@@ -89,7 +89,7 @@ WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
-COPY ../../knot.yml ./
+COPY ../../hpm.yml ./
 COPY ../../packages ./packages
 
 # Install dependencies
@@ -99,7 +99,7 @@ RUN npm install
 COPY . .
 
 # Link packages (copy mode)
-RUN npx knot link
+RUN npx hpm link
 
 # Build application
 RUN npm run build
@@ -120,7 +120,7 @@ WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
-COPY ../../knot.yml ./
+COPY ../../hpm.yml ./
 COPY ../../packages ./packages
 
 # Install dependencies
@@ -130,7 +130,7 @@ RUN npm install
 COPY . .
 
 # Link packages (copy mode)
-RUN npx knot link
+RUN npx hpm link
 
 # Build application
 RUN npm run build
@@ -156,7 +156,7 @@ WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
-COPY knot.yml ./
+COPY hpm.yml ./
 COPY packages ./packages
 
 # Install all dependencies (including devDependencies)
@@ -167,7 +167,7 @@ COPY apps/frontend ./apps/frontend
 
 # Link packages and build
 WORKDIR /app/apps/frontend
-RUN npx knot link
+RUN npx hpm link
 RUN npm run build
 
 # Production stage
@@ -199,7 +199,7 @@ WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
-COPY knot.yml ./
+COPY hpm.yml ./
 COPY packages ./packages
 
 # Install all dependencies (including devDependencies)
@@ -210,7 +210,7 @@ COPY apps/frontend ./apps/frontend
 
 # Link packages and build
 WORKDIR /app/apps/frontend
-RUN npx knot link
+RUN npx hpm link
 RUN npm run build
 
 # Production stage
@@ -370,11 +370,11 @@ volumes:
 				<div class="space-y-3 text-sm">
 					<div class="flex items-start space-x-3">
 						<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-						<span>Always use <code>knot link</code> (copy mode) in Docker builds</span>
+						<span>Always use <code>hpm link</code> (copy mode) in Docker builds</span>
 					</div>
 					<div class="flex items-start space-x-3">
 						<Icon icon="lucide:x-circle" class="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
-						<span>Never use <code>knot link --symlink</code> in Docker containers</span>
+						<span>Never use <code>hpm link --symlink</code> in Docker containers</span>
 					</div>
 					<div class="flex items-start space-x-3">
 						<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
@@ -439,7 +439,7 @@ coverage
 .cache
 *.tgz
 *.tar.gz
-*/knot_packages
+*/hpm_packages
 */.next
 */out`)}
 			>
@@ -471,7 +471,7 @@ coverage
 .cache
 *.tgz
 *.tar.gz
-*/knot_packages
+*/hpm_packages
 */.next
 */out</code></pre>
 		</div>
@@ -520,14 +520,14 @@ coverage
 			<div class="border border-red-200 rounded-lg p-6">
 				<h3 class="font-semibold text-red-900 mb-3">Package linking fails in container</h3>
 				<p class="text-sm text-red-700 mb-3">
-					<strong>Problem:</strong> Knot can't find packages or linking fails during Docker build.
+					<strong>Problem:</strong> HPM can't find packages or linking fails during Docker build.
 				</p>
 				<div class="text-sm space-y-2">
 					<p><strong>Solution:</strong></p>
 					<ul class="list-disc list-inside space-y-1 text-red-700">
-						<li>Ensure you copy the project root <code>knot.yml</code> file</li>
-						<li>Copy all local packages before running <code>knot link</code></li>
-						<li>Use copy mode: <code>knot link</code> (not <code>--symlink</code>)</li>
+						<li>Ensure you copy the project root <code>hpm.yml</code> file</li>
+						<li>Copy all local packages before running <code>hpm link</code></li>
+						<li>Use copy mode: <code>hpm link</code> (not <code>--symlink</code>)</li>
 						<li>Check that package paths are relative to the working directory</li>
 					</ul>
 				</div>
@@ -561,7 +561,7 @@ coverage
 					<h3 class="font-semibold">Production Deployment</h3>
 				</div>
 				<p class="text-sm text-muted-foreground">
-					Learn how to deploy your containerized Knot applications to production environments.
+					Learn how to deploy your containerized HPM applications to production environments.
 				</p>
 			</a>
 

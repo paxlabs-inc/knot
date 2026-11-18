@@ -2,14 +2,14 @@ use anyhow::Result;
 use std::fs;
 use std::path::Path;
 
-/// Represents ignore patterns loaded from .knotignore file
+/// Represents ignore patterns loaded from .hpmignore file
 #[derive(Debug, Clone)]
-pub struct KnotIgnore {
+pub struct HpmIgnore {
     patterns: Vec<String>,
 }
 
-impl KnotIgnore {
-    /// Create a new KnotIgnore from a .knotignore file path
+impl HpmIgnore {
+    /// Create a new HpmIgnore from a .hpmignore file path
     pub fn from_file(path: &Path) -> Result<Self> {
         let mut ignore = Self::default();
         
@@ -22,12 +22,12 @@ impl KnotIgnore {
         Ok(ignore)
     }
 
-    /// Create a default KnotIgnore with common ignore patterns
+    /// Create a default HpmIgnore with common ignore patterns
     pub fn default() -> Self {
         let default_patterns = vec![
             "*.tar.gz".to_string(),
             "*.tgz".to_string(),
-            ".knotignore".to_string(),
+            ".hpmignore".to_string(),
             ".git".to_string(),
             ".git/".to_string(),
             "node_modules".to_string(),
@@ -45,7 +45,7 @@ impl KnotIgnore {
         Self { patterns: default_patterns }
     }
 
-    /// Parse the content of a .knotignore file
+    /// Parse the content of a .hpmignore file
     fn parse_ignore_content(content: &str) -> Vec<String> {
         content
             .lines()
@@ -192,7 +192,7 @@ mod tests {
 
     #[test]
     fn test_default_ignore() {
-        let ignore = KnotIgnore::default();
+        let ignore = HpmIgnore::default();
         
         assert!(ignore.is_ignored("test.tar.gz"));
         assert!(ignore.is_ignored("node_modules"));
@@ -205,7 +205,7 @@ mod tests {
 
     #[test]
     fn test_glob_patterns() {
-        let mut ignore = KnotIgnore::default();
+        let mut ignore = HpmIgnore::default();
         ignore.add_patterns(&["test_*", "*.log", "*temp*"]);
         
         assert!(ignore.is_ignored("test_file.txt"));
@@ -218,9 +218,9 @@ mod tests {
     }
 
     #[test]
-    fn test_knotignore_file() -> Result<()> {
+    fn test_hpmignore_file() -> Result<()> {
         let dir = tempdir()?;
-        let ignore_file = dir.path().join(".knotignore");
+        let ignore_file = dir.path().join(".hpmignore");
         
         let mut file = File::create(&ignore_file)?;
         writeln!(file, "# This is a comment")?;
@@ -229,7 +229,7 @@ mod tests {
         writeln!(file, "")?; // Empty line
         writeln!(file, "temp_*")?;
         
-        let ignore = KnotIgnore::from_file(&ignore_file)?;
+        let ignore = HpmIgnore::from_file(&ignore_file)?;
         
         assert!(ignore.is_ignored("build/"));
         assert!(ignore.is_ignored("error.log"));
@@ -240,11 +240,11 @@ mod tests {
     }
 
     #[test]
-    fn test_missing_knotignore_file() -> Result<()> {
+    fn test_missing_hpmignore_file() -> Result<()> {
         let dir = tempdir()?;
-        let missing_file = dir.path().join(".knotignore");
+        let missing_file = dir.path().join(".hpmignore");
         
-        let ignore = KnotIgnore::from_file(&missing_file)?;
+        let ignore = HpmIgnore::from_file(&missing_file)?;
         
         // Should return default patterns when file doesn't exist
         assert!(ignore.is_ignored("node_modules"));
@@ -255,7 +255,7 @@ mod tests {
 
     #[test]
     fn test_directory_patterns() -> Result<()> {
-        let mut ignore = KnotIgnore::default();
+        let mut ignore = HpmIgnore::default();
         ignore.add_patterns(&["build/", "*.log", "temp", "cache"]);
         
         // Test directory patterns with trailing slash
@@ -281,11 +281,11 @@ mod tests {
     }
 
     #[test]
-    fn test_default_patterns_include_knotignore() -> Result<()> {
-        let ignore = KnotIgnore::default();
+    fn test_default_patterns_include_hpmignore() -> Result<()> {
+        let ignore = HpmIgnore::default();
         
-        // Test that .knotignore itself is ignored
-        assert!(ignore.is_ignored(".knotignore"));
+        // Test that .hpmignore itself is ignored
+        assert!(ignore.is_ignored(".hpmignore"));
         
         // Test that .tar.gz files are ignored
         assert!(ignore.is_ignored("package-1.0.0.tar.gz"));
@@ -304,7 +304,7 @@ mod tests {
 
     #[test]
     fn test_nested_paths() -> Result<()> {
-        let mut ignore = KnotIgnore::default();
+        let mut ignore = HpmIgnore::default();
         ignore.add_patterns(&["*/node_modules", "src/*.tmp"]);
         
         // Test nested patterns
@@ -323,7 +323,7 @@ mod tests {
 
     #[test]
     fn test_edge_cases() -> Result<()> {
-        let mut ignore = KnotIgnore::default();
+        let mut ignore = HpmIgnore::default();
         ignore.add_patterns(&["test*file"]);
         
         // Pattern "test*file" should require both "test" and "file" with something in between

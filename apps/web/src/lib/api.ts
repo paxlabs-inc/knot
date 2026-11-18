@@ -32,7 +32,7 @@ export const requestApi = async <T>(
 ): Promise<T> => {
   const token =
     typeof localStorage !== "undefined"
-      ? localStorage.getItem("knot_token")
+      ? localStorage.getItem("hpm_token")
       : null;
 
   const headers: Record<string, string> = {
@@ -54,7 +54,7 @@ export const requestApi = async <T>(
   if (response.status === 401) {
     // Clear token immediately
     if (typeof localStorage !== "undefined") {
-      localStorage.removeItem("knot_token");
+      localStorage.removeItem("hpm_token");
     }
     // Don't call authStore.logout() here to avoid circular imports
     // The auth store will handle this when it detects an invalid token
@@ -98,7 +98,7 @@ export const authApi = {
   async logout(): Promise<void> {
     // Since there's no backend logout endpoint, just clear the token
     if (typeof localStorage !== "undefined") {
-      localStorage.removeItem("knot_token");
+      localStorage.removeItem("hpm_token");
     }
   },
 };

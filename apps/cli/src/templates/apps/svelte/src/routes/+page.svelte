@@ -3,7 +3,7 @@
 </script>
 
 <h1>Welcome to {name}!</h1>
-<p>This is your new SvelteKit app created with Knot CLI.</p>
+<p>This is your new SvelteKit app created with HPM CLI.</p>
 
 <style>
 	h1 {

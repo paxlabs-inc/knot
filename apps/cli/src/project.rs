@@ -1,4 +1,4 @@
-use crate::config::{AppConfig, KnotConfig, PackageConfig};
+use crate::config::{AppConfig, HpmConfig, PackageConfig};
 use crate::dependency::{DependencyResolver, DependencySpec, PackageId, ResolutionContext, ResolutionStrategy};
 use crate::dependency::registry::{LocalPackageRegistry, RemotePackageRegistry, PackageRegistry};
 use crate::utils;
@@ -11,7 +11,7 @@ use semver::VersionReq;
 
 pub struct Project {
     pub root: PathBuf,
-    pub config: KnotConfig,
+    pub config: HpmConfig,
     pub packages: HashMap<String, PackageConfig>,
     pub apps: HashMap<String, AppConfig>,
     #[allow(dead_code)]
@@ -23,9 +23,10 @@ pub struct Project {
 impl Project {
     pub fn find_and_load(start_dir: &Path) -> Result<Project> {
         let project_root = Self::find_project_root(start_dir)?;
-        let config_path = utils::find_yaml_file(&project_root, "knot")
-            .ok_or_else(|| anyhow::anyhow!("No knot.yml or knot.yaml file found in {:?}", project_root))?;
-        let mut config = KnotConfig::from_file(&config_path)
+        let config_path = utils::find_yaml_file(&project_root, "hpm")
+            .or_else(|| utils::find_yaml_file(&project_root, "knot")) // legacy name
+            .ok_or_else(|| anyhow::anyhow!("No hpm.yml or hpm.yaml file found in {:?}", project_root))?;
+        let mut config = HpmConfig::from_file(&config_path)
             .with_context(|| format!("Failed to load config from {:?}", config_path))?;
 
         // Create base variable context with project information
@@ -55,7 +56,7 @@ impl Project {
         let mut current = start_dir.to_path_buf();
 
         loop {
-            if utils::yaml_config_exists(&current, "knot") {
+            if utils::yaml_config_exists(&current, "hpm") || utils::yaml_config_exists(&current, "knot") {
                 // Only canonicalize when we find the file to get the clean path
                 return match current.canonicalize() {
                     Ok(canonical) => Ok(canonical),
@@ -65,7 +66,7 @@ impl Project {
 
             match current.parent() {
                 Some(parent) => current = parent.to_path_buf(),
-                None => anyhow::bail!("No knot.yml or knot.yaml file found in directory tree starting from '{}'\n💡 You are not inside a Knot project\n💡 Run 'knot init <project-name>' to initialize a new project\n💡 Or navigate to an existing Knot project directory", start_dir.display()),
+                None => anyhow::bail!("No hpm.yml or hpm.yaml file found in directory tree starting from '{}'\n💡 You are not inside a HPM project\n💡 Run 'hpm init <project-name>' to initialize a new project\n💡 Or navigate to an existing HPM project directory", start_dir.display()),
             }
         }
     }
@@ -205,7 +206,7 @@ impl Project {
             }
         }
 
-        // Then check knot.yml app dependencies for tsAlias
+        // Then check hpm.yml app dependencies for tsAlias
         if let Some(app_deps) = self
             .config
             .apps
@@ -217,7 +218,7 @@ impl Project {
             }
         }
 
-        // Finally fall back to global tsAlias from knot.yml
+        // Finally fall back to global tsAlias from hpm.yml
         if let Some(ts_alias) = &self.config.ts_alias {
             return ts_alias.get_alias();
         }
@@ -291,7 +292,7 @@ impl Project {
 
     #[allow(dead_code)]
     pub async fn install_dependencies(&mut self, app_name: &str, resolution: &crate::dependency::types::ResolutionResult) -> Result<()> {
-        let app_packages_dir = self.root.join("apps").join(app_name).join("knot_packages");
+        let app_packages_dir = self.root.join("apps").join(app_name).join("hpm_packages");
         
         // Clean existing packages directory
         if app_packages_dir.exists() {
@@ -462,7 +463,7 @@ impl Project {
         
         let source = if name.starts_with('@') {
             crate::dependency::types::PackageSource::Remote {
-                registry: "knot-space".to_string(),
+                registry: "hpm-registry".to_string(),
             }
         } else {
             crate::dependency::types::PackageSource::Local
@@ -507,8 +508,8 @@ impl Project {
             local_registry.discover_packages().await
                 .context("Failed to discover local packages")?;
             
-            let remote_registry = RemotePackageRegistry::new("https://knot.space".to_string());
-            let cache_dir = self.root.join(".knot").join("cache");
+            let remote_registry = RemotePackageRegistry::new("https://hpm.space".to_string());
+            let cache_dir = self.root.join(".hpm").join("cache");
             
             self.dependency_resolver = Some(DependencyResolver::new(
                 context,

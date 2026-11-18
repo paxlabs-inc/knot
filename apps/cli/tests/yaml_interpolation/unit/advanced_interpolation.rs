@@ -39,7 +39,7 @@ mod nested_variable_tests {
         variables.insert("full_url".to_string(), "https://${service_name}.example.com".to_string());
         
         let input = "url: ${full_url}";
-        let expected = "url: https://knot-test-api.example.com";
+        let expected = "url: https://hpm-test-api.example.com";
         
         assert_interpolation_equals(input, expected, variables).unwrap();
     }

@@ -12,17 +12,17 @@ interface AuthState {
 // Helper to safely access localStorage
 const getStoredToken = () => {
   if (!browser) return null;
-  return localStorage.getItem("knot_token");
+  return localStorage.getItem("hpm_token");
 };
 
 const setStoredToken = (token: string) => {
   if (!browser) return;
-  localStorage.setItem("knot_token", token);
+  localStorage.setItem("hpm_token", token);
 };
 
 const removeStoredToken = () => {
   if (!browser) return;
-  localStorage.removeItem("knot_token");
+  localStorage.removeItem("hpm_token");
 };
 
 const createAuthStore = () => {

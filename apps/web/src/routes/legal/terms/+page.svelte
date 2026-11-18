@@ -3,8 +3,8 @@
 </script>
 
 <svelte:head>
-	<title>Terms of Service - Knot Space</title>
-	<meta name="description" content="Knot Space Terms of Service - Terms and conditions for using our package registry service" />
+	<title>Terms of Service - HPM Registry</title>
+	<meta name="description" content="HPM Registry Terms of Service - Terms and conditions for using our package registry service" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -26,7 +26,7 @@
 				</div>
 				<div class="ml-3">
 					<p class="text-sm text-blue-700">
-						These Terms of Service govern your use of Knot Space. By using our service, you agree to these terms.
+						These Terms of Service govern your use of HPM Registry. By using our service, you agree to these terms.
 					</p>
 				</div>
 			</div>
@@ -35,7 +35,7 @@
 		<section class="mb-12">
 			<h2 class="text-2xl font-semibold mb-4">Acceptance of Terms</h2>
 			<p class="mb-4">
-				By accessing or using Knot Space, you agree to be bound by these Terms of Service and our Privacy Policy. 
+				By accessing or using HPM Registry, you agree to be bound by these Terms of Service and our Privacy Policy. 
 				If you disagree with any part of these terms, you may not access the service.
 			</p>
 		</section>
@@ -43,7 +43,7 @@
 		<section class="mb-12">
 			<h2 class="text-2xl font-semibold mb-4">Description of Service</h2>
 			<p class="mb-4">
-				Knot Space is a package registry service for TypeScript and JavaScript packages built with the Knot monorepo manager. 
+				HPM Registry is a package registry service for TypeScript and JavaScript packages built with the HPM monorepo manager. 
 				We provide:
 			</p>
 			<ul class="list-disc list-inside mb-6 space-y-2">
@@ -89,7 +89,7 @@
 
 			<h3 class="text-xl font-medium mb-3">Content Ownership</h3>
 			<p class="mb-6">
-				You retain ownership of the packages you publish. However, by publishing to Knot Space, you grant us 
+				You retain ownership of the packages you publish. However, by publishing to HPM Registry, you grant us 
 				a license to store, distribute, and display your content as necessary to provide the service.
 			</p>
 		</section>
@@ -110,7 +110,7 @@
 
 				<div class="border rounded-lg p-6">
 					<h3 class="text-lg font-medium mb-3">Our Service</h3>
-					<p class="text-sm mb-3">Knot Space and its features are protected by intellectual property laws.</p>
+					<p class="text-sm mb-3">HPM Registry and its features are protected by intellectual property laws.</p>
 					<ul class="text-sm space-y-1">
 						<li>• Service design and functionality</li>
 						<li>• Trademarks and branding</li>
@@ -143,7 +143,7 @@
 			
 			<h3 class="text-xl font-medium mb-3">Free Tier</h3>
 			<p class="mb-4">
-				Basic use of Knot Space is currently free. This includes package publishing, downloading, and basic team features.
+				Basic use of HPM Registry is currently free. This includes package publishing, downloading, and basic team features.
 			</p>
 
 			<h3 class="text-xl font-medium mb-3">Future Premium Features</h3>
@@ -219,7 +219,7 @@
 				
 				<div>
 					<h3 class="font-medium mb-2">GitHub</h3>
-					<a href="https://github.com/saravenpi/knot/issues" class="text-blue-600 hover:text-blue-800">Report on GitHub</a>
+					<a href="https://github.com/paxlabs-inc/knot/issues" class="text-blue-600 hover:text-blue-800">Report on GitHub</a>
 				</div>
 			</div>
 		</section>

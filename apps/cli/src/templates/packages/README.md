@@ -1,6 +1,6 @@
-# Knot Package Templates - Inter-Package Dependencies Guide
+# HPM Package Templates - Inter-Package Dependencies Guide
 
-This directory contains comprehensive examples demonstrating various inter-package dependency scenarios in Knot projects. These templates showcase best practices for structuring packages with clean dependency hierarchies.
+This directory contains comprehensive examples demonstrating various inter-package dependency scenarios in HPM projects. These templates showcase best practices for structuring packages with clean dependency hierarchies.
 
 ## 📚 Package Templates Overview
 
@@ -184,16 +184,16 @@ const UserDashboard = ({ apiClient }: { apiClient: ApiClient }) => {
 
 ### 1. Create a Basic Package
 ```bash
-knot create package my-utils --template typescript
+hpm create package my-utils --template typescript
 ```
 
 ### 2. Create Package with Dependencies
 ```bash
 # Create UI components package (depends on utils)
-knot create package my-components --template ui-components
+hpm create package my-components --template ui-components
 
 # Create API client package (depends on utils + data)  
-knot create package my-api --template api-client
+hpm create package my-api --template api-client
 ```
 
 ### 3. Understanding package.yml
@@ -206,7 +206,7 @@ version: "{{version}}"     # Package version (templated)
 dependencies:
   external:                # npm dependencies
     - "axios@^1.4.0"
-  internal:                # knot package dependencies  
+  internal:                # hpm package dependencies  
     - utils
     - data
 scripts:                   # Package scripts
@@ -336,13 +336,13 @@ const Dashboard = lazy(() => import('dashboard').then(m => ({
 ### Dependency Analysis
 ```bash
 # View package dependency tree
-knot deps --tree
+hpm deps --tree
 
 # Check for circular dependencies
-knot deps --check-circular
+hpm deps --check-circular
 
 # Analyze bundle size impact
-knot build --analyze
+hpm build --analyze
 ```
 
 ### Common Issues
@@ -350,19 +350,19 @@ knot build --analyze
 #### 1. Version Conflicts
 ```bash
 # Check for version mismatches
-knot deps --check-versions
+hpm deps --check-versions
 ```
 
 #### 2. Missing Dependencies
 ```bash
 # Verify all dependencies are installed
-knot install --verify
+hpm install --verify
 ```
 
 #### 3. Circular Dependencies
 ```bash
 # Find circular dependency chains
-knot deps --find-circular
+hpm deps --find-circular
 ```
 
 ## 📚 Learn More
@@ -374,4 +374,4 @@ knot deps --find-circular
 - **[API Client](./api-client/README.md)** - Multiple internal dependencies
 - **[Dashboard Package](./dashboard/README.md)** - Complex dependency chains
 
-These examples demonstrate real-world patterns for building maintainable, scalable package architectures in Knot projects. Start with the simpler examples and work your way up to more complex dependency scenarios.
+These examples demonstrate real-world patterns for building maintainable, scalable package architectures in HPM projects. Start with the simpler examples and work your way up to more complex dependency scenarios.

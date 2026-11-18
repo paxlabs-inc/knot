@@ -81,8 +81,8 @@
 </script>
 
 <svelte:head>
-	<title>{userProfile ? `${userProfile.username} - Knot Space` : 'User Profile - Knot Space'}</title>
-	<meta name="description" content={userProfile ? `${userProfile.username}'s profile on Knot Space` : 'User profile on Knot Space'} />
+	<title>{userProfile ? `${userProfile.username} - HPM Registry` : 'User Profile - HPM Registry'}</title>
+	<meta name="description" content={userProfile ? `${userProfile.username}'s profile on HPM Registry` : 'User profile on HPM Registry'} />
 </svelte:head>
 
 {#if loading}

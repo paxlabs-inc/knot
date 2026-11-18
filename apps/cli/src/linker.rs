@@ -26,23 +26,23 @@ impl<'a> Linker<'a> {
     pub async fn link_app(&self, app_name: &str, use_symlinks: bool) -> Result<()> {
         let app_dir = self.project.root.join("apps").join(app_name);
         if !app_dir.exists() {
-            anyhow::bail!("Cannot link packages: App directory '{}' does not exist at '{}'\n💡 Create the app first with: knot init:app {}\n💡 Or check if you're in the correct project directory", app_name, app_dir.display(), app_name);
+            anyhow::bail!("Cannot link packages: App directory '{}' does not exist at '{}'\n💡 Create the app first with: hpm init:app {}\n💡 Or check if you're in the correct project directory", app_name, app_dir.display(), app_name);
         }
 
-        let knot_packages_dir = app_dir.join("knot_packages");
+        let hpm_packages_dir = app_dir.join("hpm_packages");
 
-        if knot_packages_dir.exists() {
-            fs::remove_dir_all(&knot_packages_dir).with_context(|| {
+        if hpm_packages_dir.exists() {
+            fs::remove_dir_all(&hpm_packages_dir).with_context(|| {
                 format!(
-                    "Failed to remove existing knot_packages directory for app {}",
+                    "Failed to remove existing hpm_packages directory for app {}",
                     app_name
                 )
             })?;
         }
 
-        fs::create_dir_all(&knot_packages_dir).with_context(|| {
+        fs::create_dir_all(&hpm_packages_dir).with_context(|| {
             format!(
-                "Failed to create knot_packages directory for app {}",
+                "Failed to create hpm_packages directory for app {}",
                 app_name
             )
         })?;
@@ -50,13 +50,13 @@ impl<'a> Linker<'a> {
         let dependencies = self.project.get_app_dependencies(app_name);
 
         for dep in dependencies {
-            self.link_dependency(app_name, &dep, &knot_packages_dir, use_symlinks)
+            self.link_dependency(app_name, &dep, &hpm_packages_dir, use_symlinks)
                 .await?;
         }
 
         println!(
             "Linked {} dependencies for app '{}'",
-            self.count_linked_packages(&knot_packages_dir)?,
+            self.count_linked_packages(&hpm_packages_dir)?,
             app_name
         );
 
@@ -67,12 +67,12 @@ impl<'a> Linker<'a> {
         &self,
         app_name: &str,
         dependency: &str,
-        knot_packages_dir: &Path,
+        hpm_packages_dir: &Path,
         use_symlinks: bool,
     ) -> Result<()> {
         if let Some(folder_name) = dependency.strip_prefix('@') {
             // Remove @ prefix for folder name, but keep it for package identification
-            let link_target = knot_packages_dir.join(folder_name);
+            let link_target = hpm_packages_dir.join(folder_name);
             PackageDownloader::download_package(dependency, &link_target)
                 .await
                 .with_context(|| {
@@ -87,12 +87,12 @@ impl<'a> Linker<'a> {
         let package_source = self.project.root.join("packages").join(dependency);
         if !package_source.exists() {
             anyhow::bail!(
-                "Cannot link package: Local package '{}' does not exist at '{}'\n💡 Create the package first with: knot init:package {}\n💡 Or check if the package name is correct in app.yml",
+                "Cannot link package: Local package '{}' does not exist at '{}'\n💡 Create the package first with: hpm init:package {}\n💡 Or check if the package name is correct in app.yml",
                 dependency, package_source.display(), dependency
             );
         }
 
-        let link_target = knot_packages_dir.join(dependency);
+        let link_target = hpm_packages_dir.join(dependency);
 
         if use_symlinks {
             self.create_symlink(&package_source, &link_target)
@@ -156,12 +156,12 @@ impl<'a> Linker<'a> {
         Ok(())
     }
 
-    fn count_linked_packages(&self, knot_packages_dir: &Path) -> Result<usize> {
-        if !knot_packages_dir.exists() {
+    fn count_linked_packages(&self, hpm_packages_dir: &Path) -> Result<usize> {
+        if !hpm_packages_dir.exists() {
             return Ok(0);
         }
 
-        let count = fs::read_dir(knot_packages_dir)?
+        let count = fs::read_dir(hpm_packages_dir)?
             .filter_map(|entry| entry.ok())
             .count();
 

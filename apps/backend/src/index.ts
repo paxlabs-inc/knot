@@ -9,7 +9,7 @@ import { fileUploadService } from './lib/fileUpload';
 
 async function startServer() {
   try {
-    logger.info('Starting Knot Space server...', {
+    logger.info('Starting HPM Registry server...', {
       nodeEnv: env.NODE_ENV,
       port: env.PORT,
       logLevel: env.LOG_LEVEL,
@@ -40,7 +40,7 @@ async function startServer() {
       port: env.PORT,
     });
     
-    logger.info('Knot Space server started successfully', {
+    logger.info('HPM Registry server started successfully', {
       port: env.PORT,
       nodeEnv: env.NODE_ENV,
       pid: process.pid,

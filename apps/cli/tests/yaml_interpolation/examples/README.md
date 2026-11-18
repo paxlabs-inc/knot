@@ -1,6 +1,6 @@
 # YAML Variable Interpolation Examples
 
-This directory contains comprehensive examples demonstrating the YAML variable interpolation system for the Knot project.
+This directory contains comprehensive examples demonstrating the YAML variable interpolation system for the HPM project.
 
 ## Example Files
 
@@ -22,7 +22,7 @@ This directory contains comprehensive examples demonstrating the YAML variable i
 
 ### Configuration Examples
 
-- **`knot_config_example.yml`** - Complete knot.yml with variables
+- **`hpm_config_example.yml`** - Complete hpm.yml with variables
   - Project-wide configuration
   - Script definitions with interpolated commands
   - App and package configurations
@@ -98,7 +98,7 @@ These examples are used in the comprehensive test suite to verify:
 2. **Error Handling** - Errors are detected and reported appropriately  
 3. **Performance** - Large configurations process efficiently
 4. **Edge Cases** - Unusual but valid scenarios are handled
-5. **Integration** - Real Knot configurations work with interpolation
+5. **Integration** - Real HPM configurations work with interpolation
 
 ## Implementation Notes
 
@@ -107,7 +107,7 @@ The interpolation system is designed to be:
 - **Safe** - Prevents infinite recursion and circular dependencies
 - **Fast** - Efficient processing of large configuration files
 - **Flexible** - Supports complex nested variable patterns
-- **Compatible** - Works with existing Knot configuration formats
+- **Compatible** - Works with existing HPM configuration formats
 - **Extensible** - Easy to add new built-in variables and features
 
 ## Testing Strategy

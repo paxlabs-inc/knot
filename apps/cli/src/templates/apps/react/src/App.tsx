@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <h1>Hello {{name}}!</h1>
-      <p>Welcome to your new Knot app built with React and Vite.</p>
+      <p>Welcome to your new HPM app built with React and Vite.</p>
     </div>
   )
 }

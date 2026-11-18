@@ -3,8 +3,8 @@
 </script>
 
 <svelte:head>
-	<title>Privacy Policy - Knot Space</title>
-	<meta name="description" content="Knot Space Privacy Policy - How we collect, use, and protect your data" />
+	<title>Privacy Policy - HPM Registry</title>
+	<meta name="description" content="HPM Registry Privacy Policy - How we collect, use, and protect your data" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -26,7 +26,7 @@
 				</div>
 				<div class="ml-3">
 					<p class="text-sm text-blue-700">
-						At Knot Space, your privacy is important to us. This policy explains how we collect, use, and protect your personal information when you use our package registry service.
+						At HPM Registry, your privacy is important to us. This policy explains how we collect, use, and protect your personal information when you use our package registry service.
 					</p>
 				</div>
 			</div>
@@ -248,7 +248,7 @@
 				
 				<div>
 					<h3 class="font-medium mb-2">GitHub</h3>
-					<a href="https://github.com/saravenpi/knot/issues" class="text-blue-600 hover:text-blue-800">Report on GitHub</a>
+					<a href="https://github.com/paxlabs-inc/knot/issues" class="text-blue-600 hover:text-blue-800">Report on GitHub</a>
 				</div>
 			</div>
 		</section>

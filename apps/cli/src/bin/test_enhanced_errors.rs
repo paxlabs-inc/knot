@@ -6,15 +6,15 @@ use std::path::Path;
 #[path = "../config.rs"]
 mod config;
 
-use config::{KnotConfig, PackageConfig, AppConfig};
+use config::{HpmConfig, PackageConfig, AppConfig};
 
 fn test_file_loading() -> Result<()> {
     println!("🔍 Testing Enhanced YAML Error Handling in File Loading");
 
-    // Test knot.yml with missing name field
-    println!("\n📁 Testing missing required field in knot.yml...");
-    let knot_path = Path::new("test-malformed-knot.yml");
-    match KnotConfig::from_file(knot_path) {
+    // Test hpm.yml with missing name field
+    println!("\n📁 Testing missing required field in hpm.yml...");
+    let hpm_path = Path::new("test-malformed-hpm.yml");
+    match HpmConfig::from_file(hpm_path) {
         Ok(_) => println!("❌ Should have failed!"),
         Err(e) => {
             println!("✅ Enhanced error message:");
@@ -22,10 +22,10 @@ fn test_file_loading() -> Result<()> {
         }
     }
 
-    // Test knot.yml with YAML syntax error
-    println!("\n📁 Testing YAML syntax error in knot.yml...");
-    let syntax_error_path = Path::new("test-syntax-error-knot.yml");
-    match KnotConfig::from_file(syntax_error_path) {
+    // Test hpm.yml with YAML syntax error
+    println!("\n📁 Testing YAML syntax error in hpm.yml...");
+    let syntax_error_path = Path::new("test-syntax-error-hpm.yml");
+    match HpmConfig::from_file(syntax_error_path) {
         Ok(_) => println!("❌ Should have failed!"),
         Err(e) => {
             println!("✅ Enhanced error message:");

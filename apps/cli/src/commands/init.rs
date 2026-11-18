@@ -4,7 +4,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use tempfile::TempDir;
 
-use crate::config::{KnotConfig, AppConfig, PackageConfig};
+use crate::config::{HpmConfig, AppConfig, PackageConfig};
 use crate::downloader::PackageDownloader;
 use crate::validation::{
     validate_project_name, validate_package_name, validate_app_name,
@@ -18,8 +18,8 @@ pub fn init_project(name: Option<&str>, path: Option<&str>, description: Option<
 
     // Pretty header
     println!();
-    println!("{}", style("🚀 Welcome to Knot Project Initializer").bold().cyan());
-    println!("{}", style("Let's create a new Knot project together!").dim());
+    println!("{}", style("🚀 Welcome to HPM Project Initializer").bold().cyan());
+    println!("{}", style("Let's create a new HPM project together!").dim());
     println!();
 
     let project_name = match name {
@@ -60,7 +60,7 @@ pub fn init_project(name: Option<&str>, path: Option<&str>, description: Option<
         None if interactive => {
             let desc = prompt_for_description_with_help(
                 "📝 Project description (optional)",
-                Some("A new Knot project"),
+                Some("A new HPM project"),
                 Some("Briefly describe your project's purpose or goals (max 500 chars)")
             )?;
             let sanitized = sanitize_input(&desc);
@@ -140,13 +140,13 @@ pub fn init_project(name: Option<&str>, path: Option<&str>, description: Option<
         fs::create_dir_all(&target_dir)?;
     }
 
-    let knot_yml_path = target_dir.join("knot.yml");
+    let hpm_yml_path = target_dir.join("hpm.yml");
 
-    if knot_yml_path.exists() {
-        anyhow::bail!("Cannot initialize project: knot.yml already exists in directory '{}'\n💡 This directory is already a Knot project\n💡 Use 'knot init:package' or 'knot init:app' to add components to this project\n💡 Or choose a different directory for your new project", target_dir.display());
+    if hpm_yml_path.exists() {
+        anyhow::bail!("Cannot initialize project: hpm.yml already exists in directory '{}'\n💡 This directory is already a HPM project\n💡 Use 'hpm init:package' or 'hpm init:app' to add components to this project\n💡 Or choose a different directory for your new project", target_dir.display());
     }
 
-    let config = KnotConfig {
+    let config = HpmConfig {
         name: project_name.clone(),
         description: project_description,
         ts_alias: Some(crate::config::TsAlias::Boolean(false)),
@@ -156,15 +156,15 @@ pub fn init_project(name: Option<&str>, path: Option<&str>, description: Option<
     };
 
     let yaml_content = serde_yaml::to_string(&config)?;
-    fs::write(knot_yml_path, yaml_content).context("Failed to create knot.yml")?;
+    fs::write(hpm_yml_path, yaml_content).context("Failed to create hpm.yml")?;
 
     fs::create_dir_all(target_dir.join("packages"))?;
     fs::create_dir_all(target_dir.join("apps"))?;
 
-    println!("✅ Initialized new Knot project: {}", project_name);
+    println!("✅ Initialized new HPM project: {}", project_name);
     println!("📁 Created directories: packages/, apps/");
-    println!("💡 Use 'knot init:package <name>' to create packages");
-    println!("💡 Use 'knot init:app <name>' to create apps");
+    println!("💡 Use 'hpm init:package <name>' to create packages");
+    println!("💡 Use 'hpm init:app <name>' to create apps");
     Ok(())
 }
 
@@ -175,7 +175,7 @@ pub async fn init_package(name: Option<&str>, team: Option<&str>, version: Optio
     // Pretty header for interactive mode
     if interactive {
         println!();
-        println!("{}", style("📦 Welcome to Knot Package Creator").bold().cyan());
+        println!("{}", style("📦 Welcome to HPM Package Creator").bold().cyan());
         println!("{}", style("Let's create a new package together!").dim());
         println!();
     }
@@ -287,7 +287,7 @@ pub async fn init_package(name: Option<&str>, team: Option<&str>, version: Optio
         None if interactive => {
             let desc = prompt_for_description_with_help(
                 "📝 Package description (optional)",
-                Some("A new Knot package"),
+                Some("A new HPM package"),
                 Some("Describe what this package does and how others can use it (max 500 chars)")
             )?;
             let sanitized = sanitize_input(&desc);
@@ -305,7 +305,7 @@ pub async fn init_package(name: Option<&str>, team: Option<&str>, version: Optio
     let use_template = match template {
         Some(_) => true, // If template is provided via CLI, we're using it
         None if interactive => prompt_for_confirm_with_help(
-            "📦 Do you want to use a template from Knot Space?",
+            "📦 Do you want to use a template from HPM Registry?",
             Some(false),
             Some("Templates provide pre-configured project structure and dependencies")
         )?,
@@ -415,7 +415,7 @@ pub async fn init_package(name: Option<&str>, team: Option<&str>, version: Optio
     let package_yml_path = target_dir.join("package.yml");
 
     if package_yml_path.exists() {
-        anyhow::bail!("Cannot create package: package.yml already exists in directory '{}'\n💡 This directory already contains a Knot package\n💡 Choose a different directory or package name\n💡 Use --here flag if you want to overwrite (not recommended)", target_dir.display());
+        anyhow::bail!("Cannot create package: package.yml already exists in directory '{}'\n💡 This directory already contains a HPM package\n💡 Choose a different directory or package name\n💡 Use --here flag if you want to overwrite (not recommended)", target_dir.display());
     }
 
     let config = PackageConfig {
@@ -467,9 +467,9 @@ pub async fn init_package(name: Option<&str>, team: Option<&str>, version: Optio
 
     if let Some(team) = &team_name {
         println!("👥 Team: @{}", team);
-        println!("💡 Use 'knot publish --team {}' to publish this package", team);
+        println!("💡 Use 'hpm publish --team {}' to publish this package", team);
     } else {
-        println!("💡 Use 'knot publish' to publish this package");
+        println!("💡 Use 'hpm publish' to publish this package");
     }
 
     Ok(())
@@ -482,7 +482,7 @@ pub async fn init_app(name: Option<&str>, template: Option<&str>, description: O
     // Pretty header for interactive mode
     if interactive {
         println!();
-        println!("{}", style("🚀 Welcome to Knot App Creator").bold().cyan());
+        println!("{}", style("🚀 Welcome to HPM App Creator").bold().cyan());
         println!("{}", style("Let's create a new app together!").dim());
         println!();
     }
@@ -525,7 +525,7 @@ pub async fn init_app(name: Option<&str>, template: Option<&str>, description: O
         None if interactive => {
             let desc = prompt_for_description_with_help(
                 "📝 App description (optional)",
-                Some("A new Knot app"),
+                Some("A new HPM app"),
                 Some("Describe the app's purpose and target users (max 500 chars)")
             )?;
             let sanitized = sanitize_input(&desc);
@@ -543,7 +543,7 @@ pub async fn init_app(name: Option<&str>, template: Option<&str>, description: O
     let use_template = match template {
         Some(_) => true, // If template is provided via CLI, we're using it
         None if interactive => prompt_for_confirm_with_help(
-            "📦 Do you want to use a template from Knot Space?",
+            "📦 Do you want to use a template from HPM Registry?",
             Some(false),
             Some("Templates provide pre-configured app structure and framework setup")
         )?,
@@ -636,7 +636,7 @@ pub async fn init_app(name: Option<&str>, template: Option<&str>, description: O
     let app_yml_path = target_dir.join("app.yml");
 
     if app_yml_path.exists() {
-        anyhow::bail!("Cannot create app: app.yml already exists in directory '{}'\n💡 This directory already contains a Knot app\n💡 Choose a different directory or app name\n💡 Use --here flag if you want to overwrite (not recommended)", target_dir.display());
+        anyhow::bail!("Cannot create app: app.yml already exists in directory '{}'\n💡 This directory already contains a HPM app\n💡 Choose a different directory or app name\n💡 Use --here flag if you want to overwrite (not recommended)", target_dir.display());
     }
 
     let config = AppConfig {
@@ -668,8 +668,8 @@ pub async fn init_app(name: Option<&str>, template: Option<&str>, description: O
 
     println!("✅ Created app: {}", app_name);
     println!("📁 Location: {}", target_dir.display());
-    println!("💡 Use 'knot install <package>' to add dependencies");
-    println!("💡 Use 'knot link' to install and link packages");
+    println!("💡 Use 'hpm install <package>' to add dependencies");
+    println!("💡 Use 'hpm link' to install and link packages");
 
     Ok(())
 }
@@ -725,7 +725,7 @@ fn copy_template_files(source: &Path, destination: &Path) -> Result<()> {
         } else {
             // Skip config files, we'll handle them separately
             let file_name = path.file_name().and_then(|n| n.to_str()).unwrap_or("");
-            if file_name == "package.yml" || file_name == "app.yml" || file_name == "knot.yml" {
+            if file_name == "package.yml" || file_name == "app.yml" || file_name == "hpm.yml" {
                 continue;
             }
 
@@ -780,7 +780,7 @@ fn create_basic_structure(target_dir: &Path, is_package: bool) -> Result<()> {
     let content = if is_package {
         "// Your package code here\nexport {};"
     } else {
-        "// Your app code here\nconsole.log('Hello from Knot!');"
+        "// Your app code here\nconsole.log('Hello from HPM!');"
     };
     fs::write(index_path, content)?;
 

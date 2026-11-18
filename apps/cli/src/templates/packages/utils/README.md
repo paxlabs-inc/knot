@@ -1,6 +1,6 @@
 # Utils Package
 
-A foundational utility package providing common functions, types, and helpers that other packages in your Knot project can depend on. This package serves as the base layer in the dependency hierarchy.
+A foundational utility package providing common functions, types, and helpers that other packages in your HPM project can depend on. This package serves as the base layer in the dependency hierarchy.
 
 ## Overview
 

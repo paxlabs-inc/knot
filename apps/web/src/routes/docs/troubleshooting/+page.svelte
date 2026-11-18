@@ -19,14 +19,14 @@
 </script>
 
 <svelte:head>
-	<title>Troubleshooting - Knot CLI Documentation</title>
-	<meta name="description" content="Common issues and solutions for Knot CLI, package linking, authentication, builds, and publishing. Debug commands and support resources." />
-	<meta property="og:title" content="Troubleshooting - Knot CLI" />
-	<meta property="og:description" content="Common issues and solutions for Knot CLI, package linking, authentication, builds, and publishing. Debug commands and support resources." />
-	<meta property="og:url" content="https://knot.klysium.com/docs/troubleshooting" />
-	<meta name="twitter:title" content="Troubleshooting - Knot CLI" />
-	<meta name="twitter:description" content="Common issues and solutions for Knot CLI, package linking, authentication, builds, and publishing. Debug commands and support resources." />
-	<link rel="canonical" href="https://knot.klysium.com/docs/troubleshooting" />
+	<title>Troubleshooting - HPM CLI Documentation</title>
+	<meta name="description" content="Common issues and solutions for HPM CLI, package linking, authentication, builds, and publishing. Debug commands and support resources." />
+	<meta property="og:title" content="Troubleshooting - HPM CLI" />
+	<meta property="og:description" content="Common issues and solutions for HPM CLI, package linking, authentication, builds, and publishing. Debug commands and support resources." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs/troubleshooting" />
+	<meta name="twitter:title" content="Troubleshooting - HPM CLI" />
+	<meta name="twitter:description" content="Common issues and solutions for HPM CLI, package linking, authentication, builds, and publishing. Debug commands and support resources." />
+	<link rel="canonical" href="https://hpm.klysium.com/docs/troubleshooting" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
@@ -35,7 +35,7 @@
 			Troubleshooting
 		</h1>
 		<p class="text-lg text-muted-foreground">
-			Common issues and solutions for Knot CLI and monorepo management
+			Common issues and solutions for HPM CLI and monorepo management
 		</p>
 	</div>
 
@@ -68,7 +68,7 @@
 				<div class="space-y-3 text-sm">
 					<p class="text-muted-foreground">If you get permission errors:</p>
 					<ul class="space-y-1 ml-4 text-muted-foreground">
-						<li>• Make sure the binary is executable: <code>chmod +x knot</code></li>
+						<li>• Make sure the binary is executable: <code>chmod +x hpm</code></li>
 						<li>• On macOS, allow the app in System Preferences > Security</li>
 						<li>• Use <code>sudo</code> for system-wide installation</li>
 					</ul>
@@ -93,17 +93,17 @@
 						<li>• Check package name spelling in configuration</li>
 						<li>• Verify package exists in <code>packages/</code> directory</li>
 						<li>• For remote packages, check authentication</li>
-						<li>• Run <code>knot status</code> to see available packages</li>
+						<li>• Run <code>hpm status</code> to see available packages</li>
 					</ul>
 					<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group mt-3">
 						<div class="overflow-x-auto p-4 pr-12">
-							<code class="whitespace-nowrap block">knot link --verbose</code>
+							<code class="whitespace-nowrap block">hpm link --verbose</code>
 						</div>
 						<button 
 							class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-							on:click={() => copyToClipboard('knot link --verbose')}
+							on:click={() => copyToClipboard('hpm link --verbose')}
 						>
-							{#if showCopied && copyText === 'knot link --verbose'}
+							{#if showCopied && copyText === 'hpm link --verbose'}
 								<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 							{:else}
 								<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -121,20 +121,20 @@
 				<div class="space-y-3 text-sm">
 					<p class="text-muted-foreground">When imports don't work:</p>
 					<ul class="space-y-1 ml-4 text-muted-foreground">
-						<li>• Verify tsAlias configuration in app.yml or knot.yml</li>
+						<li>• Verify tsAlias configuration in app.yml or hpm.yml</li>
 						<li>• Check if tsconfig.json was updated correctly</li>
-						<li>• Run <code>knot link --force</code> to refresh all links</li>
+						<li>• Run <code>hpm link --force</code> to refresh all links</li>
 						<li>• Restart your IDE/TypeScript service</li>
 					</ul>
 					<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group mt-3">
 						<div class="overflow-x-auto p-4 pr-12">
-							<code class="whitespace-nowrap block">knot link --force</code>
+							<code class="whitespace-nowrap block">hpm link --force</code>
 						</div>
 						<button 
 							class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-							on:click={() => copyToClipboard('knot link --force')}
+							on:click={() => copyToClipboard('hpm link --force')}
 						>
-							{#if showCopied && copyText === 'knot link --force'}
+							{#if showCopied && copyText === 'hpm link --force'}
 								<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 							{:else}
 								<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -162,17 +162,17 @@
 						<li>• Check that your token is correct and not expired</li>
 						<li>• Ensure there are no extra spaces in the token</li>
 						<li>• Verify the environment variable is set correctly</li>
-						<li>• Test with <code>knot auth</code> command</li>
+						<li>• Test with <code>hpm auth</code> command</li>
 					</ul>
 					<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group mt-3">
 						<div class="overflow-x-auto p-4 pr-12">
-							<code class="whitespace-nowrap block">knot auth</code>
+							<code class="whitespace-nowrap block">hpm auth</code>
 						</div>
 						<button 
 							class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-							on:click={() => copyToClipboard('knot auth')}
+							on:click={() => copyToClipboard('hpm auth')}
 						>
-							{#if showCopied && copyText === 'knot auth'}
+							{#if showCopied && copyText === 'hpm auth'}
 								<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 							{:else}
 								<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -191,7 +191,7 @@
 					<p class="text-muted-foreground">When can't connect to registry:</p>
 					<ul class="space-y-1 ml-4 text-muted-foreground">
 						<li>• Check your internet connection</li>
-						<li>• Verify the KNOT_SPACE_URL is correct</li>
+						<li>• Verify the HPM_REGISTRY_URL is correct</li>
 						<li>• Check if you're behind a corporate firewall</li>
 						<li>• Try with <code>--verbose</code> flag for more details</li>
 					</ul>
@@ -220,13 +220,13 @@
 					</ul>
 					<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group mt-3">
 						<div class="overflow-x-auto p-4 pr-12">
-							<code class="whitespace-nowrap block">knot run build --verbose</code>
+							<code class="whitespace-nowrap block">hpm run build --verbose</code>
 						</div>
 						<button 
 							class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-							on:click={() => copyToClipboard('knot run build --verbose')}
+							on:click={() => copyToClipboard('hpm run build --verbose')}
 						>
-							{#if showCopied && copyText === 'knot run build --verbose'}
+							{#if showCopied && copyText === 'hpm run build --verbose'}
 								<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 							{:else}
 								<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -259,13 +259,13 @@
 					</ul>
 					<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group mt-3">
 						<div class="overflow-x-auto p-4 pr-12">
-							<code class="whitespace-nowrap block">knot publish --dry-run</code>
+							<code class="whitespace-nowrap block">hpm publish --dry-run</code>
 						</div>
 						<button 
 							class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-							on:click={() => copyToClipboard('knot publish --dry-run')}
+							on:click={() => copyToClipboard('hpm publish --dry-run')}
 						>
-							{#if showCopied && copyText === 'knot publish --dry-run'}
+							{#if showCopied && copyText === 'hpm publish --dry-run'}
 								<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 							{:else}
 								<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -289,11 +289,11 @@
 				</h3>
 				<div class="space-y-3 text-sm">
 					<div>
-						<div class="font-medium"><code>knot status</code></div>
+						<div class="font-medium"><code>hpm status</code></div>
 						<div class="text-muted-foreground">Show project and linking status</div>
 					</div>
 					<div>
-						<div class="font-medium"><code>knot --version</code></div>
+						<div class="font-medium"><code>hpm --version</code></div>
 						<div class="text-muted-foreground">Show CLI version</div>
 					</div>
 				</div>
@@ -306,15 +306,15 @@
 				</h3>
 				<div class="space-y-3 text-sm">
 					<div>
-						<div class="font-medium"><code>knot link --verbose</code></div>
+						<div class="font-medium"><code>hpm link --verbose</code></div>
 						<div class="text-muted-foreground">Detailed linking output</div>
 					</div>
 					<div>
-						<div class="font-medium"><code>knot publish --verbose</code></div>
+						<div class="font-medium"><code>hpm publish --verbose</code></div>
 						<div class="text-muted-foreground">Detailed publishing output</div>
 					</div>
 					<div>
-						<div class="font-medium"><code>knot run build --verbose</code></div>
+						<div class="font-medium"><code>hpm run build --verbose</code></div>
 						<div class="text-muted-foreground">Detailed build output via scripts</div>
 					</div>
 				</div>
@@ -335,20 +335,20 @@
 				<div class="space-y-3 text-sm">
 					<p class="text-muted-foreground">When packages depend on each other in a cycle:</p>
 					<ul class="space-y-1 ml-4 text-muted-foreground">
-						<li>• Identify the circular path using <code>knot deps tree</code></li>
+						<li>• Identify the circular path using <code>hpm deps tree</code></li>
 						<li>• Extract shared logic into a separate package</li>
 						<li>• Use dependency injection or interfaces to break cycles</li>
 						<li>• Consider merging packages if they're tightly coupled</li>
 					</ul>
 					<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group mt-3">
 						<div class="overflow-x-auto p-4 pr-12">
-							<code class="whitespace-nowrap block">knot deps check --verbose</code>
+							<code class="whitespace-nowrap block">hpm deps check --verbose</code>
 						</div>
 						<button 
 							class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-							on:click={() => copyToClipboard('knot deps check --verbose')}
+							on:click={() => copyToClipboard('hpm deps check --verbose')}
 						>
-							{#if showCopied && copyText === 'knot deps check --verbose'}
+							{#if showCopied && copyText === 'hpm deps check --verbose'}
 								<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 							{:else}
 								<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -366,20 +366,20 @@
 				<div class="space-y-3 text-sm">
 					<p class="text-muted-foreground">When multiple packages require incompatible versions:</p>
 					<ul class="space-y-1 ml-4 text-muted-foreground">
-						<li>• Use <code>knot deps sync</code> to find and resolve conflicts</li>
+						<li>• Use <code>hpm deps sync</code> to find and resolve conflicts</li>
 						<li>• Update version constraints to be more flexible</li>
 						<li>• Consider using <code>peerDependencies</code> for shared libraries</li>
 						<li>• Pin to specific versions if needed for stability</li>
 					</ul>
 					<div class="bg-black/90 text-blue-400 font-mono text-sm rounded-lg relative group mt-3">
 						<div class="overflow-x-auto p-4 pr-12">
-							<code class="whitespace-nowrap block">knot deps sync</code>
+							<code class="whitespace-nowrap block">hpm deps sync</code>
 						</div>
 						<button 
 							class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-							on:click={() => copyToClipboard('knot deps sync')}
+							on:click={() => copyToClipboard('hpm deps sync')}
 						>
-							{#if showCopied && copyText === 'knot deps sync'}
+							{#if showCopied && copyText === 'hpm deps sync'}
 								<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 							{:else}
 								<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -401,17 +401,17 @@
 						<li>• Ensure package exists in local packages/ directory</li>
 						<li>• Verify remote packages are published to the registry</li>
 						<li>• Check authentication for private packages</li>
-						<li>• Use <code>knot search</code> to find available packages</li>
+						<li>• Use <code>hpm search</code> to find available packages</li>
 					</ul>
 					<div class="bg-black/90 text-purple-400 font-mono text-sm rounded-lg relative group mt-3">
 						<div class="overflow-x-auto p-4 pr-12">
-							<code class="whitespace-nowrap block">knot search "package-name"</code>
+							<code class="whitespace-nowrap block">hpm search "package-name"</code>
 						</div>
 						<button 
 							class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-							on:click={() => copyToClipboard('knot search "package-name"')}
+							on:click={() => copyToClipboard('hpm search "package-name"')}
 						>
-							{#if showCopied && copyText === 'knot search "package-name"'}
+							{#if showCopied && copyText === 'hpm search "package-name"'}
 								<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 							{:else}
 								<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -429,21 +429,21 @@
 				<div class="space-y-3 text-sm">
 					<p class="text-muted-foreground">When TypeScript can't find package imports:</p>
 					<ul class="space-y-1 ml-4 text-muted-foreground">
-						<li>• Run <code>knot link --force</code> to refresh path mappings</li>
-						<li>• Check if package has been built with <code>knot run build</code></li>
+						<li>• Run <code>hpm link --force</code> to refresh path mappings</li>
+						<li>• Check if package has been built with <code>hpm run build</code></li>
 						<li>• Verify TypeScript alias configuration in app config</li>
 						<li>• Ensure package exports correct types from index.ts</li>
 						<li>• Restart TypeScript language server in your editor</li>
 					</ul>
 					<div class="bg-black/90 text-orange-400 font-mono text-sm rounded-lg relative group mt-3">
 						<div class="overflow-x-auto p-4 pr-12">
-							<code class="whitespace-nowrap block">knot link --force && knot run build</code>
+							<code class="whitespace-nowrap block">hpm link --force && hpm run build</code>
 						</div>
 						<button 
 							class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-							on:click={() => copyToClipboard('knot link --force && knot run build')}
+							on:click={() => copyToClipboard('hpm link --force && hpm run build')}
 						>
-							{#if showCopied && copyText === 'knot link --force && knot run build'}
+							{#if showCopied && copyText === 'hpm link --force && hpm run build'}
 								<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 							{:else}
 								<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -469,7 +469,7 @@
 							If you're still experiencing issues, here are additional resources:
 						</p>
 						<ul class="text-sm text-blue-700 space-y-1">
-							<li>• Check the <a href="https://github.com/saravenpi/knot/issues" class="underline">GitHub issues</a></li>
+							<li>• Check the <a href="https://github.com/paxlabs-inc/knot/issues" class="underline">GitHub issues</a></li>
 							<li>• Join our community discussions</li>
 							<li>• Review the complete documentation</li>
 							<li>• Contact support team</li>

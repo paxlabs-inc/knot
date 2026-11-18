@@ -14,7 +14,7 @@ It includes unit tests, integration tests, performance benchmarks, and edge case
   - `performance_tests` - Performance and scalability testing
 
 - **`integration/`** - End-to-end testing
-  - `config_integration` - Real Knot config file testing
+  - `config_integration` - Real HPM config file testing
 
 - **`fixtures/`** - Test data files
   - Example YAML files for various scenarios
@@ -66,7 +66,7 @@ cargo test yaml_interpolation -- --nocapture
 
 The test suite uses a mock implementation of the YAML interpolation engine
 that demonstrates the expected functionality. In a real implementation,
-this would be integrated into the main Knot CLI configuration system.
+this would be integrated into the main HPM CLI configuration system.
 */
 
 use anyhow::Result;
@@ -182,14 +182,14 @@ impl UnitTestResults {
 
 #[derive(Debug, Default)]
 pub struct IntegrationTestResults {
-    pub knot_config: bool,
+    pub hpm_config: bool,
     pub package_config: bool,
     pub app_config: bool,
 }
 
 impl IntegrationTestResults {
     pub fn is_success(&self) -> bool {
-        self.knot_config && self.package_config && self.app_config
+        self.hpm_config && self.package_config && self.app_config
     }
 }
 
@@ -224,7 +224,7 @@ fn run_unit_tests(_config: &TestConfig) -> Result<UnitTestResults> {
 fn run_integration_tests(_config: &TestConfig) -> Result<IntegrationTestResults> {
     // In a real implementation, this would run the integration tests
     Ok(IntegrationTestResults {
-        knot_config: true,
+        hpm_config: true,
         package_config: true,
         app_config: true,
     })

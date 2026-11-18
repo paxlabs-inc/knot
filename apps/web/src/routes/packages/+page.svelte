@@ -98,42 +98,42 @@
 </script>
 
 <svelte:head>
-	<title>Browse Packages - Knot Space Package Registry</title>
-	<meta name="description" content="Discover and explore packages for any programming language in the Knot Space registry. Find packages by tags, search by name or description, and explore the growing ecosystem of monorepo packages." />
-	<meta name="keywords" content="package registry, browse packages, monorepo packages, knot packages, multi-language packages, development tools, package manager" />
-	<meta name="author" content="Knot Space" />
+	<title>Browse Packages - HPM Registry Package Registry</title>
+	<meta name="description" content="Discover and explore packages for any programming language in the HPM Registry registry. Find packages by tags, search by name or description, and explore the growing ecosystem of monorepo packages." />
+	<meta name="keywords" content="package registry, browse packages, monorepo packages, hpm packages, multi-language packages, development tools, package manager" />
+	<meta name="author" content="HPM Registry" />
 	
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://knot.klysium.com/packages" />
-	<meta property="og:title" content="Browse Packages - Knot Space Package Registry" />
-	<meta property="og:description" content="Discover and explore packages for any programming language in the Knot Space registry. Find packages by tags, search by name or description, and explore the growing ecosystem." />
-	<meta property="og:image" content="https://knot.klysium.com/images/og/packages.png" />
-	<meta property="og:image:alt" content="Browse Packages in Knot Space Registry" />
-	<meta property="og:site_name" content="Knot Space" />
+	<meta property="og:url" content="https://hpm.klysium.com/packages" />
+	<meta property="og:title" content="Browse Packages - HPM Registry Package Registry" />
+	<meta property="og:description" content="Discover and explore packages for any programming language in the HPM Registry registry. Find packages by tags, search by name or description, and explore the growing ecosystem." />
+	<meta property="og:image" content="https://hpm.klysium.com/images/og/packages.png" />
+	<meta property="og:image:alt" content="Browse Packages in HPM Registry Registry" />
+	<meta property="og:site_name" content="HPM Registry" />
 
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:url" content="https://knot.klysium.com/packages" />
-	<meta name="twitter:title" content="Browse Packages - Knot Space Package Registry" />
-	<meta name="twitter:description" content="Discover and explore packages for any programming language in the Knot Space registry. Find packages by tags and search functionality." />
-	<meta name="twitter:image" content="https://knot.klysium.com/images/og/packages.png" />
-	<meta name="twitter:image:alt" content="Browse Packages in Knot Space Registry" />
-	<meta name="twitter:creator" content="@knotspace" />
-	<meta name="twitter:site" content="@knotspace" />
+	<meta name="twitter:url" content="https://hpm.klysium.com/packages" />
+	<meta name="twitter:title" content="Browse Packages - HPM Registry Package Registry" />
+	<meta name="twitter:description" content="Discover and explore packages for any programming language in the HPM Registry registry. Find packages by tags and search functionality." />
+	<meta name="twitter:image" content="https://hpm.klysium.com/images/og/packages.png" />
+	<meta name="twitter:image:alt" content="Browse Packages in HPM Registry Registry" />
+	<meta name="twitter:creator" content="@hpmregistry" />
+	<meta name="twitter:site" content="@hpmregistry" />
 
 	<!-- Additional SEO -->
 	<meta name="robots" content="index, follow" />
-	<link rel="canonical" href="https://knot.klysium.com/packages" />
+	<link rel="canonical" href="https://hpm.klysium.com/packages" />
 	
 	<!-- Schema.org structured data -->
 	<script type="application/ld+json">
 	{
 		"@context": "https://schema.org",
 		"@type": "CollectionPage",
-		"name": "Packages - Knot Space",
-		"description": "Discover and explore packages for any programming language in the Knot Space registry",
-		"url": "https://knot.klysium.com/packages",
+		"name": "Packages - HPM Registry",
+		"description": "Discover and explore packages for any programming language in the HPM Registry registry",
+		"url": "https://hpm.klysium.com/packages",
 		"mainEntity": {
 			"@type": "ItemList",
 			"name": "Package Registry",
@@ -146,20 +146,20 @@
 					"@type": "ListItem",
 					"position": 1,
 					"name": "Home",
-					"item": "https://knot.klysium.com"
+					"item": "https://hpm.klysium.com"
 				},
 				{
 					"@type": "ListItem",
 					"position": 2,
 					"name": "Packages",
-					"item": "https://knot.klysium.com/packages"
+					"item": "https://hpm.klysium.com/packages"
 				}
 			]
 		},
 		"publisher": {
 			"@type": "Organization",
-			"name": "Knot Space",
-			"url": "https://knot.klysium.com"
+			"name": "HPM Registry",
+			"url": "https://hpm.klysium.com"
 		}
 	}
 	</script>
@@ -329,7 +329,7 @@
 			<p class="text-muted-foreground mb-4">
 				{searchTerm || selectedTags.length > 0
 					? `No packages match your current filters. Try adjusting your search or selected tags.`
-					: 'Be the first to publish a package to Knot Space!'
+					: 'Be the first to publish a package to HPM Registry!'
 				}
 			</p>
 			{#if searchTerm || selectedTags.length > 0}

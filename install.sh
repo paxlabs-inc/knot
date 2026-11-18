@@ -28,7 +28,7 @@ print_warning() {
 
 print_header() {
     echo -e "${GREEN}"
-    echo "🪢 Knot - Monorepo Package Manager"
+    echo "🪢 HPM - Monorepo Package Manager"
     echo "=================================="
     echo -e "${NC}"
 }
@@ -40,16 +40,16 @@ command_exists() {
 
 # Check if this is an update vs fresh install
 check_existing_installation() {
-    if command_exists knot; then
-        CURRENT_VERSION=$(knot --version 2>/dev/null | sed 's/knot //' || echo "unknown")
-        INSTALL_PATH=$(which knot)
+    if command_exists hpm; then
+        CURRENT_VERSION=$(hpm --version 2>/dev/null | sed 's/hpm //' || echo "unknown")
+        INSTALL_PATH=$(which hpm)
         IS_UPDATE=true
-        print_step "Found existing Knot installation"
+        print_step "Found existing HPM installation"
         print_step "Current version: $CURRENT_VERSION"
         print_step "Location: $INSTALL_PATH"
     else
         IS_UPDATE=false
-        print_step "No existing Knot installation found"
+        print_step "No existing HPM installation found"
     fi
 }
 
@@ -58,7 +58,7 @@ get_latest_version() {
     print_step "Checking latest version..."
 
     # Try to get latest release version
-    LATEST_VERSION=$(curl -s https://api.github.com/repos/saravenpi/knot/releases/latest | grep '"tag_name"' | sed 's/.*"tag_name": "\([^"]*\)".*/\1/' | sed 's/^v//')
+    LATEST_VERSION=$(curl -s https://api.github.com/repos/saravenpi/hpm/releases/latest | grep '"tag_name"' | sed 's/.*"tag_name": "\([^"]*\)".*/\1/' | sed 's/^v//')
 
     if [ -z "$LATEST_VERSION" ] || [ "$LATEST_VERSION" = "null" ]; then
         LATEST_VERSION="development"
@@ -97,7 +97,7 @@ force_source_build() {
 
 # Use cached source if available for faster compilation
 use_cached_source() {
-    CACHE_DIR="$HOME/.knot-build-cache"
+    CACHE_DIR="$HOME/.hpm-build-cache"
     SRC_DIR="$CACHE_DIR/src"
 
     if [ -d "$SRC_DIR" ]; then
@@ -179,20 +179,20 @@ create_temp_dir() {
 
 # Clone repository
 clone_repository() {
-    print_step "Cloning Knot repository..."
+    print_step "Cloning HPM repository..."
 
-    REPO_URL="${KNOT_REPO_URL:-https://github.com/saravenpi/knot.git}"
+    REPO_URL="${HPM_REPO_URL:-https://github.com/paxlabs-inc/knot.git}"
 
     # If running locally for testing, check for monorepo structure
     if [[ -f "$(dirname "$0")/apps/cli/Cargo.toml" ]]; then
         print_warning "Using local development version"
-        cp -r "$(dirname "$0")" "$TEMP_DIR/knot"
+        cp -r "$(dirname "$0")" "$TEMP_DIR/hpm"
     elif [[ -f "$(dirname "$0")/Cargo.toml" ]] && [[ -d "$(dirname "$0")/../.." ]]; then
         # Running from within the CLI directory
         print_warning "Using local development version"
-        cp -r "$(dirname "$0")/../.." "$TEMP_DIR/knot"
+        cp -r "$(dirname "$0")/../.." "$TEMP_DIR/hpm"
     else
-        if ! git clone "$REPO_URL" "$TEMP_DIR/knot"; then
+        if ! git clone "$REPO_URL" "$TEMP_DIR/hpm"; then
             print_error "Failed to clone repository from $REPO_URL"
             print_error "Make sure the repository exists and is accessible"
             exit 1
@@ -204,22 +204,22 @@ clone_repository() {
 
 # Build the project with caching
 build_project() {
-    print_step "Building Knot..."
+    print_step "Building HPM..."
 
     local src_dir
     local use_cache=false
 
     # Try to use cached source first
     if use_cached_source; then
-        src_dir="$HOME/.knot-build-cache/src"
+        src_dir="$HOME/.hpm-build-cache/src"
         use_cache=true
         print_step "Using cached source for faster build"
     else
-        src_dir="$TEMP_DIR/knot"
+        src_dir="$TEMP_DIR/hpm"
         print_step "Using fresh source"
 
         # Setup cache for next time
-        CACHE_DIR="$HOME/.knot-build-cache"
+        CACHE_DIR="$HOME/.hpm-build-cache"
         mkdir -p "$CACHE_DIR"
 
         # Copy source to cache for future builds
@@ -233,22 +233,22 @@ build_project() {
 
     # Use cached build directory if available
     if [ "$use_cache" = true ]; then
-        export CARGO_TARGET_DIR="$HOME/.knot-build-cache/target"
+        export CARGO_TARGET_DIR="$HOME/.hpm-build-cache/target"
         mkdir -p "$CARGO_TARGET_DIR"
         print_step "Using cached build artifacts for faster compilation"
     fi
 
     # Build in release mode for optimal performance
     if ! cargo build --release; then
-        print_error "Failed to build Knot"
+        print_error "Failed to build HPM"
         exit 1
     fi
 
     # Set binary path based on build location
     if [ "$use_cache" = true ]; then
-        BINARY_PATH="$HOME/.knot-build-cache/target/release/knot"
+        BINARY_PATH="$HOME/.hpm-build-cache/target/release/hpm"
     else
-        BINARY_PATH="$src_dir/apps/cli/target/release/knot"
+        BINARY_PATH="$src_dir/apps/cli/target/release/hpm"
     fi
 
     print_success "Build completed successfully"
@@ -294,7 +294,7 @@ determine_install_dir() {
 
 # Install binary
 install_binary() {
-    print_step "Installing Knot binary..."
+    print_step "Installing HPM binary..."
 
     # BINARY_PATH should be set by either try_binary_download or build_project
     if [[ ! -f "$BINARY_PATH" ]]; then
@@ -308,7 +308,7 @@ install_binary() {
         INSTALL_DIR=$(dirname "$INSTALL_PATH")
         print_step "Updating existing installation at $TARGET_PATH"
     else
-        TARGET_PATH="$INSTALL_DIR/knot"
+        TARGET_PATH="$INSTALL_DIR/hpm"
         print_step "Installing to $TARGET_PATH"
     fi
 
@@ -340,9 +340,9 @@ install_binary() {
     fi
 
     if [ "$IS_UPDATE" = true ]; then
-        print_success "Knot updated successfully at $TARGET_PATH"
+        print_success "HPM updated successfully at $TARGET_PATH"
     else
-        print_success "Knot installed to $TARGET_PATH"
+        print_success "HPM installed to $TARGET_PATH"
     fi
 }
 
@@ -350,13 +350,13 @@ install_binary() {
 verify_installation() {
     print_step "Verifying installation..."
 
-    if command_exists knot; then
-        VERSION=$(knot --version 2>/dev/null || echo "knot 0.1.0")
-        print_success "Knot is installed and working!"
+    if command_exists hpm; then
+        VERSION=$(hpm --version 2>/dev/null || echo "hpm 0.1.0")
+        print_success "HPM is installed and working!"
         print_success "$VERSION"
-        print_success "Location: $(which knot)"
+        print_success "Location: $(which hpm)"
     else
-        print_warning "Knot binary installed but not found in PATH"
+        print_warning "HPM binary installed but not found in PATH"
         print_warning "You may need to restart your shell or add $INSTALL_DIR to your PATH"
         print_warning "Try running: export PATH=\"$INSTALL_DIR:\$PATH\""
     fi
@@ -365,15 +365,15 @@ verify_installation() {
 # Show usage information
 show_usage() {
     echo ""
-    print_step "Getting started with Knot:"
-    echo "  knot init my-project          # Initialize a new project"
-    echo "  knot init:package my-package  # Create a new package"
-    echo "  knot init:app my-app          # Create a new app"
-    echo "  knot link                     # Link packages to apps"
-    echo "  knot status                   # Show project status"
-    echo "  knot --help                   # Show help information"
+    print_step "Getting started with HPM:"
+    echo "  hpm init my-project          # Initialize a new project"
+    echo "  hpm init:package my-package  # Create a new package"
+    echo "  hpm init:app my-app          # Create a new app"
+    echo "  hpm link                     # Link packages to apps"
+    echo "  hpm status                   # Show project status"
+    echo "  hpm --help                   # Show help information"
     echo ""
-    print_step "Documentation: https://github.com/saravenpi/knot"
+    print_step "Documentation: https://github.com/paxlabs-inc/knot"
 }
 
 # Main installation function
@@ -418,7 +418,7 @@ main() {
 
     if [ "$IS_UPDATE" = true ]; then
         print_success "Update completed successfully! 🎉"
-        NEW_VERSION=$(knot --version 2>/dev/null | sed 's/knot //' || echo "unknown")
+        NEW_VERSION=$(hpm --version 2>/dev/null | sed 's/hpm //' || echo "unknown")
         print_success "Updated from $CURRENT_VERSION to $NEW_VERSION"
     else
         show_usage

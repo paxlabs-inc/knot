@@ -15,11 +15,11 @@ pub async fn link_packages(use_symlinks: bool) -> Result<()> {
     let project = match Project::find_and_load(&current_dir) {
         Ok(project) => project,
         Err(_) => {
-            display_error("Cannot link packages: No knot.yml found in current directory or any parent directory");
-            display_info("You must be inside a Knot project to link packages");
-            display_info("Run 'knot init <project-name>' to initialize a new Knot project");
-            display_info("Or navigate to an existing Knot project directory");
-            anyhow::bail!("Not in a Knot project");
+            display_error("Cannot link packages: No hpm.yml found in current directory or any parent directory");
+            display_info("You must be inside a HPM project to link packages");
+            display_info("Run 'hpm init <project-name>' to initialize a new HPM project");
+            display_info("Or navigate to an existing HPM project directory");
+            anyhow::bail!("Not in a HPM project");
         }
     };
 
@@ -93,7 +93,7 @@ pub async fn add_package(package_spec: &str, auto_link: bool) -> Result<()> {
         let project = match Project::find_and_load(&current_dir) {
             Ok(project) => project,
             Err(_) => {
-                anyhow::bail!("Cannot install package: Not in a Knot project directory\n💡 You must be inside a Knot project to install packages\n💡 Run 'knot init <project-name>' to initialize a new project\n💡 Or navigate to an existing Knot project directory\n💡 Then navigate to an app directory and run 'knot install' there");
+                anyhow::bail!("Cannot install package: Not in a HPM project directory\n💡 You must be inside a HPM project to install packages\n💡 Run 'hpm init <project-name>' to initialize a new project\n💡 Or navigate to an existing HPM project directory\n💡 Then navigate to an app directory and run 'hpm install' there");
             }
         };
 
@@ -103,9 +103,9 @@ pub async fn add_package(package_spec: &str, auto_link: bool) -> Result<()> {
             for app_name in project.apps.keys() {
                 println!("  • {}", app_name);
             }
-            println!("💡 Navigate to an app directory and run 'knot install' there");
+            println!("💡 Navigate to an app directory and run 'hpm install' there");
         } else {
-            println!("💡 Create an app first with 'knot init:app <name>'");
+            println!("💡 Create an app first with 'hpm init:app <name>'");
         }
         return Ok(());
     }
@@ -122,7 +122,7 @@ pub async fn add_package(package_spec: &str, auto_link: bool) -> Result<()> {
         let project = match Project::find_and_load(&current_dir) {
             Ok(project) => project,
             Err(e) => {
-                anyhow::bail!("Failed to load project configuration: {}\n💡 Ensure you're in a valid Knot project directory\n💡 Check that knot.yml exists and is properly formatted", e);
+                anyhow::bail!("Failed to load project configuration: {}\n💡 Ensure you're in a valid HPM project directory\n💡 Check that hpm.yml exists and is properly formatted", e);
             }
         };
         
@@ -130,9 +130,9 @@ pub async fn add_package(package_spec: &str, auto_link: bool) -> Result<()> {
         if !project.packages.contains_key(&package_name) {
             let available_packages = project.packages.keys().map(|s| s.as_str()).collect::<Vec<_>>();
             if available_packages.is_empty() {
-                anyhow::bail!("Local package '{}' does not exist in this project\n💡 No packages found in this project\n💡 Create a package first with: knot init:package {}", package_name, package_name);
+                anyhow::bail!("Local package '{}' does not exist in this project\n💡 No packages found in this project\n💡 Create a package first with: hpm init:package {}", package_name, package_name);
             } else {
-                anyhow::bail!("Local package '{}' does not exist in this project\n💡 Available local packages: {}\n💡 Create the package with: knot init:package {}\n💡 Or install from Knot Space with: @team/{}",
+                anyhow::bail!("Local package '{}' does not exist in this project\n💡 Available local packages: {}\n💡 Create the package with: hpm init:package {}\n💡 Or install from HPM Registry with: @team/{}",
                     package_name,
                     available_packages.join(", "),
                     package_name,
@@ -173,7 +173,7 @@ pub async fn add_package(package_spec: &str, auto_link: bool) -> Result<()> {
         println!("🔗 Linking packages...");
         link_packages(false).await?;
     } else {
-        println!("💡 Run 'knot link' to apply the changes");
+        println!("💡 Run 'hpm link' to apply the changes");
     }
 
     Ok(())

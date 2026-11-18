@@ -189,7 +189,7 @@
 </script>
 
 <svelte:head>
-	<title>Teams - Knot Space</title>
+	<title>Teams - HPM Registry</title>
 </svelte:head>
 
 <div class="space-y-6">

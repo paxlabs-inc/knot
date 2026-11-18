@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-echo "🔧 Preparing knot_packages for Docker build..."
+echo "🔧 Preparing hpm_packages for Docker build..."
 
-cd knot_packages
+cd hpm_packages
 
 if [ -L "types" ]; then
     echo "📦 Copying types package..."
@@ -17,4 +17,4 @@ if [ -L "utils" ]; then
     cp -r ../../../packages/utils .
 fi
 
-echo "✅ knot_packages prepared for Docker build"
+echo "✅ hpm_packages prepared for Docker build"

@@ -8,7 +8,7 @@ dependencies:
     - "axios-retry@^3.4.0"
     - "qs@^6.11.2"
     - "@openapi-generator-cli/cli@^2.7.0"
-  # Internal knot package dependencies - depends on multiple packages
+  # Internal hpm package dependencies - depends on multiple packages
   internal:
     - utils # Uses validation, formatting, retry logic, and helper functions
     - data  # Uses types and schemas for API data structures

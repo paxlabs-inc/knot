@@ -24,7 +24,7 @@
 		// Get the token from localStorage - no need to call getProfile() again
 		// since we're already in an authenticated layout
 		if (browser) {
-			token = localStorage.getItem('knot_token') || '';
+			token = localStorage.getItem('hpm_token') || '';
 		}
 		pageLoading = false;
 	});
@@ -141,7 +141,7 @@
 				await authStore.updateUser(result.data.user);
 				// Update token in localStorage if provided
 				if (result.data.token) {
-					localStorage.setItem('knot_token', result.data.token);
+					localStorage.setItem('hpm_token', result.data.token);
 					token = result.data.token;
 				}
 				showEditProfile = false;
@@ -158,7 +158,7 @@
 </script>
 
 <svelte:head>
-	<title>Settings - Knot Space</title>
+	<title>Settings - HPM Registry</title>
 </svelte:head>
 
 <div class="max-w-4xl mx-auto">
@@ -211,7 +211,7 @@
 		<div class="bg-card text-card-foreground rounded-lg border p-6">
 			<h2 class="text-xl font-semibold mb-4">CLI Authentication</h2>
 			<p class="text-muted-foreground mb-6">
-				Use this token to authenticate with the Knot CLI for publishing packages and managing your account.
+				Use this token to authenticate with the HPM CLI for publishing packages and managing your account.
 			</p>
 			
 			<div class="space-y-4">
@@ -250,19 +250,19 @@
 				<div class="bg-muted/50 rounded-md p-4">
 					<h3 class="font-medium mb-2">CLI Setup Instructions</h3>
 					<div class="space-y-2 text-sm text-muted-foreground">
-						<p><strong>1. Install the Knot CLI:</strong></p>
+						<p><strong>1. Install the HPM CLI:</strong></p>
 						<code class="block bg-background px-3 py-1 rounded font-mono text-xs overflow-x-auto whitespace-nowrap">
-							curl -fsSL https://raw.githubusercontent.com/saravenpi/knot/main/install.sh | bash
+							curl -fsSL https://raw.githubusercontent.com/paxlabs-inc/knot/main/install.sh | bash
 						</code>
 						
 						<p class="pt-2"><strong>2. Set your authentication token:</strong></p>
 						<code class="block bg-background px-3 py-1 rounded font-mono text-xs overflow-x-auto whitespace-nowrap">
-							export KNOT_TOKEN={token || 'your-token-here'}
+							export HPM_TOKEN={token || 'your-token-here'}
 						</code>
 						
 						<p class="pt-2"><strong>3. Publish a package:</strong></p>
 						<code class="block bg-background px-3 py-1 rounded font-mono text-xs">
-							knot publish --description "My awesome package"
+							hpm publish --description "My awesome package"
 						</code>
 					</div>
 				</div>

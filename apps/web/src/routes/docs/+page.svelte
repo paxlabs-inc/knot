@@ -3,14 +3,14 @@
 </script>
 
 <svelte:head>
-	<title>Introduction to Knot - Modern Monorepo Package Manager</title>
-	<meta name="description" content="Knot is a modern package manager designed for TypeScript and JavaScript monorepos. Learn about smart package linking, TypeScript integration, and team collaboration." />
-	<meta property="og:title" content="Introduction to Knot - Modern Monorepo Package Manager" />
-	<meta property="og:description" content="Knot is a modern package manager designed for TypeScript and JavaScript monorepos. Learn about smart package linking, TypeScript integration, and team collaboration." />
-	<meta property="og:url" content="https://knot.klysium.com/docs" />
-	<meta name="twitter:title" content="Introduction to Knot - Modern Monorepo Package Manager" />
-	<meta name="twitter:description" content="Knot is a modern package manager designed for TypeScript and JavaScript monorepos. Learn about smart package linking, TypeScript integration, and team collaboration." />
-	<link rel="canonical" href="https://knot.klysium.com/docs" />
+	<title>Introduction to HPM - Modern Monorepo Package Manager</title>
+	<meta name="description" content="HPM is a modern package manager designed for TypeScript and JavaScript monorepos. Learn about smart package linking, TypeScript integration, and team collaboration." />
+	<meta property="og:title" content="Introduction to HPM - Modern Monorepo Package Manager" />
+	<meta property="og:description" content="HPM is a modern package manager designed for TypeScript and JavaScript monorepos. Learn about smart package linking, TypeScript integration, and team collaboration." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs" />
+	<meta name="twitter:title" content="Introduction to HPM - Modern Monorepo Package Manager" />
+	<meta name="twitter:description" content="HPM is a modern package manager designed for TypeScript and JavaScript monorepos. Learn about smart package linking, TypeScript integration, and team collaboration." />
+	<link rel="canonical" href="https://hpm.klysium.com/docs" />
 </svelte:head>
 
 <div class="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -19,22 +19,22 @@
 			<Icon icon="lucide:wand-2" class="w-8 h-8 text-gray-700" />
 		</div>
 		<h1 class="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-black" style="font-family: 'Gambarino', 'Satoshi', sans-serif;">
-			Introduction to Knot
+			Introduction to HPM
 		</h1>
 		<p class="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
 			A modern monorepo package manager for any programming language
 		</p>
 	</div>
 
-	<!-- What is Knot -->
+	<!-- What is HPM -->
 	<section class="mb-20">
 		<div class="text-center mb-12">
-			<h2 class="text-3xl lg:text-4xl font-bold mb-4 text-black">What is Knot?</h2>
+			<h2 class="text-3xl lg:text-4xl font-bold mb-4 text-black">What is HPM?</h2>
 			<div class="w-24 h-1 bg-black rounded-full mx-auto"></div>
 		</div>
 		<div class="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-gray-200 mb-12">
 			<p class="text-lg lg:text-xl text-slate-700 mb-0 leading-relaxed text-center max-w-4xl mx-auto">
-				Knot is a modern package manager designed specifically for TypeScript and JavaScript monorepos.
+				HPM is a modern package manager designed specifically for TypeScript and JavaScript monorepos.
 				It simplifies dependency management, package linking, and build orchestration across multiple
 				applications and packages within a single repository.
 			</p>
@@ -88,7 +88,7 @@
 					</div>
 					<div class="relative">
 						<pre class="text-sm font-mono bg-slate-900 text-white p-6 rounded-2xl overflow-x-auto"><code>MyProject/
-├── <span class="text-blue-400">knot.yml</span>          # Project configuration
+├── <span class="text-blue-400">hpm.yml</span>          # Project configuration
 ├── <span class="text-yellow-400">packages/</span>        # Reusable packages
 │   ├── types/
 │   └── utils/
@@ -109,20 +109,20 @@
 					<div class="relative">
 						<div class="bg-slate-900 text-green-400 font-mono text-sm p-6 rounded-2xl overflow-x-auto">
 							<pre><code># Initialize a new project
-knot init MyProject
+hpm init MyProject
 
 # Create packages and apps
-knot init:package utils
-knot init:app frontend
+hpm init:package utils
+hpm init:app frontend
 
 # Link packages and set up TypeScript
-knot link
+hpm link
 
 # Build everything
-knot run build
+hpm run build
 
 # Publish packages
-knot publish</code></pre>
+hpm publish</code></pre>
 						</div>
 					</div>
 				</div>
@@ -221,7 +221,7 @@ knot publish</code></pre>
 				<div class="flex-1">
 					<h3 class="text-2xl font-bold text-black mb-3">Ready to start?</h3>
 					<p class="text-lg text-gray-600 mb-8 leading-relaxed">
-						Follow our step-by-step guides to get up and running with Knot in minutes.
+						Follow our step-by-step guides to get up and running with HPM in minutes.
 					</p>
 					<div class="flex flex-col sm:flex-row gap-4">
 						<a href="/docs/installation" class="group inline-flex items-center justify-center px-8 py-4 bg-black text-white font-semibold rounded-2xl hover:bg-gray-800 transition-all duration-300">

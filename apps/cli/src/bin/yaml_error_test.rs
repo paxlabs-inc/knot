@@ -8,24 +8,24 @@ use anyhow::Result;
 mod config;
 
 use config::{
-    parse_yaml_error_with_context, ConfigType, KnotConfig, PackageConfig, AppConfig
+    parse_yaml_error_with_context, ConfigType, HpmConfig, PackageConfig, AppConfig
 };
 
 fn test_missing_required_fields() -> Result<()> {
     println!("\n=== Testing Missing Required Fields ===");
 
-    // Test missing name in knot.yml
-    println!("🧪 Testing missing 'name' field in knot.yml...");
-    let knot_no_name = r#"
+    // Test missing name in hpm.yml
+    println!("🧪 Testing missing 'name' field in hpm.yml...");
+    let hpm_no_name = r#"
 description: "A project without a name"
 scripts:
   start: "npm start"
 "#;
 
-    match serde_yaml::from_str::<KnotConfig>(knot_no_name) {
+    match serde_yaml::from_str::<HpmConfig>(hpm_no_name) {
         Ok(_) => println!("❌ Should have failed - missing name"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -74,10 +74,10 @@ name: "test-project"
 scripts: "this should be an object"
 "#;
 
-    match serde_yaml::from_str::<KnotConfig>(invalid_scripts) {
+    match serde_yaml::from_str::<HpmConfig>(invalid_scripts) {
         Ok(_) => println!("❌ Should have failed - invalid scripts type"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -126,10 +126,10 @@ script:
   start: "npm start"
 "#;
 
-    match serde_yaml::from_str::<KnotConfig>(unknown_field) {
+    match serde_yaml::from_str::<HpmConfig>(unknown_field) {
         Ok(_) => println!("❌ Should have failed - unknown field"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -164,10 +164,10 @@ name "test-project"
 description: "Missing colon above"
 "#;
 
-    match serde_yaml::from_str::<KnotConfig>(missing_colon) {
+    match serde_yaml::from_str::<HpmConfig>(missing_colon) {
         Ok(_) => println!("❌ Should have failed - missing colon"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -181,10 +181,10 @@ start: "npm start"  # Wrong indentation
   build: "npm run build"
 "#;
 
-    match serde_yaml::from_str::<KnotConfig>(bad_indentation) {
+    match serde_yaml::from_str::<HpmConfig>(bad_indentation) {
         Ok(_) => println!("❌ Should have failed - bad indentation"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -196,10 +196,10 @@ name: "test-project
 description: "Missing closing quote above"
 "#;
 
-    match serde_yaml::from_str::<KnotConfig>(unclosed_quotes) {
+    match serde_yaml::from_str::<HpmConfig>(unclosed_quotes) {
         Ok(_) => println!("❌ Should have failed - unclosed quotes"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -218,10 +218,10 @@ description: "Test project"
 name: "second-name"
 "#;
 
-    match serde_yaml::from_str::<KnotConfig>(duplicate_name) {
+    match serde_yaml::from_str::<HpmConfig>(duplicate_name) {
         Ok(_) => println!("❌ Should have failed - duplicate field"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -240,10 +240,10 @@ apps:
   - "should-be-object-not-array"
 "#;
 
-    match serde_yaml::from_str::<KnotConfig>(invalid_apps) {
+    match serde_yaml::from_str::<HpmConfig>(invalid_apps) {
         Ok(_) => println!("❌ Should have failed - invalid apps structure"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -262,10 +262,10 @@ apps:
       - validators
 "#;
 
-    match serde_yaml::from_str::<KnotConfig>(mixed_apps) {
+    match serde_yaml::from_str::<HpmConfig>(mixed_apps) {
         Ok(_) => println!("❌ Should have failed - invalid field in app"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -284,10 +284,10 @@ variables:
   - "should-be-object-not-array"
 "#;
 
-    match serde_yaml::from_str::<KnotConfig>(invalid_variables) {
+    match serde_yaml::from_str::<HpmConfig>(invalid_variables) {
         Ok(_) => println!("❌ Should have failed - invalid variables structure"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -303,10 +303,10 @@ variables:
     another_invalid: "wrong structure"
 "#;
 
-    match serde_yaml::from_str::<KnotConfig>(invalid_complex_var) {
+    match serde_yaml::from_str::<HpmConfig>(invalid_complex_var) {
         Ok(_) => println!("❌ Should have failed - invalid complex variable"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -321,10 +321,10 @@ fn test_edge_cases() -> Result<()> {
     println!("🧪 Testing empty YAML content...");
     let empty_yaml = "";
 
-    match serde_yaml::from_str::<KnotConfig>(empty_yaml) {
+    match serde_yaml::from_str::<HpmConfig>(empty_yaml) {
         Ok(_) => println!("❌ Should have failed - empty file"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -333,10 +333,10 @@ fn test_edge_cases() -> Result<()> {
     println!("🧪 Testing whitespace-only YAML content...");
     let whitespace_yaml = "   \n  \t  \n   ";
 
-    match serde_yaml::from_str::<KnotConfig>(whitespace_yaml) {
+    match serde_yaml::from_str::<HpmConfig>(whitespace_yaml) {
         Ok(_) => println!("❌ Should have failed - whitespace only"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -345,10 +345,10 @@ fn test_edge_cases() -> Result<()> {
     println!("🧪 Testing comment-only YAML content...");
     let comment_only = "# This is just a comment";
 
-    match serde_yaml::from_str::<KnotConfig>(comment_only) {
+    match serde_yaml::from_str::<HpmConfig>(comment_only) {
         Ok(_) => println!("❌ Should have failed - comment only"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -357,10 +357,10 @@ fn test_edge_cases() -> Result<()> {
     println!("🧪 Testing invalid Unicode characters...");
     let invalid_chars = "name: \"test\x00project\"";
 
-    match serde_yaml::from_str::<KnotConfig>(invalid_chars) {
+    match serde_yaml::from_str::<HpmConfig>(invalid_chars) {
         Ok(_) => println!("❌ Should have failed - invalid chars"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -375,10 +375,10 @@ fn test_real_world_common_mistakes() -> Result<()> {
     println!("🧪 Testing mixed tabs and spaces...");
     let mixed_whitespace = "name: \"test-project\"\nscripts:\n\tstart: \"npm start\"\n  build: \"npm run build\"";
 
-    match serde_yaml::from_str::<KnotConfig>(mixed_whitespace) {
+    match serde_yaml::from_str::<HpmConfig>(mixed_whitespace) {
         Ok(_) => println!("❌ Should have failed - mixed whitespace"),
         Err(e) => {
-            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::Knot);
+            let friendly_error = parse_yaml_error_with_context(&e, ConfigType::HPM);
             println!("✅ Caught error: {}", friendly_error);
         }
     }
@@ -447,7 +447,7 @@ fn main() -> Result<()> {
     println!("✅ Real-world mistakes - Common formatting error detection");
     println!("\n💡 Error messages now include:");
     println!("  • Specific field-level context");
-    println!("  • Configuration type awareness (knot.yml vs package.yml vs app.yml)");
+    println!("  • Configuration type awareness (hpm.yml vs package.yml vs app.yml)");
     println!("  • Line/column information when available");
     println!("  • Actionable suggestions for fixes");
     println!("  • Examples of correct formatting");

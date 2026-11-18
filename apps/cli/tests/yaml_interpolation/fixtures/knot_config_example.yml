@@ -1,5 +1,5 @@
-# Knot Configuration with Variable Interpolation
-# Example of a complete knot.yml with variable interpolation
+# HPM Configuration with Variable Interpolation
+# Example of a complete hpm.yml with variable interpolation
 
 variables:
   project_name: "my-awesome-workspace"

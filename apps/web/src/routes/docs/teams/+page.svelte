@@ -19,16 +19,16 @@
 </script>
 
 <svelte:head>
-	<title>Team Management - Knot CLI Documentation</title>
-	<meta name="description" content="Learn how to create and manage teams for collaborative package development with Knot CLI." />
-	<meta property="og:title" content="Team Management - Knot CLI" />
-	<meta property="og:description" content="Learn how to create and manage teams for collaborative package development with Knot CLI." />
+	<title>Team Management - HPM CLI Documentation</title>
+	<meta name="description" content="Learn how to create and manage teams for collaborative package development with HPM CLI." />
+	<meta property="og:title" content="Team Management - HPM CLI" />
+	<meta property="og:description" content="Learn how to create and manage teams for collaborative package development with HPM CLI." />
 	<meta property="og:image" content="/images/og/teams.png" />
-	<meta property="og:url" content="https://knot.klysium.com/docs/teams" />
-	<meta name="twitter:title" content="Team Management - Knot CLI" />
-	<meta name="twitter:description" content="Learn how to create and manage teams for collaborative package development with Knot CLI." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs/teams" />
+	<meta name="twitter:title" content="Team Management - HPM CLI" />
+	<meta name="twitter:description" content="Learn how to create and manage teams for collaborative package development with HPM CLI." />
 	<meta name="twitter:image" content="/images/og/teams.png" />
-	<link rel="canonical" href="https://knot.klysium.com/docs/teams" />
+	<link rel="canonical" href="https://hpm.klysium.com/docs/teams" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
@@ -50,7 +50,7 @@
 				<div>
 					<h3 class="font-semibold text-blue-900 mb-2">What are Teams?</h3>
 					<p class="text-sm text-blue-700 mb-4">
-						Teams in Knot enable collaborative package development and private package sharing. When you create a package with a team, it becomes namespaced under that team (e.g., <code>@myteam/package-name</code>) and is only accessible to team members.
+						Teams in HPM enable collaborative package development and private package sharing. When you create a package with a team, it becomes namespaced under that team (e.g., <code>@myteam/package-name</code>) and is only accessible to team members.
 					</p>
 					<div class="space-y-2 text-sm text-blue-700">
 						<div class="flex items-center space-x-2">
@@ -86,12 +86,12 @@
 					<div>
 						<h4 class="font-medium mb-2">Basic Usage</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-							<code>knot team create myteam</code>
+							<code>hpm team create myteam</code>
 							<button
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot team create myteam')}
+								on:click={() => copyToClipboard('hpm team create myteam')}
 							>
-								{#if showCopied && copyText === 'knot team create myteam'}
+								{#if showCopied && copyText === 'hpm team create myteam'}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -103,10 +103,10 @@
 					<div>
 						<h4 class="font-medium mb-2">With Description</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-							<code>knot team create myteam --description "My awesome development team"</code>
+							<code>hpm team create myteam --description "My awesome development team"</code>
 							<button
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot team create myteam --description "My awesome development team"')}
+								on:click={() => copyToClipboard('hpm team create myteam --description "My awesome development team"')}
 							>
 								{#if showCopied && copyText.includes('awesome development')}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
@@ -148,12 +148,12 @@
 					View all teams you're a member of and their roles.
 				</p>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>knot team list</code>
+					<code>hpm team list</code>
 					<button
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('knot team list')}
+						on:click={() => copyToClipboard('hpm team list')}
 					>
-						{#if showCopied && copyText === 'knot team list'}
+						{#if showCopied && copyText === 'hpm team list'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -169,12 +169,12 @@
 					View detailed information about a specific team.
 				</p>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>knot team info myteam</code>
+					<code>hpm team info myteam</code>
 					<button
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('knot team info myteam')}
+						on:click={() => copyToClipboard('hpm team info myteam')}
 					>
-						{#if showCopied && copyText === 'knot team info myteam'}
+						{#if showCopied && copyText === 'hpm team info myteam'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -201,10 +201,10 @@
 					<div>
 						<h4 class="font-medium mb-2">Add Member</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-							<code>knot team add-member myteam username --role member</code>
+							<code>hpm team add-member myteam username --role member</code>
 							<button
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot team add-member myteam username --role member')}
+								on:click={() => copyToClipboard('hpm team add-member myteam username --role member')}
 							>
 								{#if showCopied && copyText.includes('add-member')}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
@@ -218,10 +218,10 @@
 					<div>
 						<h4 class="font-medium mb-2">Add Admin</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-							<code>knot team add-member myteam username --role admin</code>
+							<code>hpm team add-member myteam username --role admin</code>
 							<button
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot team add-member myteam username --role admin')}
+								on:click={() => copyToClipboard('hpm team add-member myteam username --role admin')}
 							>
 								{#if showCopied && copyText.includes('role admin')}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
@@ -241,10 +241,10 @@
 					Remove users from your team. Only owners and admins can remove members.
 				</p>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>knot team remove-member myteam username</code>
+					<code>hpm team remove-member myteam username</code>
 					<button
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('knot team remove-member myteam username')}
+						on:click={() => copyToClipboard('hpm team remove-member myteam username')}
 					>
 						{#if showCopied && copyText.includes('remove-member')}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
@@ -318,10 +318,10 @@
 					Create packages that belong to your team namespace.
 				</p>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>knot init:package shared-utils --team myteam</code>
+					<code>hpm init:package shared-utils --team myteam</code>
 					<button
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('knot init:package shared-utils --team myteam')}
+						on:click={() => copyToClipboard('hpm init:package shared-utils --team myteam')}
 					>
 						{#if showCopied && copyText.includes('shared-utils')}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
@@ -342,10 +342,10 @@
 					Publish packages under your team namespace.
 				</p>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>knot publish --team myteam</code>
+					<code>hpm publish --team myteam</code>
 					<button
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('knot publish --team myteam')}
+						on:click={() => copyToClipboard('hpm publish --team myteam')}
 					>
 						{#if showCopied && copyText.includes('publish --team')}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
@@ -364,7 +364,7 @@
 				</p>
 				<div class="space-y-4">
 					<div>
-						<h4 class="font-medium mb-2">In knot.yml or app.yml</h4>
+						<h4 class="font-medium mb-2">In hpm.yml or app.yml</h4>
 						<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg">
 							<pre><code><span class="text-blue-400">packages:</span>
   - <span class="text-green-400">types</span>            <span class="text-gray-500"># Local package</span>

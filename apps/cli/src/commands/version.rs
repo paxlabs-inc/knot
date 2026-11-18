@@ -42,7 +42,7 @@ pub async fn version_bump(bump_type: &str) -> Result<()> {
         }
     }
 
-    anyhow::bail!("Cannot set version: No package.yml/yaml or package.json found in current directory\n💡 Navigate to a package directory that contains package.yml\n💡 Or use 'knot init:package' to create a new package\n💡 Version management is only available for packages");
+    anyhow::bail!("Cannot set version: No package.yml/yaml or package.json found in current directory\n💡 Navigate to a package directory that contains package.yml\n💡 Or use 'hpm init:package' to create a new package\n💡 Version management is only available for packages");
 }
 
 pub async fn version_prerelease(preid: Option<&str>) -> Result<()> {
@@ -71,7 +71,7 @@ pub async fn version_prerelease(preid: Option<&str>) -> Result<()> {
         return Ok(());
     }
 
-    anyhow::bail!("Cannot manage version: No package.yml/yaml found in current directory\n💡 Navigate to a package directory that contains package.yml\n💡 Or use 'knot init:package' to create a new package\n💡 Version management is only available for packages");
+    anyhow::bail!("Cannot manage version: No package.yml/yaml found in current directory\n💡 Navigate to a package directory that contains package.yml\n💡 Or use 'hpm init:package' to create a new package\n💡 Version management is only available for packages");
 }
 
 pub async fn version_set(version: &str) -> Result<()> {
@@ -95,7 +95,7 @@ pub async fn version_set(version: &str) -> Result<()> {
         return Ok(());
     }
 
-    anyhow::bail!("Cannot manage version: No package.yml/yaml found in current directory\n💡 Navigate to a package directory that contains package.yml\n💡 Or use 'knot init:package' to create a new package\n💡 Version management is only available for packages");
+    anyhow::bail!("Cannot manage version: No package.yml/yaml found in current directory\n💡 Navigate to a package directory that contains package.yml\n💡 Or use 'hpm init:package' to create a new package\n💡 Version management is only available for packages");
 }
 
 // Helper functions for version management

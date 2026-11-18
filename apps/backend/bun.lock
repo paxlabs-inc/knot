@@ -3,7 +3,7 @@
   "configVersion": 0,
   "workspaces": {
     "": {
-      "name": "knot-space",
+      "name": "hpm-registry",
       "dependencies": {
         "@hono/node-server": "^1.12.2",
         "@hono/swagger-ui": "^0.4.0",

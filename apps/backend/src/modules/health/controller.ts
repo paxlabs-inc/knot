@@ -4,7 +4,7 @@ export class HealthController {
   static async getRoot(c: Context) {
     return c.json({
       success: true,
-      message: 'Knot Space - Online Package Repository Server',
+      message: 'HPM Registry - Online Package Repository Server',
       version: '0.1.0',
       timestamp: new Date().toISOString(),
     });
@@ -14,7 +14,7 @@ export class HealthController {
     return c.json({
       success: true,
       status: 'healthy',
-      service: 'knot-space',
+      service: 'hpm-registry',
       version: '0.1.0',
       timestamp: new Date().toISOString(),
     });

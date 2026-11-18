@@ -19,14 +19,14 @@
 </script>
 
 <svelte:head>
-	<title>TypeScript & JavaScript - Knot CLI Documentation</title>
-	<meta name="description" content="Build and manage TypeScript and JavaScript packages with Knot. Learn about type definitions, builds, and best practices." />
-	<meta property="og:title" content="TypeScript & JavaScript - Knot CLI" />
-	<meta property="og:description" content="Build and manage TypeScript and JavaScript packages with Knot. Learn about type definitions, builds, and best practices." />
-	<meta property="og:url" content="https://knot.klysium.com/docs/typescript" />
-	<meta name="twitter:title" content="TypeScript & JavaScript - Knot CLI" />
-	<meta name="twitter:description" content="Build and manage TypeScript and JavaScript packages with Knot. Learn about type definitions, builds, and best practices." />
-	<link rel="canonical" href="https://knot.klysium.com/docs/typescript" />
+	<title>TypeScript & JavaScript - HPM CLI Documentation</title>
+	<meta name="description" content="Build and manage TypeScript and JavaScript packages with HPM. Learn about type definitions, builds, and best practices." />
+	<meta property="og:title" content="TypeScript & JavaScript - HPM CLI" />
+	<meta property="og:description" content="Build and manage TypeScript and JavaScript packages with HPM. Learn about type definitions, builds, and best practices." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs/typescript" />
+	<meta name="twitter:title" content="TypeScript & JavaScript - HPM CLI" />
+	<meta name="twitter:description" content="Build and manage TypeScript and JavaScript packages with HPM. Learn about type definitions, builds, and best practices." />
+	<link rel="canonical" href="https://hpm.klysium.com/docs/typescript" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
@@ -35,7 +35,7 @@
 			TypeScript & JavaScript
 		</h1>
 		<p class="text-lg text-muted-foreground">
-			Build and manage TypeScript and JavaScript packages with Knot.
+			Build and manage TypeScript and JavaScript packages with HPM.
 		</p>
 	</div>
 
@@ -43,7 +43,7 @@
 	<section class="mb-12">
 		<h2 class="text-2xl font-bold mb-6">Overview</h2>
 		<p class="text-muted-foreground mb-6 leading-relaxed">
-			Knot provides first-class support for TypeScript and JavaScript packages, including automatic type generation, 
+			HPM provides first-class support for TypeScript and JavaScript packages, including automatic type generation, 
 			module resolution, and seamless integration with popular build tools.
 		</p>
 	</section>
@@ -100,10 +100,10 @@
     }
   },
   <span class="text-green-400">"scripts"</span>: {
-    <span class="text-green-400">"build"</span>: <span class="text-yellow-400">"knot build"</span>,
-    <span class="text-green-400">"test"</span>: <span class="text-yellow-400">"knot test"</span>,
-    <span class="text-green-400">"lint"</span>: <span class="text-yellow-400">"knot lint"</span>,
-    <span class="text-green-400">"dev"</span>: <span class="text-yellow-400">"knot dev"</span>
+    <span class="text-green-400">"build"</span>: <span class="text-yellow-400">"hpm build"</span>,
+    <span class="text-green-400">"test"</span>: <span class="text-yellow-400">"hpm test"</span>,
+    <span class="text-green-400">"lint"</span>: <span class="text-yellow-400">"hpm lint"</span>,
+    <span class="text-green-400">"dev"</span>: <span class="text-yellow-400">"hpm dev"</span>
   },
   <span class="text-green-400">"devDependencies"</span>: {
     <span class="text-green-400">"typescript"</span>: <span class="text-yellow-400">"^5.0.0"</span>,
@@ -126,13 +126,13 @@
 						<h3 class="font-semibold text-blue-900 mb-2">Build Command</h3>
 						<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group mb-3">
 							<div class="overflow-x-auto p-4 pr-12">
-								<code class="whitespace-nowrap block">knot build</code>
+								<code class="whitespace-nowrap block">hpm build</code>
 							</div>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-								on:click={() => copyToClipboard('knot build')}
+								on:click={() => copyToClipboard('hpm build')}
 							>
-								{#if showCopied && copyText === 'knot build'}
+								{#if showCopied && copyText === 'hpm build'}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -153,13 +153,13 @@
 						<h3 class="font-semibold text-green-900 mb-2">Watch Mode</h3>
 						<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group mb-3">
 							<div class="overflow-x-auto p-4 pr-12">
-								<code class="whitespace-nowrap block">knot dev</code>
+								<code class="whitespace-nowrap block">hpm dev</code>
 							</div>
 							<button 
 								class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-								on:click={() => copyToClipboard('knot dev')}
+								on:click={() => copyToClipboard('hpm dev')}
 							>
-								{#if showCopied && copyText === 'knot dev'}
+								{#if showCopied && copyText === 'hpm dev'}
 									<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -180,7 +180,7 @@
 		<h2 class="text-2xl font-bold mb-6">Type Definitions</h2>
 		
 		<p class="text-muted-foreground mb-6 leading-relaxed">
-			Knot automatically generates and includes TypeScript type definitions when you publish packages. 
+			HPM automatically generates and includes TypeScript type definitions when you publish packages. 
 			Ensure your <code>tsconfig.json</code> has <code>"declaration": true</code> enabled.
 		</p>
 
@@ -189,16 +189,16 @@
 			<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 				<div class="overflow-x-auto p-4 pr-12">
 					<pre class="whitespace-pre m-0"><code>{@html `<span class="text-gray-400"># Build and publish with type definitions</span>
-knot build
-knot publish
+hpm build
+hpm publish
 
 <span class="text-gray-400"># Types are automatically included in the package</span>`}</code></pre>
 				</div>
 				<button 
 					class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-					on:click={() => copyToClipboard('knot build\nknot publish')}
+					on:click={() => copyToClipboard('hpm build\nhpm publish')}
 				>
-					{#if showCopied && copyText === 'knot build\nknot publish'}
+					{#if showCopied && copyText === 'hpm build\nhpm publish'}
 						<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 					{:else}
 						<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -246,19 +246,19 @@ knot publish
 			<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 				<div class="overflow-x-auto p-4 pr-12">
 					<pre class="whitespace-pre m-0"><code>{@html `<span class="text-gray-400"># Run all tests</span>
-knot test
+hpm test
 
 <span class="text-gray-400"># Run tests in watch mode</span>
-knot test --watch
+hpm test --watch
 
 <span class="text-gray-400"># Run tests with coverage</span>
-knot test --coverage`}</code></pre>
+hpm test --coverage`}</code></pre>
 				</div>
 				<button 
 					class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-					on:click={() => copyToClipboard('knot test')}
+					on:click={() => copyToClipboard('hpm test')}
 				>
-					{#if showCopied && copyText === 'knot test'}
+					{#if showCopied && copyText === 'hpm test'}
 						<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 					{:else}
 						<Icon icon="lucide:copy" class="w-4 h-4" />

@@ -20,16 +20,16 @@
 </script>
 
 <svelte:head>
-	<title>Self-Hosting - Knot CLI Documentation</title>
-	<meta name="description" content="Learn how to self-host your own Knot Space instance for complete control over your package registry." />
-	<meta property="og:title" content="Self-Hosting - Knot CLI" />
-	<meta property="og:description" content="Learn how to self-host your own Knot Space instance for complete control over your package registry." />
+	<title>Self-Hosting - HPM CLI Documentation</title>
+	<meta name="description" content="Learn how to self-host your own HPM Registry instance for complete control over your package registry." />
+	<meta property="og:title" content="Self-Hosting - HPM CLI" />
+	<meta property="og:description" content="Learn how to self-host your own HPM Registry instance for complete control over your package registry." />
 	<meta property="og:image" content="/images/og/self-hosting.png" />
-	<meta property="og:url" content="https://knot.klysium.com/docs/self-hosting" />
-	<meta name="twitter:title" content="Self-Hosting - Knot CLI" />
-	<meta name="twitter:description" content="Learn how to self-host your own Knot Space instance for complete control over your package registry." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs/self-hosting" />
+	<meta name="twitter:title" content="Self-Hosting - HPM CLI" />
+	<meta name="twitter:description" content="Learn how to self-host your own HPM Registry instance for complete control over your package registry." />
 	<meta name="twitter:image" content="/images/og/self-hosting.png" />
-	<link rel="canonical" href="https://knot.klysium.com/docs/self-hosting" />
+	<link rel="canonical" href="https://hpm.klysium.com/docs/self-hosting" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
@@ -38,7 +38,7 @@
 			Self-Hosting
 		</h1>
 		<p class="text-lg text-muted-foreground">
-			Host your own private Knot Space instance
+			Host your own private HPM Registry instance
 		</p>
 	</div>
 
@@ -71,13 +71,13 @@
 		</div>
 		<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group">
 			<div class="overflow-x-auto p-4 pr-12">
-				<code class="whitespace-nowrap block">{@html `<span class="text-green-400">git</span> <span class="text-blue-400">clone</span> <span class="text-purple-400">https://github.com/saravenpi/knot.git</span>`}</code>
+				<code class="whitespace-nowrap block">{@html `<span class="text-green-400">git</span> <span class="text-blue-400">clone</span> <span class="text-purple-400">https://github.com/paxlabs-inc/knot.git</span>`}</code>
 			</div>
 			<button 
 				class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-				on:click={() => copyToClipboard('git clone https://github.com/saravenpi/knot.git')}
+				on:click={() => copyToClipboard('git clone https://github.com/paxlabs-inc/knot.git')}
 			>
-				{#if showCopied && copyText === 'git clone https://github.com/saravenpi/knot.git'}
+				{#if showCopied && copyText === 'git clone https://github.com/paxlabs-inc/knot.git'}
 					<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 				{:else}
 					<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -95,7 +95,7 @@
 			<h2 class="text-2xl font-bold">Configure Your Environment</h2>
 		</div>
 		<p class="text-muted-foreground mb-3">
-			Navigate to the `apps/knot-space` directory and create a `.env` file from the example.
+			Navigate to the `apps/hpm-registry` directory and create a `.env` file from the example.
 		</p>
 		<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
 			<code>{@html `<span class="text-green-400">cp</span> <span class="text-purple-400">.env.example</span> <span class="text-purple-400">.env</span>`}</code>
@@ -127,12 +127,12 @@
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Build the image</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>{@html `<span class="text-green-400">docker</span> <span class="text-blue-400">build</span> <span class="text-yellow-400">-t</span> <span class="text-purple-400">knot-space</span> <span class="text-white">.</span>`}</code>
+					<code>{@html `<span class="text-green-400">docker</span> <span class="text-blue-400">build</span> <span class="text-yellow-400">-t</span> <span class="text-purple-400">hpm-registry</span> <span class="text-white">.</span>`}</code>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('docker build -t knot-space .')}
+						on:click={() => copyToClipboard('docker build -t hpm-registry .')}
 					>
-						{#if showCopied && copyText === 'docker build -t knot-space .'}
+						{#if showCopied && copyText === 'docker build -t hpm-registry .'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -143,12 +143,12 @@
 			<div>
 				<h3 class="text-lg font-semibold mb-3">Run the container</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm p-4 rounded-lg relative group">
-					<code>{@html `<span class="text-green-400">docker</span> <span class="text-blue-400">run</span> <span class="text-yellow-400">-d</span> <span class="text-yellow-400">-p</span> <span class="text-purple-400">3000:3000</span> <span class="text-yellow-400">--env-file</span> <span class="text-purple-400">.env</span> <span class="text-purple-400">knot-space</span>`}</code>
+					<code>{@html `<span class="text-green-400">docker</span> <span class="text-blue-400">run</span> <span class="text-yellow-400">-d</span> <span class="text-yellow-400">-p</span> <span class="text-purple-400">3000:3000</span> <span class="text-yellow-400">--env-file</span> <span class="text-purple-400">.env</span> <span class="text-purple-400">hpm-registry</span>`}</code>
 					<button 
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-						on:click={() => copyToClipboard('docker run -d -p 3000:3000 --env-file .env knot-space')}
+						on:click={() => copyToClipboard('docker run -d -p 3000:3000 --env-file .env hpm-registry')}
 					>
-						{#if showCopied && copyText === 'docker run -d -p 3000:3000 --env-file .env knot-space'}
+						{#if showCopied && copyText === 'docker run -d -p 3000:3000 --env-file .env hpm-registry'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -166,9 +166,9 @@
 			<div class="flex items-start space-x-3">
 				<Icon icon="lucide:check-circle" class="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
 				<div>
-					<h3 class="font-semibold text-green-900 mb-2">Your Knot Space is ready!</h3>
+					<h3 class="font-semibold text-green-900 mb-2">Your HPM Registry is ready!</h3>
 					<p class="text-sm text-green-700 mb-4">
-						You can now access your private Knot Space instance at your domain.
+						You can now access your private HPM Registry instance at your domain.
 					</p>
 					<div class="flex flex-wrap gap-3">
 						<a href="/docs/production" class="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700 transition-colors">

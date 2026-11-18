@@ -2,7 +2,7 @@
  * React Package Template - Main exports
  * 
  * This template demonstrates how to create React component packages
- * that work with Knot's alias system.
+ * that work with HPM's alias system.
  */
 
 // Example: Import from other local packages using direct names

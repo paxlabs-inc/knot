@@ -1,7 +1,7 @@
 {
-  "name": "knot-space-ui",
+  "name": "hpm-registry-ui",
   "version": "0.1.0",
-  "description": "Frontend for Knot Space package registry",
+  "description": "Frontend for HPM Registry package registry",
   "private": true,
   "scripts": {
     "build": "vite build",

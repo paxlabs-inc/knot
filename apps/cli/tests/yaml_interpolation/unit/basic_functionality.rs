@@ -211,7 +211,7 @@ mod variable_parsing_tests {
     fn test_parse_config_with_variables_section() {
         let yaml_content = r#"
 variables:
-  project_name: "knot-test"
+  project_name: "hpm-test"
   version: "1.0.0"
   author: "saravenpi"
 
@@ -223,9 +223,9 @@ description: "Test config for ${project_name}"
         let interpolator = YamlInterpolator::new();
         let result: TestConfig = interpolator.parse_yaml_with_interpolation(yaml_content).unwrap();
 
-        assert_eq!(result.name, "knot-test");
+        assert_eq!(result.name, "hpm-test");
         assert_eq!(result.version, Some("1.0.0".to_string()));
-        assert_eq!(result.description, Some("Test config for knot-test".to_string()));
+        assert_eq!(result.description, Some("Test config for hpm-test".to_string()));
     }
 
     #[test]
@@ -255,7 +255,7 @@ timestamp: ${timestamp}
         let interpolator = YamlInterpolator::new();
         let result = interpolator.interpolate(yaml_content, &HashMap::new()).unwrap();
 
-        assert!(result.contains("knot-test"));
+        assert!(result.contains("hpm-test"));
         assert!(result.contains("/test/workspace"));
         assert!(result.contains("2024-01-01T00:00:00Z"));
     }

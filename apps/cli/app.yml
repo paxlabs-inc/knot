@@ -1,5 +1,5 @@
-name: knot-cli
-description: The Knot CLI tool for monorepo package management
+name: hpm-cli
+description: The HPM CLI tool for monorepo package management
 tsAlias: null
 packages:
 - utils
@@ -14,5 +14,5 @@ scripts:
   lint: cargo clippy -- -D warnings
   check: cargo check
   clean: cargo clean
-  install: cargo build --release && sudo cp target/release/knot /usr/local/bin/
+  install: cargo build --release && sudo cp target/release/hpm /usr/local/bin/
   fmt: cargo fmt

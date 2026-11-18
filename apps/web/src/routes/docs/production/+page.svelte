@@ -19,16 +19,16 @@
 </script>
 
 <svelte:head>
-	<title>Production Deployment - Knot CLI Documentation</title>
-	<meta name="description" content="Learn how to deploy your Knot projects to production. Covers building for production, containerizing with Docker, and deploying to common platforms." />
-	<meta property="og:title" content="Production Deployment - Knot CLI" />
-	<meta property="og:description" content="Learn how to deploy your Knot projects to production. Covers building for production, containerizing with Docker, and deploying to common platforms." />
+	<title>Production Deployment - HPM CLI Documentation</title>
+	<meta name="description" content="Learn how to deploy your HPM projects to production. Covers building for production, containerizing with Docker, and deploying to common platforms." />
+	<meta property="og:title" content="Production Deployment - HPM CLI" />
+	<meta property="og:description" content="Learn how to deploy your HPM projects to production. Covers building for production, containerizing with Docker, and deploying to common platforms." />
 	<meta property="og:image" content="/images/og/production.png" />
-	<meta property="og:url" content="https://knot.klysium.com/docs/production" />
-	<meta name="twitter:title" content="Production Deployment - Knot CLI" />
-	<meta name="twitter:description" content="Learn how to deploy your Knot projects to production. Covers building for production, containerizing with Docker, and deploying to common platforms." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs/production" />
+	<meta name="twitter:title" content="Production Deployment - HPM CLI" />
+	<meta name="twitter:description" content="Learn how to deploy your HPM projects to production. Covers building for production, containerizing with Docker, and deploying to common platforms." />
 	<meta name="twitter:image" content="/images/og/production.png" />
-	<link rel="canonical" href="https://knot.klysium.com/docs/production" />
+	<link rel="canonical" href="https://hpm.klysium.com/docs/production" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
@@ -37,7 +37,7 @@
 			Production Deployment
 		</h1>
 		<p class="text-lg text-muted-foreground">
-			Deploy your Knot projects to production with confidence
+			Deploy your HPM projects to production with confidence
 		</p>
 	</div>
 
@@ -50,18 +50,18 @@
 				<div class="flex-1 min-w-0">
 					<h3 class="font-semibold text-blue-900 mb-2">Create a production-ready build</h3>
 					<p class="text-sm text-blue-700 mb-4">
-						The `knot build` command will create optimized builds for all your apps.
+						The `hpm build` command will create optimized builds for all your apps.
 					</p>
 					<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group w-full max-w-full">
 						<div class="overflow-x-auto overflow-y-hidden p-4 pr-12 max-w-full">
-							<pre class="whitespace-nowrap m-0 min-w-max"><code>knot build</code></pre>
+							<pre class="whitespace-nowrap m-0 min-w-max"><code>hpm build</code></pre>
 						</div>
 						<button
 							class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-							on:click={() => copyToClipboard('knot build')}
+							on:click={() => copyToClipboard('hpm build')}
 							title="Copy to clipboard"
 						>
-							{#if showCopied && copyText === 'knot build'}
+							{#if showCopied && copyText === 'hpm build'}
 								<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 							{:else}
 								<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -82,17 +82,17 @@
 				<div class="flex-1 min-w-0">
 					<h3 class="font-semibold text-purple-900 mb-2">Dockerize your apps</h3>
 					<p class="text-sm text-purple-700 mb-4">
-						A `Dockerfile` is provided in the `knot-space` app to containerize your application.
+						A `Dockerfile` is provided in the `hpm-registry` app to containerize your application.
 					</p>
 					<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group w-full max-w-full">
 						<div class="overflow-x-auto overflow-y-hidden p-4 pr-12 max-w-full">
-							<pre class="whitespace-nowrap m-0 min-w-max"><code>docker build -t my-app ./apps/knot-space</code></pre>
+							<pre class="whitespace-nowrap m-0 min-w-max"><code>docker build -t my-app ./apps/hpm-registry</code></pre>
 						</div>
 						<button
 							class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-							on:click={() => copyToClipboard('docker build -t my-app ./apps/knot-space')}
+							on:click={() => copyToClipboard('docker build -t my-app ./apps/hpm-registry')}
 						>
-							{#if showCopied && copyText === 'docker build -t my-app ./apps/knot-space'}
+							{#if showCopied && copyText === 'docker build -t my-app ./apps/hpm-registry'}
 								<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 							{:else}
 								<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -119,8 +119,8 @@
 					</p>
 					<ul class="space-y-1 ml-4">
 						<li>• Connect your Git repository to Vercel.</li>
-						<li>• Configure the build command to be `knot build`.</li>
-						<li>• Set the output directory to `apps/knot-space-ui/build`.</li>
+						<li>• Configure the build command to be `hpm build`.</li>
+						<li>• Set the output directory to `apps/hpm-registry-ui/build`.</li>
 					</ul>
 				</div>
 			</div>

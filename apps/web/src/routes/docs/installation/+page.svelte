@@ -19,16 +19,16 @@
 </script>
 
 <svelte:head>
-	<title>Installation Guide - Knot CLI Documentation</title>
-	<meta name="description" content="Install Knot CLI with our one-line installer script. Works on macOS, Linux, and Windows. Includes built-in self-update functionality." />
-	<meta property="og:title" content="Installation Guide - Knot CLI" />
-	<meta property="og:description" content="Install Knot CLI with our one-line installer script. Works on macOS, Linux, and Windows. Includes built-in self-update functionality." />
+	<title>Installation Guide - HPM CLI Documentation</title>
+	<meta name="description" content="Install HPM CLI with our one-line installer script. Works on macOS, Linux, and Windows. Includes built-in self-update functionality." />
+	<meta property="og:title" content="Installation Guide - HPM CLI" />
+	<meta property="og:description" content="Install HPM CLI with our one-line installer script. Works on macOS, Linux, and Windows. Includes built-in self-update functionality." />
 	<meta property="og:image" content="/images/og/installation.png" />
-	<meta property="og:url" content="https://knot.klysium.com/docs/installation" />
-	<meta name="twitter:title" content="Installation Guide - Knot CLI" />
-	<meta name="twitter:description" content="Install Knot CLI with our one-line installer script. Works on macOS, Linux, and Windows. Includes built-in self-update functionality." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs/installation" />
+	<meta name="twitter:title" content="Installation Guide - HPM CLI" />
+	<meta name="twitter:description" content="Install HPM CLI with our one-line installer script. Works on macOS, Linux, and Windows. Includes built-in self-update functionality." />
 	<meta name="twitter:image" content="/images/og/installation.png" />
-	<link rel="canonical" href="https://knot.klysium.com/docs/installation" />
+	<link rel="canonical" href="https://hpm.klysium.com/docs/installation" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 overflow-x-hidden">
@@ -37,7 +37,7 @@
 			Installation
 		</h1>
 		<p class="text-lg text-muted-foreground">
-			Get Knot CLI up and running on your system in minutes
+			Get HPM CLI up and running on your system in minutes
 		</p>
 	</div>
 
@@ -50,15 +50,15 @@
 				<div class="flex-1 min-w-0">
 					<h3 class="font-semibold text-blue-900 mb-2">One-line installer</h3>
 					<p class="text-sm text-blue-700 mb-4">
-						This script automatically detects your platform and installs the latest version of Knot CLI.
+						This script automatically detects your platform and installs the latest version of HPM CLI.
 					</p>
 					<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group w-full max-w-full">
 						<div class="overflow-x-auto overflow-y-hidden p-4 pr-12 max-w-full">
-							<pre class="whitespace-nowrap m-0 min-w-max"><code>curl -fsSL https://raw.githubusercontent.com/saravenpi/knot/main/install.sh | bash</code></pre>
+							<pre class="whitespace-nowrap m-0 min-w-max"><code>curl -fsSL https://raw.githubusercontent.com/paxlabs-inc/knot/main/install.sh | bash</code></pre>
 						</div>
 						<button
 							class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-							on:click={() => copyToClipboard('curl -fsSL https://raw.githubusercontent.com/saravenpi/knot/main/install.sh | bash')}
+							on:click={() => copyToClipboard('curl -fsSL https://raw.githubusercontent.com/paxlabs-inc/knot/main/install.sh | bash')}
 							title="Copy to clipboard"
 						>
 							{#if showCopied && copyText.includes('curl')}
@@ -75,27 +75,27 @@
 
 	<!-- Update Command -->
 	<section class="mb-12">
-		<h2 class="text-2xl font-bold mb-6">Keeping Knot Up to Date</h2>
+		<h2 class="text-2xl font-bold mb-6">Keeping HPM Up to Date</h2>
 		<div class="bg-purple-50 border border-purple-200 rounded-lg p-6">
 			<div class="flex items-start space-x-3">
 				<Icon icon="lucide:refresh-circle-bold" class="w-6 h-6 text-purple-600 mt-1 flex-shrink-0" />
 				<div class="flex-1 min-w-0">
 					<h3 class="font-semibold text-purple-900 mb-2">Self-Upgrade Command</h3>
 					<p class="text-sm text-purple-700 mb-4">
-						Knot can upgrade itself to the latest version automatically. No need to reinstall!
+						HPM can upgrade itself to the latest version automatically. No need to reinstall!
 					</p>
 					<div class="space-y-3">
 						<div>
 							<div class="text-sm font-medium text-purple-900 mb-1">Upgrade to latest version</div>
 							<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group w-full max-w-full">
 								<div class="overflow-x-auto overflow-y-hidden p-4 pr-12 max-w-full">
-									<pre class="whitespace-nowrap m-0 min-w-max"><code>knot upgrade</code></pre>
+									<pre class="whitespace-nowrap m-0 min-w-max"><code>hpm upgrade</code></pre>
 								</div>
 								<button
 									class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-									on:click={() => copyToClipboard('knot upgrade')}
+									on:click={() => copyToClipboard('hpm upgrade')}
 								>
-									{#if showCopied && copyText === 'knot upgrade'}
+									{#if showCopied && copyText === 'hpm upgrade'}
 										<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 									{:else}
 										<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -107,13 +107,13 @@
 							<div class="text-sm font-medium text-purple-900 mb-1">Force upgrade (reinstall current version)</div>
 							<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group w-full max-w-full">
 								<div class="overflow-x-auto overflow-y-hidden p-4 pr-12 max-w-full">
-									<pre class="whitespace-nowrap m-0 min-w-max"><code>knot upgrade --force</code></pre>
+									<pre class="whitespace-nowrap m-0 min-w-max"><code>hpm upgrade --force</code></pre>
 								</div>
 								<button
 									class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-									on:click={() => copyToClipboard('knot upgrade --force')}
+									on:click={() => copyToClipboard('hpm upgrade --force')}
 								>
-									{#if showCopied && copyText === 'knot upgrade --force'}
+									{#if showCopied && copyText === 'hpm upgrade --force'}
 										<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 									{:else}
 										<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -136,13 +136,13 @@
 				<h3 class="text-lg font-semibold mb-3">Check version</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group w-full max-w-full">
 					<div class="overflow-x-auto overflow-y-hidden p-4 pr-12 max-w-full">
-						<pre class="whitespace-nowrap m-0 min-w-max"><code>knot --version</code></pre>
+						<pre class="whitespace-nowrap m-0 min-w-max"><code>hpm --version</code></pre>
 					</div>
 					<button
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-						on:click={() => copyToClipboard('knot --version')}
+						on:click={() => copyToClipboard('hpm --version')}
 					>
-						{#if showCopied && copyText === 'knot --version'}
+						{#if showCopied && copyText === 'hpm --version'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -150,7 +150,7 @@
 					</button>
 				</div>
 				<div class="mt-2 text-sm text-muted-foreground">
-					Should output something like: <code>knot v1.0.0</code>
+					Should output something like: <code>hpm v1.0.0</code>
 				</div>
 			</div>
 
@@ -158,13 +158,13 @@
 				<h3 class="text-lg font-semibold mb-3">Test basic functionality</h3>
 				<div class="bg-black/90 text-green-400 font-mono text-sm rounded-lg relative group w-full max-w-full">
 					<div class="overflow-x-auto overflow-y-hidden p-4 pr-12 max-w-full">
-						<pre class="whitespace-nowrap m-0 min-w-max"><code>knot --help</code></pre>
+						<pre class="whitespace-nowrap m-0 min-w-max"><code>hpm --help</code></pre>
 					</div>
 					<button
 						class="absolute top-2 right-2 p-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100 z-10"
-						on:click={() => copyToClipboard('knot --help')}
+						on:click={() => copyToClipboard('hpm --help')}
 					>
-						{#if showCopied && copyText === 'knot --help'}
+						{#if showCopied && copyText === 'hpm --help'}
 							<Icon icon="lucide:check-circle" class="w-4 h-4 text-green-400" />
 						{:else}
 							<Icon icon="lucide:copy" class="w-4 h-4" />
@@ -207,7 +207,7 @@
 				<div class="space-y-3 text-sm text-muted-foreground">
 					<p>If you get permission errors:</p>
 					<ul class="space-y-1 ml-4">
-						<li>• Make sure the binary is executable: <code>chmod +x knot</code></li>
+						<li>• Make sure the binary is executable: <code>chmod +x hpm</code></li>
 						<li>• On macOS, you might need to allow the app in System Preferences > Security</li>
 						<li>• Use <code>sudo</code> for system-wide installation</li>
 					</ul>
@@ -223,7 +223,7 @@
 					<p>For other installation problems:</p>
 					<ul class="space-y-1 ml-4">
 						<li>• Check our <a href="/docs/troubleshooting" class="text-primary hover:underline">troubleshooting guide</a></li>
-						<li>• Visit the <a href="https://github.com/saravenpi/knot/issues" class="text-primary hover:underline">GitHub issues</a></li>
+						<li>• Visit the <a href="https://github.com/paxlabs-inc/knot/issues" class="text-primary hover:underline">GitHub issues</a></li>
 						<li>• Join our community for support</li>
 					</ul>
 				</div>
@@ -240,7 +240,7 @@
 				<div>
 					<h3 class="font-semibold text-green-900 mb-2">Installation complete!</h3>
 					<p class="text-sm text-green-700 mb-4">
-						Now that Knot is installed, let's get you started with your first project.
+						Now that HPM is installed, let's get you started with your first project.
 					</p>
 					<div class="flex flex-wrap gap-3">
 						<a href="/docs/quick-start" class="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700 transition-colors">

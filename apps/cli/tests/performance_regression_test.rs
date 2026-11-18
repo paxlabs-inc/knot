@@ -4,12 +4,12 @@ use std::fs;
 use std::time::{Duration, Instant};
 use tempfile::TempDir;
 
-// Test helper to execute knot command with timing
-fn run_knot_command_timed(args: &[&str], working_dir: &std::path::Path) -> (String, String, bool, Duration) {
+// Test helper to execute hpm command with timing
+fn run_hpm_command_timed(args: &[&str], working_dir: &std::path::Path) -> (String, String, bool, Duration) {
     let start = Instant::now();
 
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot"])
+        .args(&["run", "--bin", "hpm"])
         .args(args)
         .current_dir(working_dir)
         .stdin(Stdio::null())
@@ -30,8 +30,8 @@ fn run_knot_command_timed(args: &[&str], working_dir: &std::path::Path) -> (Stri
 fn create_large_project(num_apps: usize, num_packages: usize) -> Result<TempDir> {
     let temp_dir = TempDir::new()?;
 
-    // Create main knot.yml with many apps
-    let mut knot_yml = String::from(r#"
+    // Create main hpm.yml with many apps
+    let mut hpm_yml = String::from(r#"
 name: large-test-project
 description: A large test project for performance testing
 tsAlias: true
@@ -45,9 +45,9 @@ scripts:
 apps:
 "#);
 
-    // Add apps to knot.yml
+    // Add apps to hpm.yml
     for i in 0..num_apps {
-        knot_yml.push_str(&format!(r#"
+        hpm_yml.push_str(&format!(r#"
   app-{}:
     tsAlias: true
     packages:
@@ -57,7 +57,7 @@ apps:
 "#, i, i % (num_packages.max(1)), i % (num_packages.max(1))));
     }
 
-    knot_yml.push_str(r#"
+    hpm_yml.push_str(r#"
 variables:
   project_version: "1.0.0"
   api_url: "https://api.example.com"
@@ -65,7 +65,7 @@ variables:
   performance_mode: "optimized"
 "#);
 
-    fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
     // Create apps directory structure
     let apps_dir = temp_dir.path().join("apps");
@@ -202,14 +202,14 @@ fn test_startup_performance() -> Result<()> {
     let project = create_large_project(5, 3)?;
 
     // Test help command performance (should be very fast)
-    let (_, _, success, duration) = run_knot_command_timed(&["--help"], project.path());
+    let (_, _, success, duration) = run_hpm_command_timed(&["--help"], project.path());
 
     assert!(success, "Help command should succeed");
     assert!(duration < Duration::from_secs(5), "Help should be fast, took {:?}", duration);
     println!("✓ Help command completed in {:?}", duration);
 
     // Test version command performance
-    let (_, _, success, duration) = run_knot_command_timed(&["--version"], project.path());
+    let (_, _, success, duration) = run_hpm_command_timed(&["--version"], project.path());
 
     if success {
         assert!(duration < Duration::from_secs(3), "Version should be very fast, took {:?}", duration);
@@ -234,7 +234,7 @@ fn test_status_command_performance() -> Result<()> {
     for (num_apps, num_packages, size_name) in project_sizes {
         let project = create_large_project(num_apps, num_packages)?;
 
-        let (stdout, stderr, success, duration) = run_knot_command_timed(&["status"], project.path());
+        let (stdout, stderr, success, duration) = run_hpm_command_timed(&["status"], project.path());
         let output = format!("{}{}", stdout, stderr);
 
         // Status should complete in reasonable time
@@ -270,7 +270,7 @@ fn test_script_discovery_performance() -> Result<()> {
     for (location, context) in test_locations {
         if location.exists() {
             // Test finding a specific script
-            let (stdout, stderr, success, duration) = run_knot_command_timed(&["run", "build"], &location);
+            let (stdout, stderr, success, duration) = run_hpm_command_timed(&["run", "build"], &location);
 
             // Should complete quickly even with many scripts
             assert!(duration < Duration::from_secs(10),
@@ -281,7 +281,7 @@ fn test_script_discovery_performance() -> Result<()> {
             }
 
             // Test script not found (should show available scripts quickly)
-            let (stdout, stderr, success, duration) = run_knot_command_timed(&["run", "nonexistent"], &location);
+            let (stdout, stderr, success, duration) = run_hpm_command_timed(&["run", "nonexistent"], &location);
             let output = format!("{}{}", stdout, stderr);
 
             assert!(duration < Duration::from_secs(15),
@@ -305,7 +305,7 @@ fn test_config_parsing_performance() -> Result<()> {
 
     // Test parsing performance for different config files
     let config_tests = vec![
-        (project.path().join("knot.yml"), "project config"),
+        (project.path().join("hpm.yml"), "project config"),
         (project.path().join("apps").join("app-0").join("app.yml"), "app config"),
         (project.path().join("packages").join("utils-0").join("package.yml"), "package config"),
     ];
@@ -321,7 +321,7 @@ fn test_config_parsing_performance() -> Result<()> {
             ];
 
             for (command, operation) in operations {
-                let (stdout, stderr, success, duration) = run_knot_command_timed(&command, parent_dir);
+                let (stdout, stderr, success, duration) = run_hpm_command_timed(&command, parent_dir);
 
                 // Config parsing should be efficient
                 assert!(duration < Duration::from_secs(20),
@@ -356,7 +356,7 @@ fn test_memory_usage_stability() -> Result<()> {
 
         // Run the same operation multiple times
         for i in 0..5 {
-            let (stdout, stderr, success, duration) = run_knot_command_timed(&operation, project.path());
+            let (stdout, stderr, success, duration) = run_hpm_command_timed(&operation, project.path());
             durations.push(duration);
 
             // Should not get significantly slower (indicating memory accumulation)
@@ -398,7 +398,7 @@ fn test_concurrent_safety() -> Result<()> {
     let mut all_durations = Vec::new();
 
     for operation in operations {
-        let (stdout, stderr, success, duration) = run_knot_command_timed(&operation, project.path());
+        let (stdout, stderr, success, duration) = run_hpm_command_timed(&operation, project.path());
         all_durations.push(duration);
 
         // Each operation should complete in reasonable time
@@ -434,7 +434,7 @@ fn test_large_config_handling() -> Result<()> {
     ];
 
     for (command, description) in operations {
-        let (stdout, stderr, success, duration) = run_knot_command_timed(&command, project.path());
+        let (stdout, stderr, success, duration) = run_hpm_command_timed(&command, project.path());
 
         // Large configs should still be handled efficiently
         assert!(duration < Duration::from_secs(45),
@@ -463,7 +463,7 @@ fn test_error_handling_performance() -> Result<()> {
     ];
 
     for (command, scenario) in error_scenarios {
-        let (stdout, stderr, success, duration) = run_knot_command_timed(&command, project.path());
+        let (stdout, stderr, success, duration) = run_hpm_command_timed(&command, project.path());
 
         // Error handling should be fast
         assert!(duration < Duration::from_secs(15),
@@ -483,9 +483,9 @@ name: test
 scripts:
   invalid yaml structure
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), invalid_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), invalid_yml)?;
 
-    let (stdout, stderr, success, duration) = run_knot_command_timed(&["status"], temp_dir.path());
+    let (stdout, stderr, success, duration) = run_hpm_command_timed(&["status"], temp_dir.path());
 
     // Invalid config error should be handled quickly
     assert!(duration < Duration::from_secs(10),
@@ -508,7 +508,7 @@ fn test_file_system_performance() -> Result<()> {
     ];
 
     for (command, operation) in fs_operations {
-        let (stdout, stderr, success, duration) = run_knot_command_timed(&command, project.path());
+        let (stdout, stderr, success, duration) = run_hpm_command_timed(&command, project.path());
 
         // File system operations should be optimized
         assert!(duration < Duration::from_secs(35),

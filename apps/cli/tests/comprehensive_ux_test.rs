@@ -4,10 +4,10 @@ use std::fs;
 use tempfile::TempDir;
 use std::time::{Duration, Instant};
 
-// Test helper to execute knot command and capture output
-fn run_knot_command(args: &[&str], working_dir: &std::path::Path) -> (String, String, bool) {
+// Test helper to execute hpm command and capture output
+fn run_hpm_command(args: &[&str], working_dir: &std::path::Path) -> (String, String, bool) {
     let output = Command::new("cargo")
-        .args(&["run", "--bin", "knot"])
+        .args(&["run", "--bin", "hpm"])
         .args(args)
         .current_dir(working_dir)
         .stdin(Stdio::null())
@@ -24,9 +24,9 @@ fn run_knot_command(args: &[&str], working_dir: &std::path::Path) -> (String, St
 }
 
 // Test helper with timing
-fn run_knot_command_timed(args: &[&str], working_dir: &std::path::Path) -> (String, String, bool, Duration) {
+fn run_hpm_command_timed(args: &[&str], working_dir: &std::path::Path) -> (String, String, bool, Duration) {
     let start = Instant::now();
-    let (stdout, stderr, success) = run_knot_command(args, working_dir);
+    let (stdout, stderr, success) = run_hpm_command(args, working_dir);
     let duration = start.elapsed();
     (stdout, stderr, success, duration)
 }
@@ -35,8 +35,8 @@ fn run_knot_command_timed(args: &[&str], working_dir: &std::path::Path) -> (Stri
 fn create_test_project() -> Result<TempDir> {
     let temp_dir = TempDir::new()?;
 
-    // Create knot.yml
-    let knot_yml = r#"
+    // Create hpm.yml
+    let hpm_yml = r#"
 name: test-project
 description: A comprehensive test project for UX validation
 scripts:
@@ -48,7 +48,7 @@ variables:
   project_version: "1.0.0"
   api_url: "https://api.test.com"
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
+    fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
 
     // Create app structure
     let app_dir = temp_dir.path().join("apps").join("web");
@@ -91,8 +91,8 @@ fn test_yaml_error_handling() -> Result<()> {
     let temp_dir = TempDir::new()?;
 
     // Test empty YAML
-    fs::write(temp_dir.path().join("knot.yml"), "")?;
-    let (stdout, stderr, success) = run_knot_command(&["status"], temp_dir.path());
+    fs::write(temp_dir.path().join("hpm.yml"), "")?;
+    let (stdout, stderr, success) = run_hpm_command(&["status"], temp_dir.path());
     assert!(!success, "Empty YAML should fail");
     let error_msg = format!("{}{}", stdout, stderr);
     assert!(!error_msg.is_empty(), "Should provide error message");
@@ -103,8 +103,8 @@ name: test
 scripts
   build: "test"  # Missing colon
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), invalid_yaml)?;
-    let (stdout, stderr, success) = run_knot_command(&["status"], temp_dir.path());
+    fs::write(temp_dir.path().join("hpm.yml"), invalid_yaml)?;
+    let (stdout, stderr, success) = run_hpm_command(&["status"], temp_dir.path());
     let error_msg = format!("{}{}", stdout, stderr);
     if !success {
         assert!(error_msg.contains("YAML") || error_msg.contains("parse") || error_msg.contains("syntax"),
@@ -117,8 +117,8 @@ description: "Missing name field"
 scripts:
   build: "test"
 "#;
-    fs::write(temp_dir.path().join("knot.yml"), missing_name)?;
-    let (stdout, stderr, success) = run_knot_command(&["status"], temp_dir.path());
+    fs::write(temp_dir.path().join("hpm.yml"), missing_name)?;
+    let (stdout, stderr, success) = run_hpm_command(&["status"], temp_dir.path());
     let error_msg = format!("{}{}", stdout, stderr);
     if !success {
         assert!(error_msg.contains("name") || error_msg.contains("missing") || error_msg.contains("required"),
@@ -136,21 +136,21 @@ fn test_interactive_ui_functionality() -> Result<()> {
     let project = create_test_project()?;
 
     // Test help messages don't contain outdated ctrl-j/ctrl-k references
-    let (stdout, stderr, _) = run_knot_command(&["run", "--help"], project.path());
+    let (stdout, stderr, _) = run_hpm_command(&["run", "--help"], project.path());
     let help_text = format!("{}{}", stdout, stderr);
     assert!(!help_text.contains("ctrl-j") && !help_text.contains("ctrl-k"),
            "Help should not contain outdated navigation references: {}", help_text);
 
     // Test non-interactive mode handling
-    let (stdout, stderr, _) = run_knot_command(&["run"], project.path());
+    let (stdout, stderr, _) = run_hpm_command(&["run"], project.path());
     let output = format!("{}{}", stdout, stderr);
     if output.contains("Interactive") || output.contains("terminal") {
-        assert!(output.contains("knot run") || output.contains("specific script"),
+        assert!(output.contains("hpm run") || output.contains("specific script"),
                "Should suggest alternative: {}", output);
     }
 
     // Test script discovery and error messages
-    let (stdout, stderr, success) = run_knot_command(&["run", "nonexistent"], project.path());
+    let (stdout, stderr, success) = run_hpm_command(&["run", "nonexistent"], project.path());
     let output = format!("{}{}", stdout, stderr);
     if !success {
         assert!(output.contains("not found") || output.contains("Available"),
@@ -159,7 +159,7 @@ fn test_interactive_ui_functionality() -> Result<()> {
 
     // Test context-aware execution
     let app_dir = project.path().join("apps").join("web");
-    let (stdout, stderr, success) = run_knot_command(&["run", "start"], &app_dir);
+    let (stdout, stderr, success) = run_hpm_command(&["run", "start"], &app_dir);
     // Should either succeed or provide meaningful error
     if !success {
         let output = format!("{}{}", stdout, stderr);
@@ -187,13 +187,13 @@ fn test_input_validation_safety() -> Result<()> {
     ];
 
     for dangerous_name in dangerous_names {
-        let knot_yml = format!(r#"
+        let hpm_yml = format!(r#"
 name: "{}"
 description: "Testing dangerous name"
 "#, dangerous_name);
 
-        fs::write(temp_dir.path().join("knot.yml"), knot_yml)?;
-        let (stdout, stderr, success) = run_knot_command(&["status"], temp_dir.path());
+        fs::write(temp_dir.path().join("hpm.yml"), hpm_yml)?;
+        let (stdout, stderr, success) = run_hpm_command(&["status"], temp_dir.path());
 
         if !success {
             let error_msg = format!("{}{}", stdout, stderr);
@@ -209,7 +209,7 @@ name: test-package
 version: "invalid-version"
 "#;
     fs::write(temp_dir.path().join("package.yml"), invalid_version)?;
-    let (stdout, stderr, success) = run_knot_command(&["publish"], temp_dir.path());
+    let (stdout, stderr, success) = run_hpm_command(&["publish"], temp_dir.path());
     let error_msg = format!("{}{}", stdout, stderr);
     if error_msg.contains("version") || error_msg.contains("semver") {
         println!("✓ Version validation working");
@@ -226,10 +226,10 @@ fn test_error_message_quality() -> Result<()> {
     let temp_dir = TempDir::new()?;
 
     // Test no config files
-    let (stdout, stderr, success) = run_knot_command(&["run", "build"], temp_dir.path());
+    let (stdout, stderr, success) = run_hpm_command(&["run", "build"], temp_dir.path());
     assert!(!success, "Should fail with no config");
     let error_msg = format!("{}{}", stdout, stderr);
-    assert!(error_msg.contains("knot.yml") || error_msg.contains("config"),
+    assert!(error_msg.contains("hpm.yml") || error_msg.contains("config"),
            "Should mention config files: {}", error_msg);
 
     // Test helpful error characteristics
@@ -241,7 +241,7 @@ fn test_error_message_quality() -> Result<()> {
 
     // Test script not found with suggestions
     let project = create_test_project()?;
-    let (stdout, stderr, success) = run_knot_command(&["run", "nonexistent"], project.path());
+    let (stdout, stderr, success) = run_hpm_command(&["run", "nonexistent"], project.path());
     let error_msg = format!("{}{}", stdout, stderr);
     if !success {
         assert!(error_msg.contains("not found") || error_msg.contains("Available"),
@@ -270,14 +270,14 @@ fn test_ux_integration_workflows() -> Result<()> {
     for (context_path, context_name) in contexts {
         if context_path.exists() {
             // Test status command
-            let (stdout, stderr, success) = run_knot_command(&["status"], &context_path);
+            let (stdout, stderr, success) = run_hpm_command(&["status"], &context_path);
             let output = format!("{}{}", stdout, stderr);
             if success || !output.is_empty() {
                 println!("✓ Status working in {}", context_name);
             }
 
             // Test script execution
-            let (stdout, stderr, success) = run_knot_command(&["run", "build"], &context_path);
+            let (stdout, stderr, success) = run_hpm_command(&["run", "build"], &context_path);
             let output = format!("{}{}", stdout, stderr);
             if success {
                 println!("✓ Build script executed in {}", context_name);
@@ -288,7 +288,7 @@ fn test_ux_integration_workflows() -> Result<()> {
     }
 
     // Test variable commands
-    let (stdout, stderr, success) = run_knot_command(&["vars", "list"], project.path());
+    let (stdout, stderr, success) = run_hpm_command(&["vars", "list"], project.path());
     let output = format!("{}{}", stdout, stderr);
     if success || output.contains("variable") {
         println!("✓ Variable listing working");
@@ -312,7 +312,7 @@ fn test_performance_regression() -> Result<()> {
     ];
 
     for (command, description, max_seconds) in operations {
-        let (stdout, stderr, success, duration) = run_knot_command_timed(&command, project.path());
+        let (stdout, stderr, success, duration) = run_hpm_command_timed(&command, project.path());
 
         assert!(duration < Duration::from_secs(max_seconds),
                "{} should complete in <{}s, took {:?}", description, max_seconds, duration);

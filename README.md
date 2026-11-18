@@ -1,22 +1,22 @@
-# Knot 🪢
+# Hyper Package Manager (HPM)
 
 A modern monorepo package manager for any programming language that simplifies dependency management and builds across multiple apps and packages.
 
 ## ✨ Features
 
 - **🔗 Smart Package Linking** - Automatic symlinking of local packages
-- **☁️ Online Package Support** - Download packages from knot space (`@package`, `@team/package`)
+- **☁️ Online Package Support** - Download packages from hpm space (`@package`, `@team/package`)
 - **📋 Template System** - Use published packages as templates for new projects
 - **⚡ Language Integration** - Per-app configuration with special TypeScript support
 - **🔨 Build Management** - Execute build commands across apps or individually
-- **▶️ Script Runner** - Run scripts from any config file with `knot run`
+- **▶️ Script Runner** - Run scripts from any config file with `hpm run`
 - **📦 Flexible Configuration** - YAML-based configuration with multiple syntax options
 - **🌍 Multi-Language Support** - Works with any programming language (Rust, Go, Python, Java, etc.)
 
 ## 🚀 Quick Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/saravenpi/knot/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/paxlabs-inc/knot/main/install.sh | bash
 ```
 
 ### Prerequisites
@@ -27,65 +27,65 @@ curl -fsSL https://raw.githubusercontent.com/saravenpi/knot/main/install.sh | ba
 
 ### Project Management
 ```bash
-knot init <name> [--description <desc>]    # Initialize a new project
-knot status                                # Show project status
+hpm init <name> [--description <desc>]    # Initialize a new project
+hpm status                                # Show project status
 ```
 
 ### Package & App Management
 ```bash
-knot init:package <name> [--team <team>] [--template <@package>]  # Create a new package
-knot init:app <name> [--template <@package>]                      # Create a new app
+hpm init:package <name> [--team <team>] [--template <@package>]  # Create a new package
+hpm init:app <name> [--template <@package>]                      # Create a new app
 
-# Examples with templates from Knot Space:
-knot init:app my-app --template @svelte-starter
-knot init:package my-lib --template @typescript-lib
+# Examples with templates from HPM Registry:
+hpm init:app my-app --template @svelte-starter
+hpm init:package my-lib --template @typescript-lib
 ```
 
 ### Linking & Building
 ```bash
-knot link                                  # Link packages to apps
-knot build                                 # Build apps (context-aware)
-knot run <script>                          # Run scripts from config files
+hpm link                                  # Link packages to apps
+hpm build                                 # Build apps (context-aware)
+hpm run <script>                          # Run scripts from config files
 ```
 
 ### Updates & Maintenance
 ```bash
-knot update                                # Update to latest version
-knot update --force                        # Force reinstall current version
+hpm update                                # Update to latest version
+hpm update --force                        # Force reinstall current version
 ```
 
 ## 🎯 Quick Start
 
 ```bash
 # 1. Initialize project
-knot init my-monorepo --description "My awesome monorepo"
+hpm init my-monorepo --description "My awesome monorepo"
 cd my-monorepo
 
 # 2. Create shared packages (optionally with templates)
 cd packages
-knot init:package utils --team myteam
-knot init:package types --team myteam --template @typescript-lib
+hpm init:package utils --team myteam
+hpm init:package types --team myteam --template @typescript-lib
 cd ..
 
 # 3. Create applications (optionally with templates)
 cd apps
-knot init:app frontend --description "Web frontend" --template @react-starter
-knot init:app backend --description "API server" --template @fastify-api
+hpm init:app frontend --description "Web frontend" --template @react-starter
+hpm init:app backend --description "API server" --template @fastify-api
 cd ..
 
-# 4. Configure dependencies and scripts in knot.yml
+# 4. Configure dependencies and scripts in hpm.yml
 # 5. Link packages and build
-knot link
-knot build
+hpm link
+hpm build
 
 # 6. Run development scripts
-knot run dev    # Run dev script
-knot run test   # Run test script
+hpm run dev    # Run dev script
+hpm run test   # Run test script
 ```
 
 ## ⚙️ Configuration
 
-### Project Configuration (`knot.yml`)
+### Project Configuration (`hpm.yml`)
 
 ```yaml
 name: MyProject
@@ -94,9 +94,9 @@ description: My awesome monorepo
 # Global project scripts
 scripts:
   setup: "npm install && echo 'Setup complete'"
-  test-all: "knot run test --all"
+  test-all: "hpm run test --all"
   clean: "rm -rf */dist */build"
-  deploy: "knot build && deploy.sh"
+  deploy: "hpm build && deploy.sh"
 
 apps:
   frontend:
@@ -150,7 +150,7 @@ scripts:
 
 ## 🔨 Build Commands
 
-Knot supports flexible build management with the `knot build` command:
+HPM supports flexible build management with the `hpm build` command:
 
 ### Context-Aware Building
 
@@ -176,7 +176,7 @@ build: "npm run build"          # Simple command
 ```bash
 # Build all apps from project root
 cd my-monorepo
-knot build
+hpm build
 # Output:
 # 🔨 Building all apps for project 'MyProject'...
 # 📋 Found 2 app(s) with build commands
@@ -186,7 +186,7 @@ knot build
 
 # Build single app from app directory
 cd apps/frontend
-knot build
+hpm build
 # Output:
 # 🔨 Building app 'frontend'...
 # 📝 Running: npm run build
@@ -195,25 +195,25 @@ knot build
 
 ## ▶️ Script Runner
 
-Knot provides a powerful script runner similar to npm scripts, with context-aware execution:
+HPM provides a powerful script runner similar to npm scripts, with context-aware execution:
 
 ### Context-Aware Script Resolution
 
 Scripts are resolved in priority order:
 1. **App directory** (`app.yml`) - Highest priority
 2. **Package directory** (`package.yml`) - Medium priority
-3. **Project root** (`knot.yml`) - Lowest priority
+3. **Project root** (`hpm.yml`) - Lowest priority
 
 ### Usage Examples
 
 ```bash
 # Run scripts from different contexts
-cd apps/frontend && knot run dev     # Runs frontend dev script
-cd packages/utils && knot run test   # Runs utils test script
-cd project-root && knot run setup    # Runs project setup script
+cd apps/frontend && hpm run dev     # Runs frontend dev script
+cd packages/utils && hpm run test   # Runs utils test script
+cd project-root && hpm run setup    # Runs project setup script
 
 # Script not found shows available options
-knot run invalid-script
+hpm run invalid-script
 # Output:
 # ❌ Script 'invalid-script' not found
 # 💡 Available scripts:
@@ -238,7 +238,7 @@ knot run invalid-script
 ```yaml
 # Development workflow
 scripts:
-  dev: "concurrently 'knot run dev-server' 'knot run dev-client'"
+  dev: "concurrently 'hpm run dev-server' 'hpm run dev-client'"
   dev-server: "npm run start:dev"
   dev-client: "npm run dev"
 
@@ -247,11 +247,11 @@ scripts:
   test: "npm run test"
   test-watch: "npm run test:watch"
   test-e2e: "npm run test:e2e"
-  test-all: "knot run test && knot run test-e2e"
+  test-all: "hpm run test && hpm run test-e2e"
 
 # Build pipeline
 scripts:
-  prebuild: "knot run lint && knot run test"
+  prebuild: "hpm run lint && hpm run test"
   build: "npm run build"
   postbuild: "cp README.md dist/"
 ```
@@ -261,22 +261,22 @@ scripts:
 ### Local Packages
 - Located in `packages/` directory
 - Referenced by name: `types`, `utils`
-- Symlinked to `knot_packages/` in apps
+- Symlinked to `hpm_packages/` in apps
 
 ### Online Packages
 - **Public packages**: `@jwt`, `@axios`
 - **Team packages**: `@team/package-name`
-- Downloaded to `knot_packages/` in apps
+- Downloaded to `hpm_packages/` in apps
 
 ## 🎨 TypeScript Integration (Optional)
 
-Knot works with any programming language, but provides special integration features for TypeScript projects.
+HPM works with any programming language, but provides special integration features for TypeScript projects.
 
 ### Per-App Aliases
 Configure TypeScript path aliases per app:
 
 ```yaml
-# knot.yml
+# hpm.yml
 apps:
   frontend:
     tsAlias: "@"      # Creates @/* alias
@@ -286,17 +286,17 @@ apps:
 
 ### Priority Order
 1. `app.yml` `tsAlias` (highest priority)
-2. `knot.yml` app-specific `tsAlias`
-3. `knot.yml` global `tsAlias`
+2. `hpm.yml` app-specific `tsAlias`
+3. `hpm.yml` global `tsAlias`
 
 ### Generated TypeScript Configuration
-Knot automatically updates `tsconfig.json` files:
+HPM automatically updates `tsconfig.json` files:
 
 ```json
 {
   "compilerOptions": {
     "paths": {
-      "@/*": ["./knot_packages/*"],
+      "@/*": ["./hpm_packages/*"],
       "src/*": ["./src/*"]
     }
   }
@@ -307,7 +307,7 @@ Knot automatically updates `tsconfig.json` files:
 
 ```
 my-monorepo/
-├── knot.yml                 # Project configuration
+├── hpm.yml                 # Project configuration
 ├── packages/               # Local packages
 │   ├── types/
 │   │   ├── package.yml
@@ -319,7 +319,7 @@ my-monorepo/
     ├── frontend/
     │   ├── app.yml         # App configuration
     │   ├── tsconfig.json   # Auto-updated (TypeScript projects only)
-    │   ├── knot_packages/  # Linked packages
+    │   ├── hpm_packages/  # Linked packages
     │   │   ├── types -> ../../packages/types
     │   │   ├── utils -> ../../packages/utils
     │   │   └── @jwt/       # Downloaded package
@@ -327,17 +327,17 @@ my-monorepo/
     └── backend/
         ├── app.yml
         ├── tsconfig.json       # (TypeScript projects only)
-        ├── knot_packages/
+        ├── hpm_packages/
         └── src/
 ```
 
 ## 🛠️ Manual Installation
 
 ```bash
-git clone https://github.com/saravenpi/knot.git
-cd knot/apps/cli
+git clone https://github.com/paxlabs-inc/knot.git
+cd hpm/apps/cli
 cargo build --release
-sudo cp target/release/knot /usr/local/bin/
+sudo cp target/release/hpm /usr/local/bin/
 ```
 
 ## 📖 Advanced Usage
@@ -345,7 +345,7 @@ sudo cp target/release/knot /usr/local/bin/
 ### Multiple Package Sources
 
 ```yaml
-# knot.yml
+# hpm.yml
 apps:
   frontend:
     packages:
@@ -387,6 +387,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- **Repository**: [https://github.com/saravenpi/knot](https://github.com/saravenpi/knot)
-- **Issues**: [https://github.com/saravenpi/knot/issues](https://github.com/saravenpi/knot/issues)
-- **Documentation**: [https://github.com/saravenpi/knot](https://github.com/saravenpi/knot)
+- **Repository**: [https://github.com/paxlabs-inc/knot](https://github.com/paxlabs-inc/knot)
+- **Issues**: [https://github.com/paxlabs-inc/knot/issues](https://github.com/paxlabs-inc/knot/issues)
+- **Documentation**: [https://github.com/paxlabs-inc/knot](https://github.com/paxlabs-inc/knot)

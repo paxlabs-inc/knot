@@ -1,6 +1,6 @@
-# Knot Space
+# HPM Registry
 
-Online repository server for Knot packages.
+Online repository server for HPM packages.
 
 ## Features
 
@@ -45,10 +45,10 @@ tagged `mirror` + `npm` / `crates` / `pypi` / `go`.
 
 ```bash
 # from apps/backend, on the machine/volume that serves ./uploads
-DATABASE_URL=... KNOT_SPACE_URL=https://<registry-domain> bun run import:popular
+DATABASE_URL=... HPM_REGISTRY_URL=https://<registry-domain> bun run import:popular
 bun run import:popular -- --ecosystems npm,crates --limit 20 --dry-run
 ```
 
 Re-running is idempotent (already-present versions are skipped). Names are normalised to
-Knot's rules (`socket.io` -> `socket-io`, `serde_json` -> `serde-json`, Go modules use
+HPM's rules (`socket.io` -> `socket-io`, `serde_json` -> `serde-json`, Go modules use
 their last path segment); when two ecosystems share a name, the first one imported keeps it.

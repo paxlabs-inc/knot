@@ -19,16 +19,16 @@
 </script>
 
 <svelte:head>
-	<title>Inter-Package Dependencies - Knot CLI Documentation</title>
-	<meta name="description" content="Master inter-package dependencies in Knot. Learn how to define dependencies in package.yml, create packages that depend on other knot packages, handle mixed dependencies, and implement best practices for dependency management." />
-	<meta property="og:title" content="Inter-Package Dependencies Guide - Knot CLI" />
-	<meta property="og:description" content="Master inter-package dependencies in Knot. Learn how to define dependencies in package.yml, create packages that depend on other knot packages, handle mixed dependencies, and implement best practices for dependency management." />
+	<title>Inter-Package Dependencies - HPM CLI Documentation</title>
+	<meta name="description" content="Master inter-package dependencies in HPM. Learn how to define dependencies in package.yml, create packages that depend on other hpm packages, handle mixed dependencies, and implement best practices for dependency management." />
+	<meta property="og:title" content="Inter-Package Dependencies Guide - HPM CLI" />
+	<meta property="og:description" content="Master inter-package dependencies in HPM. Learn how to define dependencies in package.yml, create packages that depend on other hpm packages, handle mixed dependencies, and implement best practices for dependency management." />
 	<meta property="og:image" content="/images/og/inter-package-dependencies.png" />
-	<meta property="og:url" content="https://knot.klysium.com/docs/inter-package-dependencies" />
-	<meta name="twitter:title" content="Inter-Package Dependencies Guide - Knot CLI" />
-	<meta name="twitter:description" content="Master inter-package dependencies in Knot. Learn how to define dependencies in package.yml, create packages that depend on other knot packages, handle mixed dependencies, and implement best practices for dependency management." />
+	<meta property="og:url" content="https://hpm.klysium.com/docs/inter-package-dependencies" />
+	<meta name="twitter:title" content="Inter-Package Dependencies Guide - HPM CLI" />
+	<meta name="twitter:description" content="Master inter-package dependencies in HPM. Learn how to define dependencies in package.yml, create packages that depend on other hpm packages, handle mixed dependencies, and implement best practices for dependency management." />
 	<meta name="twitter:image" content="/images/og/inter-package-dependencies.png" />
-	<link rel="canonical" href="https://knot.klysium.com/docs/inter-package-dependencies" />
+	<link rel="canonical" href="https://hpm.klysium.com/docs/inter-package-dependencies" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
@@ -37,7 +37,7 @@
 			Inter-Package Dependencies
 		</h1>
 		<p class="text-lg text-muted-foreground">
-			Comprehensive guide to managing dependencies between packages in your Knot monorepo
+			Comprehensive guide to managing dependencies between packages in your HPM monorepo
 		</p>
 	</div>
 
@@ -47,7 +47,7 @@
 		<p class="text-muted-foreground leading-relaxed mb-6">
 			Inter-package dependencies allow packages within your monorepo to depend on each other, 
 			creating reusable building blocks that can be composed into larger applications. 
-			Knot handles both local package dependencies and external npm packages seamlessly.
+			HPM handles both local package dependencies and external npm packages seamlessly.
 		</p>
 		
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -66,7 +66,7 @@
 				</div>
 				<h3 class="font-semibold mb-2">Remote Dependencies</h3>
 				<p class="text-sm text-muted-foreground">
-					Published packages from Knot Space or other registries.
+					Published packages from HPM Registry or other registries.
 				</p>
 			</div>
 			<div class="border rounded-lg p-6">
@@ -75,7 +75,7 @@
 				</div>
 				<h3 class="font-semibold mb-2">Mixed Dependencies</h3>
 				<p class="text-sm text-muted-foreground">
-					Combining local Knot packages with external npm dependencies.
+					Combining local HPM packages with external npm dependencies.
 				</p>
 			</div>
 		</div>
@@ -300,13 +300,13 @@ scripts:
 
 		<div class="space-y-8">
 			<p class="text-muted-foreground">
-				Remote dependencies are packages published to registries like Knot Space, npm, or private registries.
+				Remote dependencies are packages published to registries like HPM Registry, npm, or private registries.
 			</p>
 
 			<div>
-				<h3 class="text-lg font-semibold mb-3">Knot Space packages</h3>
+				<h3 class="text-lg font-semibold mb-3">HPM Registry packages</h3>
 				<p class="text-muted-foreground mb-4">
-					Packages published to Knot Space use team namespaces and are prefixed with <code>@</code>:
+					Packages published to HPM Registry use team namespaces and are prefixed with <code>@</code>:
 				</p>
 				
 				<div class="bg-black/90 text-white font-mono text-sm p-4 rounded-lg relative group">
@@ -315,7 +315,7 @@ scripts:
 <span class="text-blue-400">version:</span> <span class="text-green-400">1.0.0</span>
 
 <span class="text-blue-400">dependencies:</span>
-  <span class="text-gray-400"># Team packages from Knot Space</span>
+  <span class="text-gray-400"># Team packages from HPM Registry</span>
   - <span class="text-yellow-400">"@acme/design-system@^2.1.0"</span>
   - <span class="text-yellow-400">"@acme/theme-tokens@latest"</span>
   - <span class="text-yellow-400">"@team/common-utils@~1.5.0"</span>
@@ -391,8 +391,8 @@ dependencies:
 
 		<div class="space-y-8">
 			<p class="text-muted-foreground">
-				Real-world packages often combine local Knot packages with external npm packages 
-				and remote Knot packages for maximum flexibility.
+				Real-world packages often combine local HPM packages with external npm packages 
+				and remote HPM packages for maximum flexibility.
 			</p>
 
 			<div>
@@ -410,7 +410,7 @@ dependencies:
   - <span class="text-yellow-400">utils</span>                     <span class="text-gray-400"># Data processing utilities</span>
   - <span class="text-yellow-400">ui-components</span>             <span class="text-gray-400"># Base UI components</span>
   
-  <span class="text-gray-400"># Remote Knot packages</span>
+  <span class="text-gray-400"># Remote HPM packages</span>
   - <span class="text-yellow-400">"@team/theme-system@^1.0.0"</span>
   - <span class="text-yellow-400">"@acme/math-utils@latest"</span>
   
@@ -470,7 +470,7 @@ peerDependencies:
 					<span>Dependency Resolution Order</span>
 				</h4>
 				<p class="text-sm text-muted-foreground mb-3">
-					Knot resolves dependencies in this order:
+					HPM resolves dependencies in this order:
 				</p>
 				<div class="text-sm space-y-2">
 					<div class="flex items-center space-x-3">
@@ -479,7 +479,7 @@ peerDependencies:
 					</div>
 					<div class="flex items-center space-x-3">
 						<div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-xs font-bold text-green-600">2</div>
-						<span>Remote Knot packages (from Knot Space)</span>
+						<span>Remote HPM packages (from HPM Registry)</span>
 					</div>
 					<div class="flex items-center space-x-3">
 						<div class="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center text-xs font-bold text-purple-600">3</div>
@@ -571,12 +571,12 @@ peerDependencies:
 					<div>
 						<h4 class="font-medium mb-2">Add a local package dependency</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded-lg relative group">
-							<code>knot deps add types --app my-app</code>
+							<code>hpm deps add types --app my-app</code>
 							<button 
 								class="absolute top-1 right-1 p-1.5 rounded bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot deps add types --app my-app')}
+								on:click={() => copyToClipboard('hpm deps add types --app my-app')}
 							>
-								{#if showCopied && copyText === 'knot deps add types --app my-app'}
+								{#if showCopied && copyText === 'hpm deps add types --app my-app'}
 									<Icon icon="lucide:check-circle" class="w-3 h-3 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-3 h-3" />
@@ -588,12 +588,12 @@ peerDependencies:
 					<div>
 						<h4 class="font-medium mb-2">Add a remote package with version</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded-lg relative group">
-							<code>knot deps add "@team/design-system@^2.0.0" --app frontend</code>
+							<code>hpm deps add "@team/design-system@^2.0.0" --app frontend</code>
 							<button 
 								class="absolute top-1 right-1 p-1.5 rounded bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot deps add "@team/design-system@^2.0.0" --app frontend')}
+								on:click={() => copyToClipboard('hpm deps add "@team/design-system@^2.0.0" --app frontend')}
 							>
-								{#if showCopied && copyText === 'knot deps add "@team/design-system@^2.0.0" --app frontend'}
+								{#if showCopied && copyText === 'hpm deps add "@team/design-system@^2.0.0" --app frontend'}
 									<Icon icon="lucide:check-circle" class="w-3 h-3 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-3 h-3" />
@@ -605,12 +605,12 @@ peerDependencies:
 					<div>
 						<h4 class="font-medium mb-2">Add a development dependency</h4>
 						<div class="bg-black/90 text-green-400 font-mono text-sm p-3 rounded-lg relative group">
-							<code>knot deps add test-utils --dev --app my-package</code>
+							<code>hpm deps add test-utils --dev --app my-package</code>
 							<button 
 								class="absolute top-1 right-1 p-1.5 rounded bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot deps add test-utils --dev --app my-package')}
+								on:click={() => copyToClipboard('hpm deps add test-utils --dev --app my-package')}
 							>
-								{#if showCopied && copyText === 'knot deps add test-utils --dev --app my-package'}
+								{#if showCopied && copyText === 'hpm deps add test-utils --dev --app my-package'}
 									<Icon icon="lucide:check-circle" class="w-3 h-3 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-3 h-3" />
@@ -627,12 +627,12 @@ peerDependencies:
 					<div>
 						<h4 class="font-medium mb-2">List all dependencies</h4>
 						<div class="bg-black/90 text-blue-400 font-mono text-sm p-3 rounded-lg relative group">
-							<code>knot deps list --app frontend</code>
+							<code>hpm deps list --app frontend</code>
 							<button 
 								class="absolute top-1 right-1 p-1.5 rounded bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot deps list --app frontend')}
+								on:click={() => copyToClipboard('hpm deps list --app frontend')}
 							>
-								{#if showCopied && copyText === 'knot deps list --app frontend'}
+								{#if showCopied && copyText === 'hpm deps list --app frontend'}
 									<Icon icon="lucide:check-circle" class="w-3 h-3 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-3 h-3" />
@@ -644,12 +644,12 @@ peerDependencies:
 					<div>
 						<h4 class="font-medium mb-2">Show dependency tree</h4>
 						<div class="bg-black/90 text-blue-400 font-mono text-sm p-3 rounded-lg relative group">
-							<code>knot deps tree --app backend --depth 3</code>
+							<code>hpm deps tree --app backend --depth 3</code>
 							<button 
 								class="absolute top-1 right-1 p-1.5 rounded bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot deps tree --app backend --depth 3')}
+								on:click={() => copyToClipboard('hpm deps tree --app backend --depth 3')}
 							>
-								{#if showCopied && copyText === 'knot deps tree --app backend --depth 3'}
+								{#if showCopied && copyText === 'hpm deps tree --app backend --depth 3'}
 									<Icon icon="lucide:check-circle" class="w-3 h-3 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-3 h-3" />
@@ -661,12 +661,12 @@ peerDependencies:
 					<div>
 						<h4 class="font-medium mb-2">Check for dependency issues</h4>
 						<div class="bg-black/90 text-yellow-400 font-mono text-sm p-3 rounded-lg relative group">
-							<code>knot deps check</code>
+							<code>hpm deps check</code>
 							<button 
 								class="absolute top-1 right-1 p-1.5 rounded bg-white/10 hover:bg-white/20 transition-colors opacity-0 group-hover:opacity-100"
-								on:click={() => copyToClipboard('knot deps check')}
+								on:click={() => copyToClipboard('hpm deps check')}
 							>
-								{#if showCopied && copyText === 'knot deps check'}
+								{#if showCopied && copyText === 'hpm deps check'}
 									<Icon icon="lucide:check-circle" class="w-3 h-3 text-green-400" />
 								{:else}
 									<Icon icon="lucide:copy" class="w-3 h-3" />
@@ -699,7 +699,7 @@ peerDependencies:
 						<div>
 							<div class="font-medium text-red-800">Version conflict</div>
 							<div class="text-red-600 mt-1">Multiple packages require incompatible versions</div>
-							<div class="text-red-600 mt-1"><strong>Solution:</strong> Use <code>knot deps sync</code> to align versions</div>
+							<div class="text-red-600 mt-1"><strong>Solution:</strong> Use <code>hpm deps sync</code> to align versions</div>
 						</div>
 						<div>
 							<div class="font-medium text-red-800">Package not found</div>
@@ -713,19 +713,19 @@ peerDependencies:
 					<h3 class="font-semibold mb-3 text-blue-800">Debug Commands</h3>
 					<div class="space-y-3 text-sm">
 						<div>
-							<div class="font-medium text-blue-800"><code>knot deps why package-name</code></div>
+							<div class="font-medium text-blue-800"><code>hpm deps why package-name</code></div>
 							<div class="text-blue-600">Explain why a package is included</div>
 						</div>
 						<div>
-							<div class="font-medium text-blue-800"><code>knot deps resolve --dry-run</code></div>
+							<div class="font-medium text-blue-800"><code>hpm deps resolve --dry-run</code></div>
 							<div class="text-blue-600">Preview dependency resolution without changes</div>
 						</div>
 						<div>
-							<div class="font-medium text-blue-800"><code>knot link --verbose</code></div>
+							<div class="font-medium text-blue-800"><code>hpm link --verbose</code></div>
 							<div class="text-blue-600">Show detailed linking information</div>
 						</div>
 						<div>
-							<div class="font-medium text-blue-800"><code>knot deps outdated</code></div>
+							<div class="font-medium text-blue-800"><code>hpm deps outdated</code></div>
 							<div class="text-blue-600">Check for newer package versions</div>
 						</div>
 					</div>
@@ -742,7 +742,7 @@ peerDependencies:
 						</p>
 						<div class="bg-black/90 text-yellow-400 font-mono text-xs p-3 rounded">
 							<code># Force resolution to use remote version
-knot deps resolve --strategy latest --app affected-app</code>
+hpm deps resolve --strategy latest --app affected-app</code>
 						</div>
 					</div>
 
@@ -753,7 +753,7 @@ knot deps resolve --strategy latest --app affected-app</code>
 						</p>
 						<div class="bg-black/90 text-yellow-400 font-mono text-xs p-3 rounded">
 							<code># Force re-linking with TypeScript config update
-knot link --force</code>
+hpm link --force</code>
 						</div>
 					</div>
 
@@ -764,7 +764,7 @@ knot link --force</code>
 						</p>
 						<div class="bg-black/90 text-yellow-400 font-mono text-xs p-3 rounded">
 							<code># Check what peer dependencies are missing
-knot deps check --verbose</code>
+hpm deps check --verbose</code>
 						</div>
 					</div>
 				</div>
@@ -792,7 +792,7 @@ knot deps check --verbose</code>
 					<h3 class="font-semibold">Package Linking</h3>
 				</div>
 				<p class="text-sm text-muted-foreground">
-					Understand how Knot links packages and manages them in your apps.
+					Understand how HPM links packages and manages them in your apps.
 				</p>
 			</a>
 
