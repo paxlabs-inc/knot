@@ -90,7 +90,18 @@ pub fn init_project(name: Option<&str>, path: Option<&str>, description: Option<
                 "📁 Where should we create the project?",
                 Some(suggested_path.to_str().unwrap_or(".")),
                 Some("Press Enter for default, '.' for current directory, or specify custom path"),
-                None
+                Some(|input: &str| {
+                    let trimmed = input.trim();
+                    if trimmed.is_empty() || trimmed == "." {
+                        return Ok(inquire::validator::Validation::Valid);
+                    }
+                    match validate_path(trimmed, "Project path", false) {
+                        Ok(()) => Ok(inquire::validator::Validation::Valid),
+                        Err(e) => Ok(inquire::validator::Validation::Invalid(
+                            format!("⚠️  {}", e).into(),
+                        )),
+                    }
+                })
             )?.trim().to_string();
             
             // Handle special cases for path input
