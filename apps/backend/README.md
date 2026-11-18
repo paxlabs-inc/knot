@@ -37,3 +37,18 @@ cargo run
   "download_url": "https://example.com/package.tar.gz"
 }
 ```
+## Mirroring popular packages
+
+`scripts/import-popular.ts` publishes the most-downloaded npm, crates.io, PyPI and Go
+packages (curated lists in `scripts/popular-packages.ts`) under the `mirror` user,
+tagged `mirror` + `npm` / `crates` / `pypi` / `go`.
+
+```bash
+# from apps/backend, on the machine/volume that serves ./uploads
+DATABASE_URL=... KNOT_SPACE_URL=https://<registry-domain> bun run import:popular
+bun run import:popular -- --ecosystems npm,crates --limit 20 --dry-run
+```
+
+Re-running is idempotent (already-present versions are skipped). Names are normalised to
+Knot's rules (`socket.io` -> `socket-io`, `serde_json` -> `serde-json`, Go modules use
+their last path segment); when two ecosystems share a name, the first one imported keeps it.
