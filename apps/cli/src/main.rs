@@ -682,7 +682,7 @@ async fn main() -> Result<()> {
         }
         None => {
             // No subcommand provided, show help
-            println!("{}", console::style("🪢 HPM - Monorepo package manager").bold().cyan());
+            println!("{}", console::style("📦 Hyper Package Manager (HPM) - Monorepo package manager").bold().cyan());
             println!("{} {}", console::style("Version:").dim(), env!("CARGO_PKG_VERSION"));
             println!();
 
