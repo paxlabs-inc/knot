@@ -13,6 +13,7 @@
     "db:push": "bun prisma db push",
     "db:migrate": "bun prisma migrate dev",
     "db:seed": "bun prisma/seed.ts",
+    "import:popular": "bun scripts/import-popular.ts",
     "lint": "eslint src --ext .ts",
     "type-check": "bun --no-install tsc --noEmit",
     "format": "prettier --write src/**/*.ts"
@@ -35,18 +36,19 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/node": "^22.5.4",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/multer": "^1.4.12",
+    "@types/node": "^22.5.4",
     "@types/uuid": "^10.0.0",
-    "tsx": "^4.19.0",
-    "typescript": "^5.5.4",
-    "prisma": "^5.19.1",
-    "eslint": "^9.9.1",
-    "@typescript-eslint/parser": "^8.4.0",
     "@typescript-eslint/eslint-plugin": "^8.4.0",
-    "prettier": "^3.3.3"
+    "@typescript-eslint/parser": "^8.4.0",
+    "eslint": "^9.9.1",
+    "fflate": "^0.8.3",
+    "prettier": "^3.3.3",
+    "prisma": "^5.19.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
   },
   "engines": {
     "node": ">=18.0.0"
