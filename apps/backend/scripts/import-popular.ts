@@ -293,8 +293,12 @@ async function main() {
 }
 
 main()
-  .catch((err) => {
-    console.error(err);
-    process.exitCode = 1;
+  .then(async () => {
+    await prisma.$disconnect();
+    process.exit(0); // open fetch/keep-alive handles otherwise keep the process alive
   })
-  .finally(() => prisma.$disconnect());
+  .catch(async (err) => {
+    console.error(err);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
